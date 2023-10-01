@@ -1,0 +1,43 @@
+.Signup-header {
+  text-align: center;
+  margin-top: 100px;
+  margin-bottom: 40px;
+}
+
+.Signup-form {
+  background-color: rgb(224, 224, 224);
+  padding: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 30%;
+  height: 330px;
+}
+
+.Signup-detail {
+  padding: 10px;
+  display: block;
+}
+
+.Signup-input {
+  width: 300px;
+  height: 30px;
+}
+
+.Signup-select {
+  width: 150px;
+  height: 30px;
+}
+
+.submit {
+  display: block;
+  margin-top: 50px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 325px;
+  height: 40px;
+  color: white;
+  font-size: 17px;
+  background-color: rgb(52, 152, 219);
+  border-radius: 4px;
+  border: none;
+}
