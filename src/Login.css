@@ -1,0 +1,43 @@
+.main {
+    margin-left: auto;
+    margin-right: auto;
+    width: 60%;
+}
+
+.header {
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.allForm {
+    background-color: rgb(224, 224, 224);
+    padding-top: 40px;
+    padding-bottom: 40px;
+    border-radius: 7px;
+}
+
+.idInput {
+    margin: 50px;
+    margin-bottom: 30px;
+}
+
+.passwdInput {
+    margin: 50px;
+    margin-top: 0px;
+}
+
+.loginButton {
+    display: block;
+    margin: auto;
+    width: 100px;
+    height: 40px;
+}
+
+.Text {
+    width: 300px;
+    height: 30px;
+}
+
+.inputInfo {
+    margin-bottom: 10px;
+}

@@ -1,0 +1,39 @@
+import React, {useState} from 'react';
+import './Login.css'
+
+function Login() {
+  const [id, getid] = useState('');
+  const [passwd, getPasswd] = useState('');
+
+  function submitButton() {
+    console.log(id);
+    console.groupCollapsed(passwd);
+  }
+
+  return (
+    <div className="main">
+      <h1 className="header">DASOM에 오신 것을 환영합니다!</h1>
+      <form className="allForm">
+        <label>
+          <div className="idInput">
+            <div className="inputInfo">
+              아이디
+            </div>
+            <input type="text" className="Text" onChange={(event) => {getid(event.target.value)}} />
+          </div>
+        </label>
+        <label>
+          <div className="passwdInput">
+            <div className="inputInfo">
+              비밀번호
+            </div>
+            <input type="password" className="Text" onChange={(event) => {getPasswd(event.target.value)}} />
+          </div>
+        </label>
+        <button type="submit" onClick={submitButton} className="loginButton">로그인</button>
+      </form>
+    </div>
+  );
+}
+
+export default Login;
