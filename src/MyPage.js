@@ -1,4 +1,5 @@
 import React ,{useState} from 'react';
+import { Link } from 'react-router-dom';
 import profile from './profile_image.jpg'
 import './MyPage.css'
 import { getByDisplayValue } from '@testing-library/react';
@@ -191,9 +192,11 @@ function MyPage() {
 
   return (
     <div className="main">
-      <div className="pageName">
-        DASOM
-      </div>
+      <Link to="/main">
+        <div className="pageName">
+          <strong>DASOM</strong>
+        </div>
+      </Link>
       <h1>마이페이지</h1>
       <button onClick={() => pageChange('1')} style={Colorchange('1')}>
         신청한 미팅

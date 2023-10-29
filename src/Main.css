@@ -1,0 +1,80 @@
+.makeBlock {
+    margin-left: auto;
+    margin-right: auto;
+    width: 60%;
+}
+
+.Project {
+    margin-top: 30px;
+    height: 40px;
+}
+.project_title {
+    margin-left: 20px;
+}
+.profile {
+    position: absolute;
+    top: 30px;
+    right: 100px;
+    margin-right: 200px;
+}
+.write_button {
+    position: absolute;
+    top: 30px;
+    right: 100px;
+    width: 120px;
+    height: 40px;
+    margin-right: 270px;
+}
+.Frame {
+    width: 1200px;
+    height: 350px;
+}
+.gender_filter {
+    position: absolute;
+    top: 500px;
+    left: 300px;
+}
+.num_filter {
+    position: absolute;
+    top: 500px;
+    left: 420px;
+}
+.date_filter {
+    position: absolute;
+    top: 500px;
+    left: 540px;
+}
+.place_filter {
+    position: absolute;
+    top: 500px;
+    left: 660px;
+}
+.searchbar {
+    position: absolute;
+    top: 550px;
+    right: 350px;
+    width: 200px;
+    height: 30px;
+}
+.search_button {
+    position: absolute;
+    top: 550px;
+    right: 300px;
+    width: 40px;
+    height: 30px;
+}
+.space {
+    margin-top: 200px;
+}
+.postBox {
+    width: 250px;
+    height: 250px;
+    margin-left: 30px;
+    margin-top: 30px;
+    background-color: aqua;
+    border-radius: 30px;
+}
+.dpsizeSet {
+    width: 90px;
+    height: 30px;
+}

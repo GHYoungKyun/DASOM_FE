@@ -1,0 +1,57 @@
+.makeBlock {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 60%;
+}
+
+.Project {
+    margin-top: 30px;
+    height: 40px;
+}
+.project_title {
+    margin-left: 20px;
+}
+.profile {
+    position: absolute;
+    top: 30px;
+    right: 100px;
+    margin-right: 200px;
+}
+.header {
+    margin-top: 20px;
+    margin-left: 30px;
+}
+
+.post_info {
+    margin-top: 50px;
+}
+.writer_profile {
+    margin-left: 20px;
+}
+.writer_id {
+    position: absolute;
+    top: 200px;
+    left: 400px;
+}
+.write_date {
+    position: absolute;
+    top: 200px;
+    right: 400px;
+}
+.recruit_info {
+    margin-top: 30px;
+    margin-left: 40px;
+    margin-bottom: 20px;
+}
+.post_content{
+    margin-top: 30px;
+    margin-left: 40px;
+}
+.apply_button{
+    margin-top: 50px;
+    margin-left: 40%;
+    width: 200px;
+    height: 50px;
+}
+

@@ -1,0 +1,55 @@
+.makeBlock {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 60%;
+}
+
+.Project {
+    margin-top: 30px;
+    height: 40px;
+}
+.project_title {
+    margin-left: 20px;
+}
+.profile {
+    position: absolute;
+    top: 30px;
+    right: 100px;
+    margin-right: 200px;
+}
+
+.header {
+    margin-top: 30px;
+}
+
+#title {
+    width: 800px;
+    height: 40px;
+}
+
+#content {
+    width: 800px;
+    height: 500px;
+    margin-top: 30px;
+}
+
+.cancel_button{
+    left: 40%;
+    margin-top: 50px;
+    width: 85px;
+    height: 40px;
+}
+
+.upload_button{
+    left: 60%;
+    margin-top: 50px;
+    width: 85px;
+    height: 40px;
+}
+
+.sizeSet{
+    width: 400px;
+    height: 30px;
+    marginRight: 10px;
+}
