@@ -1,11 +1,10 @@
-import React, {useState} from 'react';
-import './MeetingRequest.css'
+import React, { useState } from 'react';
+import './MeetingRequest.css';
 
 function MeetingRequest() {
   const [numPeople, setNumPeople] = useState(2);
 
   function mbtiSelect() {
-
     const makeInline = {
       display: 'inline',
     };
@@ -14,7 +13,7 @@ function MeetingRequest() {
       width: '90px',
       height: '40px',
       marginRight: '10px',
-    }
+    };
 
     return (
       <div style={makeInline}>
@@ -40,13 +39,40 @@ function MeetingRequest() {
     );
   }
 
-  function handleSubmit() {
-    //제출 로직
+  function alcoholAmountSelect() {
+    const amountOptions = ['0', '0.5', '1', '1.5', '2', '2.5', '3'];
+
+    const makeInline = {
+      display: 'inline',
+    };
+
+    const sizeSet = {
+      width: '90px',
+      height: '40px',
+      marginRight: '10px',
+    };
+
+    return (
+      <div style={makeInline}>
+        <select style={sizeSet}>
+          {amountOptions.map((amount) => (
+            <option key={amount} value={amount}>
+              {amount}병
+            </option>
+          ))}
+        </select>
+      </div>
+    );
+  }
+
+  function handleSubmit(event) {
+    event.preventDefault();
+    // 제출 로직
   }
 
   const numPeopleChange = (event) => {
     setNumPeople(parseInt(event.target.value));
-  };  
+  };
 
   return (
     <div className="makeBlock">
@@ -54,20 +80,18 @@ function MeetingRequest() {
       <hr />
       <form onSubmit={handleSubmit}>
         <label className="contentsInput">
-          <div>
-            제목
-          </div>
+          <div>제목</div>
           <div className="inputValue">
             <input type="text" id="writeHeader"/>
           </div>
+        </label>
+        <label className="contentsInput">
           <div className="inputValue">
             <textarea defaultValue="메시지를 입력하세요!" id="writeContent"/>
           </div>
         </label>
         <label>
-          <div>
-            인원수
-          </div>
+          <div>인원수</div>
           <div className="inputValue">
             <select onChange={numPeopleChange} className="selectSet">
               <option value='2'>2명</option>
@@ -77,9 +101,7 @@ function MeetingRequest() {
           </div>
         </label>
         <label>
-          <div>
-            MBTI
-          </div>
+          <div>MBTI</div>
           <div className="inputValue">
             {[...Array(numPeople)].map((_, i) => (
               <React.Fragment key={i}>
@@ -89,19 +111,13 @@ function MeetingRequest() {
           </div>
         </label>
         <label>
-          <div>
-            평균주량
-          </div>
+          <div>평균주량</div>
           <div className="inputValue">
-            <select className="selectSet">
-              <option value="0">0병</option>
-              <option value="0.5">0.5병</option>
-              <option value="1">1병</option>
-              <option value="1.5">1.5병</option>
-              <option value="2">2병</option>
-              <option value="2.5">2.5병</option>
-              <option value="3">3병</option>
-            </select>
+            {[...Array(numPeople)].map((_, i) => (
+              <React.Fragment key={i}>
+                {alcoholAmountSelect()}
+              </React.Fragment>
+            ))}
           </div>
         </label>
         <div>
