@@ -8,6 +8,7 @@ import Main from './Main';
 import Applicant from './Applicant';
 import Write from './Write';
 import Read from './Read';
+import Redirect from './Redirect';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
             <Route path="/appllicant" element={<Applicant />} />
             <Route path="/write" element={<Write />} />
             <Route path="/read" element={<Read />} />
+            <Route path="/oauth/redirected/naver" element={<Redirect />} />
         </Routes>
     </div>
   );
