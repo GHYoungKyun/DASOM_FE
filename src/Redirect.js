@@ -15,7 +15,10 @@ const Redirect = () => {
             console.log(state);
 
             // 성공적으로 리다이렉트 했을 때 해야할 동작
-            navigate('/signup');
+            if (window.opener) {
+                window.opener.location.href = "https://ghyoungkyun.github.io/DASOM_FE/#/signup";
+            }
+            window.close();
         }
     }, [location]);
 
