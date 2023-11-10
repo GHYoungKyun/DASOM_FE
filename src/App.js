@@ -22,7 +22,6 @@ function App() {
             <Route path="/write" element={<Write />} />
             <Route path="/read" element={<Read />} />
         </Routes>
-        <p>HOME PAGE</p>
     </div>
   );
 }

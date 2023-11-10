@@ -3,7 +3,7 @@ import './Login.css'
 
 function Login() {
   function submitButton() {
-    window.location.assign('http://140.238.14.81:8080/oauth2/authorization/naver');
+    window.open('http://140.238.14.81:8080/oauth2/authorization/naver', '_blank');
   }
 
   return (
