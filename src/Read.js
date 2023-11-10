@@ -8,7 +8,9 @@ function Read() {
     return(
         <div className="makeBlock">
             <div className="Project">
-                <div className="project_title"><strong>DASOM</strong></div>
+                <Link to="/main">
+                    <div className="project_title"><strong>DASOM</strong></div>
+                </Link>
                 <div className="profile">
                     <Link to="/mypage">
                         <img src={profile} width="40" height="40"/>

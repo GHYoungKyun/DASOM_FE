@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import './Signup.css';
 
 function Signup() {
@@ -6,6 +6,7 @@ function Signup() {
   const [nickname, setNickname] = useState('');
   const [univ, setUniv] = useState('univ1');
   const [univEmail, setEmail] = useState('');
+
 
   function submit() {
     console.log(nickname);

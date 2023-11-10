@@ -1,80 +1,149 @@
-.makeBlock {
-    margin-left: auto;
-    margin-right: auto;
-    width: 60%;
+.desktop {
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
 }
 
-.Project {
-    margin-top: 30px;
+.desktop .div {
+    background-color: #ffffff;
+    height: 1600px;
+    position: relative;
+    width: 1440px;
+}
+
+.desktop .frame {
+    background-color: #ffffff;
+    height: 100px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 1440px;
+}
+
+.desktop .text-wrapper {
+    color: #000000;
+    font-family: "Inter-Regular", Helvetica;
+    font-size: 20px;
+    font-weight: 400;
+    left: 60px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    text-align: center;
+    top: 40px;
+    width: 85px;
+}
+.desktop .profile {
+    border-radius: 10px;
     height: 40px;
-}
-.project_title {
-    margin-left: 20px;
-}
-.profile {
+    left: 1255px;
     position: absolute;
     top: 30px;
-    right: 100px;
-    margin-right: 200px;
+    width: 140px;
 }
-.write_button {
+.desktop .write_button {
+    background-color: #dadada;
+    border-radius: 10px;
+    height: 40px;
+    left: 1056px;
     position: absolute;
     top: 30px;
-    right: 100px;
-    width: 120px;
-    height: 40px;
-    margin-right: 270px;
+    width: 140px;
 }
-.Frame {
-    width: 1200px;
-    height: 350px;
+.desktop .Frame {
+    height: 475px;
+    width: 1440px;
 }
-.gender_filter {
+.desktop .frame-2 {
+    height: 900px;
+    width: 1440px;
+    top: 575px;
+}
+.desktop .frame-3 {
+    background-color: #b5b5b5;
+    height: 120px;
+    left: 0;
     position: absolute;
-    top: 500px;
-    left: 300px;
+    top: 1480px;
+    width: 1440px;
+}
+.desktop .gender_filter {
+    position: absolute;
+    top: 600px;
+    left: 100px;
 }
 .num_filter {
     position: absolute;
-    top: 500px;
-    left: 420px;
+    top: 600px;
+    left: 250px;
 }
 .date_filter {
     position: absolute;
-    top: 500px;
-    left: 540px;
+    top: 600px;
+    left: 400px;
 }
 .place_filter {
     position: absolute;
-    top: 500px;
-    left: 660px;
+    top: 600px;
+    left: 550px;
 }
 .searchbar {
     position: absolute;
-    top: 550px;
-    right: 350px;
+    top: 650px;
+    right: 200px;
     width: 200px;
     height: 30px;
 }
 .search_button {
     position: absolute;
-    top: 550px;
-    right: 300px;
+    top: 650px;
+    right: 150px;
     width: 40px;
     height: 30px;
-}
-.space {
-    margin-top: 200px;
-}
-.postBox {
-    width: 250px;
-    height: 250px;
-    margin-left: 30px;
-    margin-top: 30px;
-    background-color: aqua;
-    border-radius: 30px;
 }
 .dpsizeSet {
     width: 90px;
     height: 30px;
+}
+.box1 {
+    position: absolute;
+    top: 780px;
+    left: 100px;
+}
+.box2 {
+    position: absolute;
+    top: 780px;
+    left: 400px;
+}
+.box3 {
+    position: absolute;
+    top: 780px;
+    left: 700px;
+}
+.box4 {
+    position: absolute;
+    top: 780px;
+    left: 1000px;
+}
+.box5 {
+    position: absolute;
+    top: 1080px;
+    left: 100px;
+}
+.box6 {
+    position: absolute;
+    top: 1080px;
+    left: 400px;
+}
+.box7 {
+    position: absolute;
+    top: 1080px;
+    left: 700px;
+}
+.box8 {
+    position: absolute;
+    top: 1080px;
+    left: 1000px;
 }
