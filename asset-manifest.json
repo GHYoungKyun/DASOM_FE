@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/DASOM_FE/static/css/main.72fcedd3.css",
+    "main.js": "/DASOM_FE/static/js/main.0cbe9ecd.js",
+    "static/media/profile_image.jpg": "/DASOM_FE/static/media/profile_image.1febb7c0a146345dd504.jpg",
+    "index.html": "/DASOM_FE/index.html",
+    "main.72fcedd3.css.map": "/DASOM_FE/static/css/main.72fcedd3.css.map",
+    "main.0cbe9ecd.js.map": "/DASOM_FE/static/js/main.0cbe9ecd.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.72fcedd3.css",
+    "static/js/main.0cbe9ecd.js"
+  ]
+}
