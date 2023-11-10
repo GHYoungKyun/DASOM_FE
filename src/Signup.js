@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import axios from 'axios';
 import './Signup.css';
 
 function Signup() {
@@ -12,7 +13,31 @@ function Signup() {
     console.log(nickname);
     console.log(univ);
     console.log(univEmail);
+
     //여기에 회원정보 제출하는 함수 작성
+    const postData = async () => {
+      try {
+        // POST 요청 보낼 엔드포인트 URL
+        const apiUrl = 'http://140.238.14.81:8080/users/sendmail';
+
+        // 보낼 데이터
+        const dataToSend = {
+          nickname: nickname,
+          school: univ,
+          univEmail: univEmail
+        };
+
+        // Axios를 사용하여 POST 요청 보내기
+        const response = await axios.post(apiUrl, dataToSend);
+        console.log(response);
+
+        // 성공적으로 응답 받았을 때의 처리
+        console.log('응답 데이터:', response.data);
+      } catch (error) {
+        // 오류 발생 시의 처리
+        console.error('에러 발생:', error);
+      }
+    };
   }
 
   return (

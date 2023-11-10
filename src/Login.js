@@ -1,9 +1,12 @@
 import React, {useState} from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Login.css'
 
 function Login() {
+  const navigate = useNavigate();
   function submitButton() {
-    window.open('http://140.238.14.81:8080/oauth2/authorization/naver', '_blank');
+    // window.open('http://140.238.14.81:8080/oauth2/authorization/naver', '_blank');
+    navigate('/signup');
   }
 
   return (
