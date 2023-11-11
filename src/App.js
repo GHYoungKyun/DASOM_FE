@@ -22,7 +22,7 @@ function App() {
             <Route path="/appllicant" element={<Applicant />} />
             <Route path="/write" element={<Write />} />
             <Route path="/read" element={<Read />} />
-            <Route path="/oauth/redirected/naver" element={<Redirect />} />
+            <Route path="/oauth/naver" element={<Redirect />} />
         </Routes>
     </div>
   );
