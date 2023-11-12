@@ -127,7 +127,7 @@ function MyPage() {
       getUser();
     }, []);
 
-    const quit = async () => {
+    const handleQuit = async () => {
       const resp = await (await axios.delete(`http://140.238.14.81:8080/users/${userId}`));
       navigate('/login');
     }
@@ -149,7 +149,7 @@ function MyPage() {
           <label>
           </label><br />
           <label>
-            <button onClick={quit}>회원탈퇴</button>
+            <button onClick={handleQuit}>회원탈퇴</button>
           </label>
         </form>
         //현재 받은 패널티 출력하는 함수

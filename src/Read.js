@@ -3,10 +3,11 @@ import { Link } from 'react-router-dom';
 import axios from "axios";
 import './Read.css';
 import profile from './profile_image.jpg';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 function Read() {
     const { id } = useParams();
+    const navigate = useNavigate();
 
     const [board, setBoard] = useState({});
     const getBoard = async () => {
@@ -17,6 +18,11 @@ function Read() {
     useEffect(() => {
         getBoard();
     }, []);
+    const handleDelete = async () => {
+        const resp = await (await axios.delete(`http://140.238.14.81:8080/post/${id}`));
+        alert("삭제되었습니다.");
+        navigate('/main');
+    }
 
 
     return(
@@ -57,13 +63,21 @@ function Read() {
             <h3 className="post_content">
                 {board.content}
             </h3>
-            <Link to="/meetingreq">
-                <button className="apply_button">신청하기</button>
-            </Link>
-            {(localStorage.getItem('nickname') == board.nickname) && (
+            {(localStorage.getItem('nickname') != board.nickname) && (
                 <Link to="/meetingreq">
                     <button className="apply_button">신청하기</button>
                 </Link>
+            )}
+            {(localStorage.getItem('nickname') == board.nickname) && (
+                <>
+                <Link to="/applicant">
+                    <button className="apply_button">신청자 목록조회</button>
+                </Link>
+                <Link to={`/edit/${id}`} >
+                    <button className="apply_button">수정</button>
+                </Link>
+                <button onClick={handleDelete} className="apply_button">삭제</button>
+                </>
             )}
 
         </div>
