@@ -1,5 +1,6 @@
-import React ,{useState} from 'react';
-import { Link } from 'react-router-dom';
+import React, {useEffect, useState} from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from "axios";
 import profile from './profile_image.jpg'
 import './MyPage.css'
 import { getByDisplayValue } from '@testing-library/react';
@@ -111,15 +112,25 @@ function MyPage() {
      bottom:'0', 
      right:'0'
   };
-    function UnivInfo() {
-      //대학교 정보 받아오는 api
-    }
 
-    function currentPenalty() {
-      //현재 패널티 정보 받아오는 api
+
+    const userId = localStorage.getItem('userId');
+    const [userInfo, setUserInfo] = useState({});
+    const navigate = useNavigate();
+
+    const getUser = async () => {
+      const resp = await (await axios.get(`http://140.238.14.81:8080/users/${userId}`));
+      setUserInfo(resp.data);
+      console.log(resp.data);
     }
-    
-    
+    useEffect(() => {
+      getUser();
+    }, []);
+
+    const quit = async () => {
+      const resp = await (await axios.delete(`http://140.238.14.81:8080/users/${userId}`));
+      navigate('/login');
+    }
 
     return (
       <div>
@@ -131,22 +142,14 @@ function MyPage() {
       </div>
         <form action="" method="POST">
           <label>
-            <h3>닉네임</h3>
+            <h3>{userInfo.nickname}</h3>
             <input type="text" value="현재 닉네임" className="nickNameInput"/>
           </label>
-          <h3>학교</h3>
-          <UnivInfo />
+          <h3>{userInfo.school}</h3>
           <label>
-            <h3>나이</h3>
-            <select className="ageSelect">
-              {ages.map((number) => 
-                <option key={number} value={number}>
-                  {number}
-                </option>)}
-            </select>
           </label><br />
           <label>
-            <button>비밀번호 변경</button>
+            <button onClick={quit}>회원탈퇴</button>
           </label>
         </form>
         //현재 받은 패널티 출력하는 함수

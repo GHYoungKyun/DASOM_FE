@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import DatePicker from "react-datepicker";
 import { Link } from 'react-router-dom';
 import axios from "axios";
 import './Main.css';
@@ -7,15 +6,11 @@ import profile from './profile_image.jpg';
 import "react-datepicker/dist/react-datepicker.css";
 
 function Main() {
-    const [meetDate, setmeetDate] = useState(new Date());
+    const [boardList, setBoardList] = useState([]);
     const sizeSet = {
         width: '90px',
         height: '30px',
     };
-    const univ = '광운대학교'; // Univ 정보 받아온 후 선언
-    const header = '미팅하실분 모집합니다'; // Header 정보 받아온 후 선언
-    const headCount = '3명'; // HeadCount 정보 받아온 후 선언
-    const userName = '구운밤' // UserName 정보 받아온 후 선언
 
     const boxStyle = {
         border: '2px solid',
@@ -23,6 +18,7 @@ function Main() {
         borderRadius: '40px',
         height: '250px',
         width: '250px',
+        position: 'absolute'
     };
 
     const contentStyle = {
@@ -56,20 +52,17 @@ function Main() {
     const userStyle = {
         fontSize: '12px',
     };
-    const BoardList = () => {
-        const [boardList, setBoardList] = useState([]);
 
-        const getBoardList = async () => {
-            const resp = await (await axios.get('http://140.238.14.81:8080/post')).data;
-            setBoardList(resp.data);
+    const getBoardList = async () => {
+        const resp = await (await axios.get('http://140.238.14.81:8080/post'));
+        setBoardList(resp.data);
 
-            const pngn = resp.pagination;
-            console.log(pngn);
-        }
-        useEffect(() => {
-            getBoardList();
-        }, []);
-    };
+        boardList.map((val, idx) => console.log(val));
+    }
+
+    useEffect(() => {
+        getBoardList();
+    }, []);
 
     return(
         <div className="desktop">
@@ -107,16 +100,6 @@ function Main() {
                             <option value="5:5">5:5</option>
                         </select>
                     </div>
-                    <div className="date_filter">
-                        <p>미팅날짜</p>
-                        <DatePicker
-                            className="dpsizeSet"
-                            dateFormat="yyyy/MM/dd"
-                            selected={meetDate}
-                            onChange={date => setmeetDate(date)}
-                            minDate={new Date()}
-                        />
-                    </div>
                     <div className="place_filter">
                         <p>미팅장소</p>
                         <select style={sizeSet}>
@@ -150,153 +133,28 @@ function Main() {
                     </div>
                     <input type="text" className="searchbar" placeholder="게시물 검색"/>
                     <button className="search_button">검색</button>
-                    <div className="box1" style={boxStyle}>
-                        <p style={contentStyle}>
-                        <span style={univStyle}>
-                            {univ}
-                        </span>
-                            <h3 style={headerStyle}>
-                                {header}
-                            </h3>
-                            <span style={countStyle}>
-                                {headCount}
-                            </span>
-                            <hr />
-                            <span style={userStyle}>
-                                <img />
-                                {userName}
-                            </span>
-                        </p>
-                    </div>
-                    <div className="box2" style={boxStyle}>
-                        <p style={contentStyle}>
-                        <span style={univStyle}>
-                            {univ}
-                        </span>
-                            <h3 style={headerStyle}>
-                                {header}
-                            </h3>
-                            <span style={countStyle}>
-                                {headCount}
-                            </span>
-                            <hr />
-                            <span style={userStyle}>
-                                <img />
-                                {userName}
-                            </span>
-                        </p>
-                    </div>
-                    <div className="box3" style={boxStyle}>
-                        <p style={contentStyle}>
-                        <span style={univStyle}>
-                            {univ}
-                        </span>
-                            <h3 style={headerStyle}>
-                                {header}
-                            </h3>
-                            <span style={countStyle}>
-                                {headCount}
-                            </span>
-                            <hr />
-                            <span style={userStyle}>
-                                <img />
-                                {userName}
-                            </span>
-                        </p>
-                    </div>
-                    <div className="box4" style={boxStyle}>
-                        <p style={contentStyle}>
-                        <span style={univStyle}>
-                            {univ}
-                        </span>
-                            <h3 style={headerStyle}>
-                                {header}
-                            </h3>
-                            <span style={countStyle}>
-                                {headCount}
-                            </span>
-                            <hr />
-                            <span style={userStyle}>
-                                <img />
-                                {userName}
-                            </span>
-                        </p>
-                    </div>
-                    <div className="box5" style={boxStyle}>
-                        <p style={contentStyle}>
-                        <span style={univStyle}>
-                            {univ}
-                        </span>
-                            <h3 style={headerStyle}>
-                                {header}
-                            </h3>
-                            <span style={countStyle}>
-                                {headCount}
-                            </span>
-                            <hr />
-                            <span style={userStyle}>
-                                <img />
-                                {userName}
-                            </span>
-                        </p>
-                    </div>
-                    <div className="box6" style={boxStyle}>
-                        <p style={contentStyle}>
-                        <span style={univStyle}>
-                            {univ}
-                        </span>
-                            <h3 style={headerStyle}>
-                                {header}
-                            </h3>
-                            <span style={countStyle}>
-                                {headCount}
-                            </span>
-                            <hr />
-                            <span style={userStyle}>
-                                <img />
-                                {userName}
-                            </span>
-                        </p>
-                    </div>
-                    <div className="box7" style={boxStyle}>
-                        <p style={contentStyle}>
-                        <span style={univStyle}>
-                            {univ}
-                        </span>
-                            <h3 style={headerStyle}>
-                                {header}
-                            </h3>
-                            <span style={countStyle}>
-                                {headCount}
-                            </span>
-                            <hr />
-                            <span style={userStyle}>
-                                <img />
-                                {userName}
-                            </span>
-                        </p>
-                    </div>
-                    <div className="box8" style={boxStyle}>
-                        <p style={contentStyle}>
-                        <span style={univStyle}>
-                            {univ}
-                        </span>
-                            <h3 style={headerStyle}>
-                                {header}
-                            </h3>
-                            <span style={countStyle}>
-                                {headCount}
-                            </span>
-                            <hr />
-                            <span style={userStyle}>
-                                <img />
-                                {userName}
-                            </span>
-                        </p>
-                    </div>
-                </div>
-                <div className="frame-3">
 
+                    {boardList && boardList.map((val,idx) => (
+                        <Link to={`/read/${idx}`}>
+                          <div style={{...boxStyle, top: 300*Math.floor(idx / 4) + 780, left: 300*(idx%4) + 100 }}>
+                              <p style={contentStyle} />
+                          <span style={univStyle}>
+                              {val.gender} 모집
+                          </span>
+                          <h3 style={headerStyle}>
+                              {val.title}
+                          </h3>
+                          <span style={countStyle}>
+                            {val.number}
+                          </span>
+                          <hr />
+                          <span style={userStyle}>
+                          <img />
+                              {val.nickname}
+                          </span>
+                          </div>
+                        </Link>
+                    ))}
                 </div>
             </div>
         </div>

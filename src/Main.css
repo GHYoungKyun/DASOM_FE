@@ -56,19 +56,6 @@
     height: 475px;
     width: 1440px;
 }
-.desktop .frame-2 {
-    height: 900px;
-    width: 1440px;
-    top: 575px;
-}
-.desktop .frame-3 {
-    background-color: #b5b5b5;
-    height: 120px;
-    left: 0;
-    position: absolute;
-    top: 1480px;
-    width: 1440px;
-}
 .desktop .gender_filter {
     position: absolute;
     top: 600px;
@@ -106,44 +93,4 @@
 .dpsizeSet {
     width: 90px;
     height: 30px;
-}
-.box1 {
-    position: absolute;
-    top: 780px;
-    left: 100px;
-}
-.box2 {
-    position: absolute;
-    top: 780px;
-    left: 400px;
-}
-.box3 {
-    position: absolute;
-    top: 780px;
-    left: 700px;
-}
-.box4 {
-    position: absolute;
-    top: 780px;
-    left: 1000px;
-}
-.box5 {
-    position: absolute;
-    top: 1080px;
-    left: 100px;
-}
-.box6 {
-    position: absolute;
-    top: 1080px;
-    left: 400px;
-}
-.box7 {
-    position: absolute;
-    top: 1080px;
-    left: 700px;
-}
-.box8 {
-    position: absolute;
-    top: 1080px;
-    left: 1000px;
 }

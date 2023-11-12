@@ -6,7 +6,7 @@ import {useNavigate} from 'react-router-dom';
 function Signup() {
 
   const [nickname, setNickname] = useState('');
-  const [univ, setUniv] = useState('');
+  const [univ, setUniv] = useState('광운대학교');
   const [univEmail, setEmail] = useState('');
   const [vernum, setNum] = useState('');
   const [isSended, setIsSended] = useState(false);
@@ -119,6 +119,7 @@ function Signup() {
         console.log('응답 데이터:', response.data);
 
         if(response.data) {
+          localStorage.setItem('nickname', nickname);
           navigate("/main");
         }
       } catch (error) {
@@ -140,7 +141,7 @@ function Signup() {
               <input type="text" onChange={(event) => setNickname(event.target.value)} className="Signup-input"></input>
             </label>
             <label className="Signup-detail">대학교<br />
-              <select onChange={(event) => setUniv(event.target.value)} className="Signup-select">
+              <select value={univ} onChange={(event) => setUniv(event.target.value)} className="Signup-select">
                 <option value="가천대학교">가천대학교</option>
                 <option value="가톨릭대학교">가톨릭대학교</option>
                 <option value="강원대학교">강원대학교</option>
