@@ -1,38 +1,55 @@
+import React from 'react';
+
+const Login = () => {
+    const handleKakaoLoginClick = () => {
+        window.location.href = 'http://140.238.14.81:8080/oauth/kakao';
+    };
+
+    const handleNaverLoginClick = () => {
+        window.location.href = 'http://140.238.14.81:8080/oauth/naver'; // Replace with your Naver login URL
+    };
+
+    return (
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+            <div>
+                <button
+                    onClick={handleKakaoLoginClick}
+                    style={{ padding: '10px 20px', fontSize: '18px', borderRadius: '5px', cursor: 'pointer', marginRight: '10px' }}
+                >
+                    카카오톡 로그인
+                </button>
+                <button
+                    onClick={handleNaverLoginClick}
+                    style={{ padding: '10px 20px', fontSize: '18px', borderRadius: '5px', cursor: 'pointer' }}
+                >
+                    네이버 로그인
+                </button>
+            </div>
+        </div>
+    );
+};
+
+export default Login;
+/*
 import React, {useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Login.css'
 
 function Login() {
   const navigate = useNavigate();
-  function submitButton() {
-    window.open('http://140.238.14.81:8080/oauth2/authorization/naver', '_blank');
-    // navigate('/signup');
-  }
+    const handleNaverLoginClick = () => {
+        window.location.href = 'http://140.238.14.81:8080/oauth/naver'; // Replace with your Naver login URL
+    };
 
   return (
     <div className="main">
       <h1 className="header">DASOM에 오신 것을 환영합니다!</h1>
-      <form className="allForm">
-        {/*<label>*/}
-        {/*  <div className="idInput">*/}
-        {/*    <div className="inputInfo">*/}
-        {/*      아이디*/}
-        {/*    </div>*/}
-        {/*    <input type="text" className="Text" onChange={(event) => {getid(event.target.value)}} />*/}
-        {/*  </div>*/}
-        {/*</label>*/}
-        {/*<label>*/}
-        {/*  <div className="passwdInput">*/}
-        {/*    <div className="inputInfo">*/}
-        {/*      비밀번호*/}
-        {/*    </div>*/}
-        {/*    <input type="password" className="Text" onChange={(event) => {getPasswd(event.target.value)}} />*/}
-        {/*  </div>*/}
-        {/*</label>*/}
-        <button type="submit" onClick={submitButton} className="loginButton">로그인</button>
-      </form>
+      <div className="allForm">
+
+        <button type="submit" onClick={handleNaverLoginClick} className="loginButton">로그인</button>
+      </div>
     </div>
   );
 }
+*/
 
-export default Login;

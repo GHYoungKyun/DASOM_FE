@@ -2,14 +2,14 @@ import React, {useEffect} from 'react';
 import {useLocation, useNavigate} from 'react-router-dom';
 import axios from 'axios';
 
-const Redirect = () => {
+const RedirectK = () => {
     const location = useLocation();
     const navigate = useNavigate();
 
     const handleOAuthKakao = async (code) => {
         try {
             // 네이버로부터 받아온 code를 서버에 전달하여 회원가입 & 로그인한다
-            const response = await axios.get(`http://140.238.14.81:8080/oauth/login/naver?code=${code}`);
+            const response = await axios.get(`http://140.238.14.81:8080/oauth/login/kakao?code=${code}`);
             const data = response.data; // 응답 데이터
 
             localStorage.setItem('userId', data);
@@ -59,4 +59,4 @@ const Redirect = () => {
     );
 };
 
-export default Redirect;
+export default RedirectK;

@@ -24,7 +24,6 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
   },
-  "homepage": "https://ghyoungkyun.github.io/DASOM_FE/",
   "eslintConfig": {
     "extends": [
       "react-app",
@@ -42,5 +41,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "proxy": "http://140.238.14.81:8080"
 }
