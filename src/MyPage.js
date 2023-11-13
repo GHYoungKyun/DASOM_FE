@@ -142,8 +142,8 @@ function MyPage() {
       </div>
         <form action="" method="POST">
           <label>
-            <h3>{userInfo.nickname}</h3>
-            <input type="text" value="현재 닉네임" className="nickNameInput"/>
+            <h3>닉네임</h3>
+            <input type="text" value={userInfo.nickname} className="nickNameInput"/>
           </label>
           <h3>{userInfo.school}</h3>
           <label>

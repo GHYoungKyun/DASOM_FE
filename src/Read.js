@@ -24,7 +24,6 @@ function Read() {
         navigate('/main');
     }
 
-
     return(
         <div className="makeBlock">
             <div className="Project">

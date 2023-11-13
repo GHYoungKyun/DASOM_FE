@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import axios from 'axios';
 import './Signup.css';
 import {useNavigate} from 'react-router-dom';
@@ -129,8 +129,6 @@ function Signup() {
     };
     signupData();
   }
-
-
 
   return (
     <div>
