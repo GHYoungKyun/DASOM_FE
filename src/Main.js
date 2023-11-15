@@ -2,55 +2,23 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from "axios";
 import './Main.css';
-import profile from './profile_image.jpg';
 import "react-datepicker/dist/react-datepicker.css";
+import banner from './images/banner_image.png';
+import user from './images/user.png';
+import gender from './images/gender.png';
 
 function Main() {
     const [boardList, setBoardList] = useState([]);
+    const [isOpen, setIsOpen] = useState(false);
+    const [selectedOption, setSelectedOption] = useState('전체');
+    const options = ['전체', '남', '여'];
+    const [isRatioDropdownOpen, setRatioDropdownOpen] = useState(false);
+    const [selectedRatioOption, setRatioOption] = useState('1:1');
+    const count_options = ['1:1', '2:2', '3:3', '4:4', '5:5'];
+
     const sizeSet = {
         width: '90px',
         height: '30px',
-    };
-
-    const boxStyle = {
-        border: '2px solid',
-        borderColor: 'gray',
-        borderRadius: '40px',
-        height: '250px',
-        width: '250px',
-        position: 'absolute'
-    };
-
-    const contentStyle = {
-        marginLeft: '30px',
-    };
-
-    const univStyle = {
-        fontSize: '12px',
-        padding: '7px',
-        backgroundColor: 'gray',
-        color: 'white',
-        borderRadius: '14px',
-        textAlign: 'center',
-    };
-
-    const countStyle = {
-        fontSize: '12px',
-        padding: '7px',
-        paddingLeft: '30px',
-        paddingRight: '30px',
-        backgroundColor: 'rgb(26, 188, 156)',
-        color: 'white',
-        borderRadius: '14px',
-        textAlign: 'center',
-    };
-
-    const headerStyle = {
-        marginBottom: '40px',
-    };
-
-    const userStyle = {
-        fontSize: '12px',
     };
 
     const getBoardList = async () => {
@@ -64,97 +32,118 @@ function Main() {
         getBoardList();
     }, []);
 
+    const toggling = () => setIsOpen(!isOpen);
+
+    const onOptionClicked = value => () => {
+        setSelectedOption(value);
+        setIsOpen(false);
+    };
+
+    const toggleRatioDropdown = () => setRatioDropdownOpen(!isRatioDropdownOpen);
+
+    const onRatioOptionClicked = value => () => {
+        setRatioOption(value);
+        setRatioDropdownOpen(false);
+    };
+
     return(
         <div className="desktop">
-            <div className="div">
-                <div className="frame">
-                    <Link to="/main">
-                        <div className="text-wrapper"><strong>DASOM</strong></div>
+            <div className = "top">
+                <div>
+                    <Link to="/main" className = "header">
+                        DASOM
                     </Link>
-                    <div className="profile">
-                        <Link to="/mypage">
-                            <img src={profile} width="40" height="40"/>
-                        </Link>
-                    </div>
+                </div>
+                <div className = "write">
                     <Link to="/write">
                         <button className="write_button">새 게시물 작성</button>
                     </Link>
                 </div>
-                <div className="Frame">사진</div>
-                <div className="frame-2">
-                    <div className="gender_filter">
-                        <p>모집성별</p>
-                        <select style={sizeSet}>
-                            <option value="전체">전체</option>
-                            <option value="남">남</option>
-                            <option value="여">여</option>
-                        </select>
+                <div className = "mypage">
+                    <Link to="/mypage">
+                        마이페이지
+                    </Link>
+                </div>
+            </div>
+            <div className="banner">
+                <span className = "banner_word">
+                    어쩌구<br />저쩌구
+                </span>
+                <img src = {banner} className = "banner_image"/>
+            </div>
+            <div className = "middle">
+                <div className = "filter_set">
+                    <div className="filter">
+                        <div className="dd-wrapper" onClick={toggling}>
+                            <button className="dd-header">
+                                <img src = {gender} className = "filter_image"/>
+                                {selectedOption}
+                            </button>
+                            {isOpen && (
+                                <ul className="dd-list">
+                                {options.map(option => (
+                                    <li className="dd-list-item" onClick={onOptionClicked(option)} key={option}>
+                                        {option}
+                                    </li>
+                                ))}
+                                </ul>
+                            )}
+                            </div>
                     </div>
-                    <div className="num_filter">
-                        <p>모집인원</p>
-                        <select style={sizeSet}>
-                            <option value="1:1">1:1</option>
-                            <option value="2:2">2:2</option>
-                            <option value="3:3">3:3</option>
-                            <option value="4:4">4:4</option>
-                            <option value="5:5">5:5</option>
-                        </select>
+                    <div className="filter">
+                        <div className="dd-wrapper" onClick={toggleRatioDropdown}>
+                            <button className="dd-header">
+                                <img src = {user} className = "filter_image"/>
+                                {selectedRatioOption}
+                            </button>
+                            {isRatioDropdownOpen && (
+                                <ul className="dd-list">
+                                {count_options.map(option => (
+                                    <li className="dd-list-item" onClick={onRatioOptionClicked(option)} key={option}>
+                                        {option}
+                                    </li>
+                                ))}
+                                </ul>
+                            )}
+                            </div>
+                        </div>
+                </div>
+                <div className = "search">
+                    <div className = "search_bar_block">
+                        <input type="text" className="search_bar" placeholder="게시물 검색"/>
                     </div>
-                    <div className="place_filter">
-                        <p>미팅장소</p>
-                        <select style={sizeSet}>
-                            <option value="전체">전체</option>
-                            <option value="강남구">강남구</option>
-                            <option value="강동구">강동구</option>
-                            <option value="강서구">강서구</option>
-                            <option value="강북구">강북구</option>
-                            <option value="관악구">관악구</option>
-                            <option value="광진구">광진구</option>
-                            <option value="구로구">구로구</option>
-                            <option value="금천구">금천구</option>
-                            <option value="노원구">노원구</option>
-                            <option value="동대문구">동대문구</option>
-                            <option value="도봉구">도봉구</option>
-                            <option value="동작구">동작구</option>
-                            <option value="마포구">마포구</option>
-                            <option value="서대문구">서대문구</option>
-                            <option value="성동구">성동구</option>
-                            <option value="성북구">성북구</option>
-                            <option value="서초구">서초구</option>
-                            <option value="송파구">송파구</option>
-                            <option value="영등포구">영등포구</option>
-                            <option value="용산구">용산구</option>
-                            <option value="양천구">양천구</option>
-                            <option value="은평구">은평구</option>
-                            <option value="종로구">종로구</option>
-                            <option value="중구">중구</option>
-                            <option value="중랑구">중랑구</option>
-                        </select>
+                    <div className = "search_button_block">
+                        <button className="search_button">검색</button>
                     </div>
-                    <input type="text" className="searchbar" placeholder="게시물 검색"/>
-                    <button className="search_button">검색</button>
-
-                    {boardList && boardList.map((val,idx) => (
-                        <Link to={`/read/${idx}`}>
-                          <div style={{...boxStyle, top: 300*Math.floor(idx / 4) + 780, left: 300*(idx%4) + 100 }}>
-                              <p style={contentStyle} />
-                          <span style={univStyle}>
-                              {val.gender} 모집
-                          </span>
-                          <h3 style={headerStyle}>
-                              {val.title}
-                          </h3>
-                          <span style={countStyle}>
-                            {val.number}
-                          </span>
-                          <hr />
-                          <span style={userStyle}>
-                          <img />
-                              {val.nickname}
-                          </span>
-                          </div>
-                        </Link>
-                    ))}
+                </div>
+            </div>
+            <div style = {{display: 'flex', justifyContent: 'center'}}>
+                <div style={{display: 'flex', justifyContent: 'center', flexWrap: 'wrap', width: '1300px', margin: 'o auto'}}>
+                        {boardList && boardList.map((val,idx) => (
+                            <Link to={`/read/${idx}`} style={{width: '300px', margin: '60px', textDecoration: 'none'}}>
+                                    <div className = "box_style">
+                                        <div className = "box_header">
+                                            {val.title}
+                                        </div>
+                                        <div className = "box_info">
+                                            <span className = "box_gender">
+                                                {val.gender}
+                                            </span>
+                                            <span>
+                                                |
+                                            </span>
+                                            <span className = "box_count">
+                                                {val.number}
+                                            </span>
+                                        </div>
+                                        <div className = "box_line">
+                                        </div>
+                                        <div className = "box_username">
+                                            {val.nickname}
+                                        </div>
+                                    </div>
+                            </Link>                    
+                        ))}
                 </div>
             </div>
         </div>

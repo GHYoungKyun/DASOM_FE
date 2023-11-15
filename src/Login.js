@@ -1,4 +1,7 @@
 import React from 'react';
+import './Login.css';
+import kakaoLogin from './images/kakao_login_large_narrow.png';
+import naverLogin from './images/btnG.png';
 
 const Login = () => {
     const handleKakaoLoginClick = () => {
@@ -10,20 +13,27 @@ const Login = () => {
     };
 
     return (
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-            <div>
-                <button
-                    onClick={handleKakaoLoginClick}
-                    style={{ padding: '10px 20px', fontSize: '18px', borderRadius: '5px', cursor: 'pointer', marginRight: '10px' }}
-                >
-                    카카오톡 로그인
-                </button>
-                <button
-                    onClick={handleNaverLoginClick}
-                    style={{ padding: '10px 20px', fontSize: '18px', borderRadius: '5px', cursor: 'pointer' }}
-                >
-                    네이버 로그인
-                </button>
+        <div className="background">
+            <div className="main">
+                <div className = "buttonBox">
+                    <div className = "loginHeader">
+                        DASOM
+                    </div>
+                    <div className = "loginHello">
+                        DASOM에 오신것을 환영합니다!
+                    </div>
+                    <button
+                        onClick={handleKakaoLoginClick}
+                    >
+                        <img src = {kakaoLogin} className = "kakaoLogin"/>
+                    </button>
+                    <button
+                        onClick={handleNaverLoginClick}
+                        className = "naverButton"
+                    >
+                        <img src = {naverLogin} className = "naverLogin" />
+                    </button>
+                </div>
             </div>
         </div>
     );
