@@ -37,17 +37,17 @@
 }
 .desktop .profile {
     border-radius: 10px;
-    height: 40px;
-    left: 1255px;
+    height: 55px;
+    left: 1200px;
     position: absolute;
     top: 30px;
-    width: 140px;
+    width: 160px;
 }
 .desktop .write_button {
     background-color: #dadada;
     border-radius: 10px;
     height: 40px;
-    left: 1056px;
+    left: 1000px;
     position: absolute;
     top: 30px;
     width: 140px;

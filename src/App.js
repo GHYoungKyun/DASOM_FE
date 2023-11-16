@@ -17,11 +17,11 @@ function App() {
     <div>
         <Routes>
             <Route path="/" element={<Login />} />
-            <Route path="/meetingreq" element={<MeetingRequest />} />         
+            <Route path={`/meetingreq/:id`} element={<MeetingRequest />} />
             <Route path="/mypage" element={<MyPage />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/main" element={<Main />} />
-            <Route path="/appllicant" element={<Applicant />} />
+            <Route path={`/applicant/:id`} element={<Applicant />} />
             <Route path="/write" element={<Write />} />
             <Route path={`/edit/:id`} element={<Edit />} />
             <Route path={`/read/:id`} element={<Read />} />

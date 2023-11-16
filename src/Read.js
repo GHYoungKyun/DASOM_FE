@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react';
 import { Link } from 'react-router-dom';
 import axios from "axios";
 import './Read.css';
-import profile from './profile_image.jpg';
 import { useParams, useNavigate } from 'react-router-dom';
 
 function Read() {
@@ -32,15 +31,12 @@ function Read() {
                 </Link>
                 <div className="profile">
                     <Link to="/mypage">
-                        <img src={profile} width="40" height="40"/>
+
                     </Link>
                 </div>
             </div>
             <h1 className="header">{board.title}</h1>
             <div className="post_info">
-                <div className="writer_profile">
-                    <img src={profile} width="45" height="45"/>
-                </div>
                 <div className="writer_id">{board.nickname}</div>
                 <div className="write_date">
                     {board.createdDate ?
@@ -63,13 +59,13 @@ function Read() {
                 {board.content}
             </h3>
             {(localStorage.getItem('nickname') != board.nickname) && (
-                <Link to="/meetingreq">
+                <Link to={`/meetingreq/${id}`}>
                     <button className="apply_button">신청하기</button>
                 </Link>
             )}
             {(localStorage.getItem('nickname') == board.nickname) && (
                 <>
-                <Link to="/applicant">
+                <Link to={`/applicant/${id}`}>
                     <button className="apply_button">신청자 목록조회</button>
                 </Link>
                 <Link to={`/edit/${id}`} >
@@ -78,6 +74,9 @@ function Read() {
                 <button onClick={handleDelete} className="apply_button">삭제</button>
                 </>
             )}
+            <Link to={`/meetingreq/${id}`}>
+                <button className="apply_button">신청하기</button>
+            </Link>
 
         </div>
     );

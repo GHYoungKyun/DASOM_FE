@@ -49,8 +49,7 @@ function Edit() {
         console.log(board.gender);
         console.log(board.number);
         console.log(board.openKakaoAddress);
-        //console.log(univ);
-        console.log(board.location);
+
         editData();
     }
 
@@ -91,34 +90,6 @@ function Edit() {
                     <option value="THREE">3:3</option>
                     <option value="FOUR">4:4</option>
                     <option value="FIVE">5:5</option>
-                </select>
-                <p>미팅지역</p>
-                <select value={board.location} onChange={(event) => setBoard({...board, location: event.target.value})} className="sizeSet">
-                    <option value="강남구">강남구</option>
-                    <option value="강동구">강동구</option>
-                    <option value="강서구">강서구</option>
-                    <option value="강북구">강북구</option>
-                    <option value="관악구">관악구</option>
-                    <option value="광진구">광진구</option>
-                    <option value="구로구">구로구</option>
-                    <option value="금천구">금천구</option>
-                    <option value="노원구">노원구</option>
-                    <option value="동대문구">동대문구</option>
-                    <option value="도봉구">도봉구</option>
-                    <option value="동작구">동작구</option>
-                    <option value="마포구">마포구</option>
-                    <option value="서대문구">서대문구</option>
-                    <option value="성동구">성동구</option>
-                    <option value="성북구">성북구</option>
-                    <option value="서초구">서초구</option>
-                    <option value="송파구">송파구</option>
-                    <option value="영등포구">영등포구</option>
-                    <option value="용산구">용산구</option>
-                    <option value="양천구">양천구</option>
-                    <option value="은평구">은평구</option>
-                    <option value="종로구">종로구</option>
-                    <option value="중구">중구</option>
-                    <option value="중랑구">중랑구</option>
                 </select>
                 <h1 className="header">과팅 or 미팅에 대해 소개해주세요.</h1>
                 <hr />

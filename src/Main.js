@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from "axios";
 import './Main.css';
-import profile from './profile_image.jpg';
-import "react-datepicker/dist/react-datepicker.css";
 
 function Main() {
     const [boardList, setBoardList] = useState([]);
@@ -72,9 +70,8 @@ function Main() {
                         <div className="text-wrapper"><strong>DASOM</strong></div>
                     </Link>
                     <div className="profile">
-                        <Link to="/mypage">
-                            <img src={profile} width="40" height="40"/>
-                        </Link>
+                        <Link to="/mypage">{localStorage.getItem('nickname')}</Link>
+                        님
                     </div>
                     <Link to="/write">
                         <button className="write_button">새 게시물 작성</button>
@@ -100,37 +97,6 @@ function Main() {
                             <option value="5:5">5:5</option>
                         </select>
                     </div>
-                    <div className="place_filter">
-                        <p>미팅장소</p>
-                        <select style={sizeSet}>
-                            <option value="전체">전체</option>
-                            <option value="강남구">강남구</option>
-                            <option value="강동구">강동구</option>
-                            <option value="강서구">강서구</option>
-                            <option value="강북구">강북구</option>
-                            <option value="관악구">관악구</option>
-                            <option value="광진구">광진구</option>
-                            <option value="구로구">구로구</option>
-                            <option value="금천구">금천구</option>
-                            <option value="노원구">노원구</option>
-                            <option value="동대문구">동대문구</option>
-                            <option value="도봉구">도봉구</option>
-                            <option value="동작구">동작구</option>
-                            <option value="마포구">마포구</option>
-                            <option value="서대문구">서대문구</option>
-                            <option value="성동구">성동구</option>
-                            <option value="성북구">성북구</option>
-                            <option value="서초구">서초구</option>
-                            <option value="송파구">송파구</option>
-                            <option value="영등포구">영등포구</option>
-                            <option value="용산구">용산구</option>
-                            <option value="양천구">양천구</option>
-                            <option value="은평구">은평구</option>
-                            <option value="종로구">종로구</option>
-                            <option value="중구">중구</option>
-                            <option value="중랑구">중랑구</option>
-                        </select>
-                    </div>
                     <input type="text" className="searchbar" placeholder="게시물 검색"/>
                     <button className="search_button">검색</button>
 
@@ -149,7 +115,6 @@ function Main() {
                           </span>
                           <hr />
                           <span style={userStyle}>
-                          <img />
                               {val.nickname}
                           </span>
                           </div>

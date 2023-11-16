@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import axios from "axios";
 import './MeetingRequest.css';
 
@@ -70,6 +70,7 @@ function MeetingRequest() {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState("");
   const userId = localStorage.getItem('userId');
+  const { id } = useParams();
 
   const navigate = useNavigate();
   const postData = async () => {
@@ -81,7 +82,8 @@ function MeetingRequest() {
       const dataToSend = {
         title: title,
         content: content,
-        userId: userId
+        userId: userId,
+        postId: id
         //number: numPeople
       };
 
@@ -102,6 +104,7 @@ function MeetingRequest() {
     console.log(title);
     console.log(content);
     console.log(userId);
+    console.log(id);
     //console.log(numPeople);
     //console.log(univ);
     //console.log(location);
@@ -125,36 +128,6 @@ function MeetingRequest() {
         <label className="contentsInput">
           <div className="inputValue">
             <textarea placeholder="메시지를 입력하세요!" id="writeContent"  onChange={(event) => setContent(event.target.value)}/>
-          </div>
-        </label>
-        <label>
-          <div>인원수</div>
-          <div className="inputValue">
-            <select onChange={numPeopleChange} className="selectSet">
-              <option value='2'>2명</option>
-              <option value='3'>3명</option>
-              <option value='4'>4명</option>
-            </select>
-          </div>
-        </label>
-        <label>
-          <div>MBTI</div>
-          <div className="inputValue">
-            {[...Array(numPeople)].map((_, i) => (
-              <React.Fragment key={i}>
-                {mbtiSelect()}
-              </React.Fragment>
-            ))}
-          </div>
-        </label>
-        <label>
-          <div>평균주량</div>
-          <div className="inputValue">
-            {[...Array(numPeople)].map((_, i) => (
-              <React.Fragment key={i}>
-                {alcoholAmountSelect()}
-              </React.Fragment>
-            ))}
           </div>
         </label>
         <div>

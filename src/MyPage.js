@@ -11,8 +11,7 @@ function MyPage() {
   const [reqInfo, reqInfoSet] = React.useState([]);
   const [partInfo, partInfoSet] = React.useState([]);
 
-  let reqInfoAdd = [] // 배열에 신청한 미팅 정보 저장
-  let partInfoAdd = [] // 배열에 참가한 미팅 정보 저장
+  const userId = localStorage.getItem('userId');
 
   const addReqInfo = (reqInfoAdd) => {
     reqInfoSet(prevState => [...prevState, reqInfoAdd]);
@@ -22,10 +21,8 @@ function MyPage() {
   }
 
   function RequestAndParticipate(Univ, Header, HeadCount, UserName) {
-    const univ = '광운대학교'; // Univ 정보 받아온 후 선언
-    const header = '미팅하실분 모집합니다'; // Header 정보 받아온 후 선언
-    const headCount = '3명'; // HeadCount 정보 받아온 후 선언
-    const userName = '구운밤' // UserName 정보 받아온 후 선언
+
+    const [reqList, setReqList] = useState([]);
 
     const boxStyle = {
       border: '2px solid',
@@ -67,28 +64,67 @@ function MyPage() {
     const userStyle = {
       fontSize: '12px',
     }
+    const getReqList = async () => {
+      const resp = await (await axios.get(`http://140.238.14.81:8080/request/user/${userId}`));
+      setReqList(resp.data);
+
+      reqList.map((val, idx) => console.log(val));
+    }
+
+    useEffect(() => {
+      getReqList();
+    }, []);
+
 
     return (
-      <div style={boxStyle}>
-        <p style={contentStyle}>
-          <span style={univStyle}>
-            {univ}
-          </span>
-          <h3 style={headerStyle}>
-            {header}
-          </h3>
-          <span style={countStyle}>
-            {headCount}
-          </span>
-          <hr />
-          <span style={userStyle}>
-            <img />
-            {userName}
-          </span>
-        </p>
-      </div>
+        <>
+        {reqList && reqList.map((val, idx) => (
+            <div>
+              <div style={boxStyle}>
+                <p style={contentStyle} />
+              <span style={univStyle}>
+              </span>
+              <h3 style={headerStyle}>
+                {val.title}
+              </h3>
+              <span style={countStyle}>
+              {/*val.number*/}
+              </span>
+              <hr />
+              <span style={userStyle}>
+                    {val.userId}
+              </span>
+              </div>
+            </div>
+        ))}
+        </>
     );
   }
+  function Notice() {
+    const [noticeList, setNoticeList] = useState([]);
+    const getNoticeList = async () => {
+      const resp = await (await axios.get(`http://140.238.14.81:8080/notice/${userId}`));
+      setNoticeList(resp.data);
+
+      noticeList.map((val, idx) => console.log(val));
+    }
+
+    useEffect(() => {
+      getNoticeList();
+    }, []);
+    return (
+        <div>
+          <ul>
+            {noticeList && noticeList.map((val,idx) => (
+                <li key={idx}>
+                  {val.requestName}/{val.requestContent}/{val.status}/{val.postId}/{val.postTitle}/{val.openKakao}/{val.kind}
+                </li>
+            ))}
+          </ul>
+        </div>
+    );
+  }
+
   //request와 participate 함수 형태가 같고 가지고 오는 데이터만 다르기 때문에 output 함수에서 request 함수에 주는 값을 다르게 만들어서 participate 함수까지 구현
 
   function Info() {
@@ -127,33 +163,57 @@ function MyPage() {
       getUser();
     }, []);
 
+    const editUser = async () => {
+      try {
+        // POST 요청 보낼 엔드포인트 URL
+        const apiUrl = `http://140.238.14.81:8080/users/${userId}`;
+
+        // 보낼 데이터
+        const dataToSend = {
+          nickname: userInfo.nickname
+        };
+
+        // Axios를 사용하여 POST 요청 보내기
+        const response = await axios.put(apiUrl, dataToSend);
+        // 성공적으로 응답 받았을 때의 처리
+        console.log('응답 데이터:', response.data);
+        alert("수정되었습니다!")
+      } catch (error) {
+        // 오류 발생 시의 처리
+        console.error('에러 발생:', error);
+      }
+    };
+
+    function handleEdit() {
+      console.log(userInfo.nickname);
+      localStorage.setItem('nickname', userInfo.nickname);
+      editUser();
+    }
+
     const handleQuit = async () => {
       const resp = await (await axios.delete(`http://140.238.14.81:8080/users/${userId}`));
-      navigate('/login');
+      navigate('/');
     }
 
     return (
-      <div>
-        <div style={imgContainerStyle}>
-          <img src={profile} style={imgStyle}/>
-          <button style={buttonStyle}>
-            프사 바꾸기
-          </button>
-      </div>
-        <form action="" method="POST">
-          <label>
-            <h3>닉네임</h3>
-            <input type="text" value={userInfo.nickname} className="nickNameInput"/>
-          </label>
-          <h3>{userInfo.school}</h3>
-          <label>
-          </label><br />
-          <label>
-            <button onClick={handleQuit}>회원탈퇴</button>
-          </label>
-        </form>
-        //현재 받은 패널티 출력하는 함수
-      </div>
+      <>
+        {userInfo && (
+            <div>
+              <label>
+                <h3>닉네임</h3>
+                <input type="text" value={userInfo.nickname} onChange={(event) => setUserInfo({...userInfo, nickname: event.target.value})} className="nickNameInput"/>
+                <button onClick={handleEdit}>닉네임 수정</button>
+              </label>
+              <h3>{userInfo.school}</h3>
+              <label>
+              </label><br />
+              <label>
+                <button onClick={handleQuit}>회원탈퇴</button>
+              </label>
+            </div>
+            //현재 받은 패널티 출력하는 함수
+        )}
+      </>
     );
   }
 
@@ -162,7 +222,7 @@ function MyPage() {
       return <RequestAndParticipate />;
     }
     if(currentPage === '2'){
-      return <RequestAndParticipate />;
+      return <Notice />;
     }
     if(currentPage === '3'){
       return <Info />;
@@ -205,7 +265,7 @@ function MyPage() {
         신청한 미팅
       </button>
       <button onClick={() => pageChange('2')} style={Colorchange('2')}>
-        참여한 미팅
+        알림함
       </button>
       <button onClick={() => pageChange('3')} style={Colorchange('3')}>
         내 정보
