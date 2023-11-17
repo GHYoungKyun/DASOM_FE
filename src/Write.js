@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from "axios";
 import './Write.css';
-import profile from './profile_image.jpg';
 
 function Write() {
 
@@ -64,8 +63,9 @@ function Write() {
                 </Link>
                 <div className="profile">
                     <Link to="/mypage">
-                        <img src={profile} width="40" height="40"/>
+                        {localStorage.getItem('nickname')}
                     </Link>
+                    님
                 </div>
             </div>
             <h1 className="header"> 과팅 or 미팅 정보를 입력해주세요.</h1>

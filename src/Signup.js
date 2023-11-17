@@ -11,6 +11,7 @@ function Signup() {
   const [vernum, setNum] = useState('');
   const [isSended, setIsSended] = useState(false);
   const [isVerified, setIsVerified] = useState(false);
+  const [isDuplicated, setIsDuplicated] = useState(true);
 
   const navigate = useNavigate();
 
@@ -130,6 +131,20 @@ function Signup() {
     signupData();
   }
 
+  const getDupId = async () => {
+    const resp = await (await axios.get(`http://140.238.14.81:8080/users/nickname/${nickname}`));
+    console.log(resp.data);
+
+    if(!resp.data) {
+      setIsDuplicated(false);
+    }
+  }
+
+  function handleDupId() {
+    console.log(isDuplicated);
+    getDupId();
+  }
+
   return (
     <div>
       <h1 className="Signup-header">DASOM에 오신 것을 환영합니다!</h1>
@@ -137,6 +152,7 @@ function Signup() {
           <div className="Signup-form">
             <label className="Signup-detail">닉네임<br />
               <input type="text" onChange={(event) => setNickname(event.target.value)} className="Signup-input"></input>
+              <button onClick={handleDupId}>닉네임 중복 확인</button>
             </label>
             <label className="Signup-detail">대학교<br />
               <select value={univ} onChange={(event) => setUniv(event.target.value)} className="Signup-select">
@@ -265,7 +281,9 @@ function Signup() {
             </label>
             <label className="Signup-detail">대학교 이메일<br />
               <input type="text" onChange={(event) => setEmail(event.target.value)} className="Signup-input"></input>
-              <button onClick={submit} className="submit">메일보내기</button>
+              {!isDuplicated && (
+                  <button onClick={submit} className="submit">메일보내기</button>
+              )}
             </label>
           </div>
       )}

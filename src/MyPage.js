@@ -1,84 +1,84 @@
 import React, {useEffect, useState} from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from "axios";
-import profile from './profile_image.jpg'
+import ReactPaginate from 'react-paginate';
 import './MyPage.css'
 import { getByDisplayValue } from '@testing-library/react';
 
 function MyPage() {
-  let RequestedInfo = [];
-  const [currentPage, pageChange] = React.useState('1');
-  const [reqInfo, reqInfoSet] = React.useState([]);
-  const [partInfo, partInfoSet] = React.useState([]);
+  const boxStyle = {
+    border: '2px solid',
+    borderColor: 'gray',
+    borderRadius: '40px',
+    height: '200px',
+    margin: '30px',
+    marginRight: '70px',
+  }
 
+  const contentStyle = {
+    marginLeft: '30px',
+  }
+
+  const univStyle = {
+    fontSize: '12px',
+    padding: '7px',
+    backgroundColor: 'gray',
+    color: 'white',
+    borderRadius: '14px',
+    textAlign: 'center',
+  }
+
+  const countStyle = {
+    fontSize: '12px',
+    padding: '7px',
+    paddingLeft: '30px',
+    paddingRight: '30px',
+    backgroundColor: 'rgb(26, 188, 156)',
+    color: 'white',
+    borderRadius: '14px',
+    textAlign: 'center',
+  }
+
+  const headerStyle = {
+    marginBottom: '40px',
+  }
+
+  const userStyle = {
+    fontSize: '12px',
+  }
+  const [currentPage, pageChange] = useState('1');
   const userId = localStorage.getItem('userId');
 
-  const addReqInfo = (reqInfoAdd) => {
-    reqInfoSet(prevState => [...prevState, reqInfoAdd]);
-  }
-  const addPartInfo = (partInfoAdd) => {
-    partInfoSet(prevState => [...prevState, partInfoAdd]);
-  }
+  function MyRequest() {
 
-  function RequestAndParticipate(Univ, Header, HeadCount, UserName) {
+    const [reqList, setReqList] = useState(null);
+    const [reqCurrentPage, setReqCurrentPage] = useState(0);
+    const [totalPages, setTotalPages] = useState(1);
 
-    const [reqList, setReqList] = useState([]);
-
-    const boxStyle = {
-      border: '2px solid',
-      borderColor: 'gray',
-      borderRadius: '40px',
-      height: '200px',
-      margin: '30px',
-      marginRight: '70px',
-    }
-
-    const contentStyle = {
-      marginLeft: '30px',
-    }
-
-    const univStyle = {
-      fontSize: '12px',
-      padding: '7px',
-      backgroundColor: 'gray',
-      color: 'white',
-      borderRadius: '14px',
-      textAlign: 'center',
-    }
-
-    const countStyle = {
-      fontSize: '12px',
-      padding: '7px',
-      paddingLeft: '30px',
-      paddingRight: '30px',
-      backgroundColor: 'rgb(26, 188, 156)',
-      color: 'white',
-      borderRadius: '14px',
-      textAlign: 'center',
-    }
-
-    const headerStyle = {
-      marginBottom: '40px',
-    }
-
-    const userStyle = {
-      fontSize: '12px',
-    }
     const getReqList = async () => {
-      const resp = await (await axios.get(`http://140.238.14.81:8080/request/user/${userId}`));
+      const resp = await (await axios.get(`http://140.238.14.81:8080/request/${userId}?size=5&page=${reqCurrentPage}&sort=createdDate,desc`));
       setReqList(resp.data);
-
-      reqList.map((val, idx) => console.log(val));
+      console.log(resp.data);
     }
 
     useEffect(() => {
       getReqList();
     }, []);
 
+    const handleDelete = async (reqId) => {
+      const resp = await (await axios.delete(`http://140.238.14.81:8080/request/${reqId}`));
+      console.log(resp.data);
+      if(resp.data) {
+        alert("신청이 삭제되었습니다!");
+      }
+      else {
+        alert("신청을 삭제할 수 없습니다!");
+      }
+    }
 
     return (
         <>
-        {reqList && reqList.map((val, idx) => (
+        {reqList && reqList.content.map((val, idx) => (
             <div>
               <div style={boxStyle}>
                 <p style={contentStyle} />
@@ -87,41 +87,71 @@ function MyPage() {
               <h3 style={headerStyle}>
                 {val.title}
               </h3>
-              <span style={countStyle}>
-              {/*val.number*/}
-              </span>
               <hr />
               <span style={userStyle}>
-                    {val.userId}
+                    {val.nickname}
               </span>
               </div>
+              <Link to={`/editreq/${val.requestId.id}`}>
+                <button>수정</button>
+              </Link>
+              <button onClick={() => handleDelete(val.requestId.id)}>삭제</button>
             </div>
         ))}
         </>
     );
   }
-  function Notice() {
-    const [noticeList, setNoticeList] = useState([]);
-    const getNoticeList = async () => {
-      const resp = await (await axios.get(`http://140.238.14.81:8080/notice/${userId}`));
-      setNoticeList(resp.data);
-
-      noticeList.map((val, idx) => console.log(val));
+  function MyPost() {
+    const [postList, setPostList] = useState(null);
+    const [postCurrentPage, setPostCurrentPage] = useState(0);
+    const [totalPages, setTotalPages] = useState(1);
+    const getPostList = async () => {
+      const resp = await (await axios.get(`http://140.238.14.81:8080/post/${userId}?size=5&page${postCurrentPage}&sort=createdDate,desc`));
+      setPostList(resp.data);
     }
 
     useEffect(() => {
-      getNoticeList();
+      getPostList();
     }, []);
+
+    const handlePageClick = (selectedPage) => {
+      setPostCurrentPage(selectedPage.selected + 1);
+    };
+
     return (
-        <div>
-          <ul>
-            {noticeList && noticeList.map((val,idx) => (
-                <li key={idx}>
-                  {val.requestName}/{val.requestContent}/{val.status}/{val.postId}/{val.postTitle}/{val.openKakao}/{val.kind}
-                </li>
-            ))}
-          </ul>
-        </div>
+        <>
+          {postList && postList.content.map((val, idx) => (
+              <Link to={`/read/${val.postId.id}`}>
+                <div>
+                  <div style={boxStyle}>
+                    <p style={contentStyle} />
+                    <span style={univStyle}>
+                    {val.gender}
+                    </span>
+                    <h3 style={headerStyle}>
+                      {val.title}
+                    </h3>
+                    <hr />
+                    <span style={userStyle}>
+                    {val.nickname}
+                    </span>
+                  </div>
+                </div>
+              </Link>
+          ))}
+          <ReactPaginate
+              previousLabel={'이전'}
+              nextLabel={'다음'}
+              breakLabel={'...'}
+              breakClassName={'break-me'}
+              pageCount={totalPages}
+              marginPagesDisplayed={2}
+              pageRangeDisplayed={5}
+              onPageChange={handlePageClick}
+              containerClassName={'pagination'}
+              activeClassName={'active'}
+          />
+        </>
     );
   }
 
@@ -152,6 +182,8 @@ function MyPage() {
 
     const userId = localStorage.getItem('userId');
     const [userInfo, setUserInfo] = useState({});
+    const [isDuplicated, setIsDuplicated] = useState(true);
+    const [nickname, setNickname] = useState(localStorage.getItem('nickname'));
     const navigate = useNavigate();
 
     const getUser = async () => {
@@ -162,6 +194,20 @@ function MyPage() {
     useEffect(() => {
       getUser();
     }, []);
+
+
+    const getDupId = async () => {
+      const resp = await (await axios.get(`http://140.238.14.81:8080/users/nickname/${userInfo.nickname}`));
+      console.log(resp.data);
+
+      if(!resp.data) {
+        setIsDuplicated(false);
+      }
+    }
+
+    function handleDupId() {
+      getDupId();
+    }
 
     const editUser = async () => {
       try {
@@ -202,7 +248,8 @@ function MyPage() {
               <label>
                 <h3>닉네임</h3>
                 <input type="text" value={userInfo.nickname} onChange={(event) => setUserInfo({...userInfo, nickname: event.target.value})} className="nickNameInput"/>
-                <button onClick={handleEdit}>닉네임 수정</button>
+                {isDuplicated && (<button onClick={handleDupId}>닉네임 중복 확인 </button>)}
+                {!isDuplicated && (<button onClick={handleEdit}>닉네임 수정</button>)}
               </label>
               <h3>{userInfo.school}</h3>
               <label>
@@ -219,10 +266,10 @@ function MyPage() {
 
   function output() {
     if(currentPage === '1'){
-      return <RequestAndParticipate />;
+      return <MyRequest />;
     }
     if(currentPage === '2'){
-      return <Notice />;
+      return <MyPost />;
     }
     if(currentPage === '3'){
       return <Info />;
@@ -265,7 +312,7 @@ function MyPage() {
         신청한 미팅
       </button>
       <button onClick={() => pageChange('2')} style={Colorchange('2')}>
-        알림함
+        작성한 게시글
       </button>
       <button onClick={() => pageChange('3')} style={Colorchange('3')}>
         내 정보

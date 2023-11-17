@@ -8,9 +8,11 @@ import Main from './Main';
 import Applicant from './Applicant';
 import Write from './Write';
 import Edit from './Edit';
+import EditRequest from './EditRequest';
 import Read from './Read';
 import Redirect from './Redirect';
 import RedirectK from './RedirectK';
+import Notification from './Notification';
 
 function App() {
   return (
@@ -24,9 +26,11 @@ function App() {
             <Route path={`/applicant/:id`} element={<Applicant />} />
             <Route path="/write" element={<Write />} />
             <Route path={`/edit/:id`} element={<Edit />} />
+            <Route path={`/editreq/:id`} element={<EditRequest />} />
             <Route path={`/read/:id`} element={<Read />} />
             <Route path="/oauth/redirected/naver" element={<Redirect />} />
             <Route path="/oauth/redirected/kakao" element={<RedirectK />} />
+            <Route path="/notification" element={<Notification />} />
         </Routes>
     </div>
   );

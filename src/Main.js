@@ -1,10 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import ReactPaginate from 'react-paginate';
 import axios from "axios";
 import './Main.css';
 
 function Main() {
-    const [boardList, setBoardList] = useState([]);
+    const [boardList, setBoardList] = useState(null);
+    const [currentPage, setCurrentPage] = useState(0);
+    const [totalPages, setTotalPages] = useState(1);
+    const [genderFilter, setGenderFilter] = useState('ALL');
+    const userId = localStorage.getItem('userId');
+
+    const postsPerPage = 5;
+
     const sizeSet = {
         width: '90px',
         height: '30px',
@@ -52,15 +60,49 @@ function Main() {
     };
 
     const getBoardList = async () => {
-        const resp = await (await axios.get('http://140.238.14.81:8080/post'));
-        setBoardList(resp.data);
+        try{
+            const apiUrl = `http://140.238.14.81:8080/post?size=${postsPerPage}&page=${currentPage}&sort=createdDate,desc`;
 
-        boardList.map((val, idx) => console.log(val));
+            const resp = await axios.get(apiUrl);
+            setBoardList(resp.data);
+            console.log(resp.data);
+            console.log(resp.data.content);
+
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    const getFilteredBoardList = async () => {
+        try{
+            const apiUrl = `http://140.238.14.81:8080/post/gender/${genderFilter}?size=${postsPerPage}&page=${currentPage}&sort=createdDate,desc`;
+
+            const resp = await axios.get(apiUrl);
+            setBoardList(resp.data);
+            console.log(resp.data);
+            console.log(resp.data.content);
+
+        } catch (error) {
+            console.error(error);
+        }
     }
 
     useEffect(() => {
         getBoardList();
-    }, []);
+    }, [currentPage]);
+
+    function applyGenderFilter(event) {
+        console.log(genderFilter);
+        if(genderFilter == 'ALL') {
+            getBoardList();
+        } else {
+            getFilteredBoardList();
+        }
+    }
+
+    const handlePageClick = (selectedPage) => {
+        setCurrentPage(selectedPage.selected + 1);
+    };
 
     return(
         <div className="desktop">
@@ -72,6 +114,8 @@ function Main() {
                     <div className="profile">
                         <Link to="/mypage">{localStorage.getItem('nickname')}</Link>
                         님
+                        <br/>
+                        <Link to="/notification">알림함</Link>
                     </div>
                     <Link to="/write">
                         <button className="write_button">새 게시물 작성</button>
@@ -81,27 +125,16 @@ function Main() {
                 <div className="frame-2">
                     <div className="gender_filter">
                         <p>모집성별</p>
-                        <select style={sizeSet}>
-                            <option value="전체">전체</option>
-                            <option value="남">남</option>
-                            <option value="여">여</option>
+                        <select value={genderFilter} onChange={(event) => setGenderFilter(event.target.value)} style={sizeSet}>
+                            <option value="ALL">전체</option>
+                            <option value="MALE">남</option>
+                            <option value="FEMALE">여</option>
                         </select>
+                        <button onClick={applyGenderFilter}>게시글 필터 적용</button>
                     </div>
-                    <div className="num_filter">
-                        <p>모집인원</p>
-                        <select style={sizeSet}>
-                            <option value="1:1">1:1</option>
-                            <option value="2:2">2:2</option>
-                            <option value="3:3">3:3</option>
-                            <option value="4:4">4:4</option>
-                            <option value="5:5">5:5</option>
-                        </select>
-                    </div>
-                    <input type="text" className="searchbar" placeholder="게시물 검색"/>
-                    <button className="search_button">검색</button>
 
-                    {boardList && boardList.map((val,idx) => (
-                        <Link to={`/read/${idx}`}>
+                    {boardList && boardList.content.map((val,idx) => (
+                        <Link to={`/read/${val.postId.id}`}>
                           <div style={{...boxStyle, top: 300*Math.floor(idx / 4) + 780, left: 300*(idx%4) + 100 }}>
                               <p style={contentStyle} />
                           <span style={univStyle}>
@@ -120,7 +153,20 @@ function Main() {
                           </div>
                         </Link>
                     ))}
+
                 </div>
+                <ReactPaginate
+                    previousLabel={'이전'}
+                    nextLabel={'다음'}
+                    breakLabel={'...'}
+                    breakClassName={'break-me'}
+                    pageCount={totalPages}
+                    marginPagesDisplayed={2}
+                    pageRangeDisplayed={5}
+                    onPageChange={handlePageClick}
+                    containerClassName={'pagination'}
+                    activeClassName={'active'}
+                />
             </div>
         </div>
     );

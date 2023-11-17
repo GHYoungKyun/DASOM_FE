@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import axios from "axios";
 import './Write.css';
-import profile from './profile_image.jpg';
 
 function Edit() {
     const navigate = useNavigate();
@@ -54,7 +53,7 @@ function Edit() {
     }
 
     const getBoard = async () => {
-        const resp = await (await axios.get(`http://140.238.14.81:8080/post/${id}`));
+        const resp = await (await axios.get(`http://140.238.14.81:8080/post/detail/${id}`));
         setBoard(resp.data);
         console.log(resp.data);
     }
@@ -72,7 +71,7 @@ function Edit() {
                     </Link>
                     <div className="profile">
                         <Link to="/mypage">
-                            <img src={profile} width="40" height="40"/>
+
                         </Link>
                     </div>
                 </div>

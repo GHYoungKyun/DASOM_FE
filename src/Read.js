@@ -7,10 +7,11 @@ import { useParams, useNavigate } from 'react-router-dom';
 function Read() {
     const { id } = useParams();
     const navigate = useNavigate();
+    console.log(id);
 
     const [board, setBoard] = useState({});
     const getBoard = async () => {
-        const resp = await (await axios.get(`http://140.238.14.81:8080/post/${id}`));
+        const resp = await (await axios.get(`http://140.238.14.81:8080/post/detail/${id}`));
         setBoard(resp.data);
         console.log(resp.data);
     }
@@ -18,7 +19,10 @@ function Read() {
         getBoard();
     }, []);
     const handleDelete = async () => {
-        const resp = await (await axios.delete(`http://140.238.14.81:8080/post/${id}`));
+        const sendUserId = {
+            userId: localStorage.getItem('userId')
+        }
+        const resp = await (await axios.post(`http://140.238.14.81:8080/post/${id}`, sendUserId));
         alert("삭제되었습니다.");
         navigate('/main');
     }
@@ -51,9 +55,6 @@ function Read() {
             <div className="recruit_info">
                 <strong>모집인원</strong> {board.number}
             </div>
-            <div className="recruit_info">
-                <strong>미팅장소</strong> {board.location}
-            </div>
             <hr />
             <h3 className="post_content">
                 {board.content}
@@ -74,9 +75,6 @@ function Read() {
                 <button onClick={handleDelete} className="apply_button">삭제</button>
                 </>
             )}
-            <Link to={`/meetingreq/${id}`}>
-                <button className="apply_button">신청하기</button>
-            </Link>
 
         </div>
     );
