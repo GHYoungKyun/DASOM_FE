@@ -47,7 +47,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background: radial-gradient(28% 51.1% at 50% 50%, #CEEEEE 0%, #CEEEEE 72.07%, #5EC6C5 100%);
+    background: #CEEEEE;
     background-repeat: no-repeat;
     background-size: cover;
     height: 100%;

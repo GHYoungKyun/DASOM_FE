@@ -32,7 +32,6 @@
     background-color: #5FC6C4;
 }
 
-
 .banner {
     display: flex;
     justify-content: space-around;
@@ -60,71 +59,94 @@
     color: #5EBAC3;
 }
 
-.read_block {
-    margin: auto;
-    width: 70%;
-    margin-top: 70px;
+.banner_bottom {
+    display: flex;
+    justify-content: flex-start;
+    align-items: baseline;
+    margin-bottom: 50px;
 }
 
-.content_header {
-    margin-top: 20px;
-    margin-bottom: 40px;
-    font-size: 30px;
+.header {
+    font-size: 36px;
+    font-weight: normal;
 }
 
-.post_info {
-    margin-bottom: 30px;
+.dropdown_array {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 20px;
+    font-size: 24px;
 }
 
-.info_block {
-    margin-top: 30px;
-    margin-bottom: 30px;
+.gender-select {
+    margin-right: 20px;
+}
+
+.gender-select-header {
     display: flex;
     justify-content: flex-start;
     align-items: center;
 }
 
-.post_content {
-    margin-top: 30px;
-    margin-bottom: 200px;
-}
-
-.apply_button {
-    background-color: #CEEEEE;
-    padding: 8px;
-    padding-left: 16px;
-    padding-right: 16px;
+.gender-list {
+    position: absolute;
+    z-index: 1;
     border-radius: 10px;
-    color: #4A4A4A;
-    margin-bottom: 50px;
-    margin-right: 20px;
-    margin-top: 20px;
+    border: 2px solid #777777;
+    background-color: white;
+    font-size: 20px;
 }
 
-.apply_button:hover {
+.gender-list-item {
+    border-radius: 10px;
+}
+
+.gender-list-item:hover {
     background-color: #5FC6C4;
 }
 
-.user_menu {
+.num-select-header {
     display: flex;
     justify-content: flex-start;
-    align-items: baseline;
-    margin-top: 70px;
+    align-items: center;
 }
-.content-box {
+
+.num-list {
+    position: absolute;
+    z-index: 1;
     border-radius: 10px;
+    background-color: white;
     border: 2px solid #777777;
-    padding-left: 30px;
+    font-size: 20px;
 }
 
-.partition {
-    margin-left: 10px;
-    margin-right: 10px;
+.num-list-item {
+    border-radius: 10px;
 }
 
-.read_box_line {
-    background-color: #969897;
-    height: 2px;
-    margin-left: 0;
-    margin-bottom: 20px;
+.num-list-item:hover {
+    background-color: #5FC6C4;
+}
+
+.write_block {
+    width: 50%;
+    margin: auto;
+}
+
+.write_submit {
+    font-size: 20px;
+    margin-bottom: 30px;
+}
+
+.openkakaotalk {
+    font-size: 20px;
+}
+
+#title {
+    font-size: 18px;
+}
+
+#content {
+    font-size: 18px;
 }

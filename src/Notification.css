@@ -1,0 +1,59 @@
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 700px;
+    max-height: 800vh;
+    overflow-y: auto;
+  }
+
+  .notification_top {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+  
+  .notification_header {
+    font-size: 24px;
+  }
+
+  .notification_close {
+    background-color: #FFDD7F;
+    padding: 8px;
+    padding-left: 16px;
+    padding-right: 16px;
+    border-radius: 10px;
+    color: #4A4A4A;
+  }
+
+  .notification_close:hover {
+    background-color: #EF8658;
+  }
+
+  .notification_list {
+    list-style-type: none;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-top: 1px solid #777777;
+    border-bottom: 1px solid #777777;
+  }
+
+  .notification_content {
+    margin-right: 30px;
+  }
