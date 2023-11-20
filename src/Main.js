@@ -208,7 +208,7 @@ function Main() {
                     <Link to="/main" style={{textDecoration: 'none'}}>
                         <div className="text-wrapper">DASOM</div>
                     </Link>
-                    <div id="profile">
+                    <div id="profile_main">
                         <Link to="/mypage">{localStorage.getItem('nickname')}</Link>님
                         <div>
                             <Link to="#" onClick={openNotification}>
@@ -223,6 +223,9 @@ function Main() {
                         <Link to="/write">
                             <button className="write_button">새 게시물 작성</button>
                         </Link>
+                        <button onClick={handleLogout} className="logout_button">
+                            로그아웃
+                        </button>
                     </div>
                 </div>
                 <div className="banner">
