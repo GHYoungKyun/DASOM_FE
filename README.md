@@ -1,4 +1,4 @@
-🤝 대학생 소개팅 서비스, 다솜! - FrontEnd
+<h1>🤝 대학생 소개팅 서비스, 다솜! - FrontEnd </h1>
 <img src="https://img.shields.io/badge/React-#61DAFB?style=for-the-badge&logo=React&logoColor=white">
 <img src="https://img.shields.io/badge/Axios-#5A29E4?style=for-the-badge&logo=Axios&logoColor=white">
 
