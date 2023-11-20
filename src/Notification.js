@@ -7,6 +7,7 @@ import './default.css'
 function Notification({ onClose }) {
     const [noticeList, setNoticeList] = useState([]);
     const userId = localStorage.getItem('userId');
+    const navigate = useNavigate();
 
     const getNoticeList = async () => {
         try{
@@ -17,7 +18,7 @@ function Notification({ onClose }) {
 
             noticeList.map((val, idx) => console.log(val));
         } catch (error) {
-            console.error(error);
+            navigate('/error');
         }
     };
 

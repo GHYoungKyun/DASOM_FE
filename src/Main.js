@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Notification from './Notification';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import ReactPaginate from 'react-paginate';
 import axios from "axios";
 import './Main.css';
@@ -15,11 +15,30 @@ function Main() {
     const [currentPage, setCurrentPage] = useState(0);
     const [totalPages, setTotalPages] = useState(1);
     const [genderFilter, setGenderFilter] = useState('ALL');
+    const [numFilter, setNumFilter] = useState('ALL');
     const userId = localStorage.getItem('userId');
     const [selectedOption, setSelectedOption] = useState('전체');
     const [isOpen, setIsOpen] = useState(false);
+    const [numIsOpen, setNumIsOpen] = useState(false);
+    const [numSelectedOption, setNumSelectedOption] = useState('전체')
     const options = ['전체', '남', '여'];
+    const numOptions = ['전체', '1:1', '2:2', '3:3', '4:4', '5:5']
     const [isNotificationOpen, setIsNotificationOpen] = useState(false);
+    const navigate = useNavigate();
+    const [keyword, setKeyword] = useState('');
+
+    const genderEnumMapping = {
+        MALE: "남",
+        FEMALE: "여",
+    };
+
+    const numberEnumMapping = {
+        ONE: "1:1",
+        TWO: "2:2",
+        THREE: "3:3",
+        FOUR: "4:4",
+        FIVE: "5:5"
+    };
 
     const openNotification = () => {
         setIsNotificationOpen(true);
@@ -33,37 +52,109 @@ function Main() {
 
     const toggling = () => setIsOpen(!isOpen);
 
+    const numToggling = () => setNumIsOpen(!numIsOpen);
+
     const onOptionClicked = value => () => {
         setSelectedOption(value);
-        if(value == '전체'){
+        if(value === '전체'){
             setGenderFilter('ALL');
         }
-        else if(value == '남'){
+        else if(value === '남'){
             setGenderFilter('MALE');
         }
-        else if(value == '여'){
+        else if(value === '여'){
             setGenderFilter('FEMALE');
         }
         setIsOpen(false);
     };
 
+    const onNumOptionClicked = value => () => {
+        setNumSelectedOption(value);
+        if(value === '전체'){
+            setNumFilter('ALL');
+        }
+        else if(value === '1:1'){
+            setNumFilter('ONE');
+        }
+        else if(value === '2:2'){
+            setNumFilter('TWO');
+        }
+        else if(value === '3:3'){
+            setNumFilter('THREE');
+        }
+        else if(value === '4:4'){
+            setNumFilter('FOUR');
+        }
+        else if(value === '5:5'){
+            setNumFilter('FIVE');
+        }
+        setNumIsOpen(false);
+    }
+
     const getBoardList = async () => {
         try{
+            setCurrentPage(0);
             const apiUrl = `http://140.238.14.81:8080/post?size=${postsPerPage}&page=${currentPage}&sort=createdDate,desc`;
 
             const resp = await axios.get(apiUrl);
             setBoardList(resp.data);
+            setTotalPages(resp.data.totalPages);
             console.log(resp.data);
             console.log(resp.data.content);
 
         } catch (error) {
-            console.error(error);
+            navigate('/error');
         }
     };
 
+    const getGenFilteredBoardList = async () => {
+        try{
+            setCurrentPage(0);
+            const apiUrl = `http://140.238.14.81:8080/post/gender/${genderFilter}?size=${postsPerPage}&page=${currentPage}&sort=createdDate,desc`;
+
+            const resp = await axios.get(apiUrl);
+            setBoardList(resp.data);
+            setTotalPages(resp.data.totalPages);
+            console.log(resp.data);
+            console.log(resp.data.content);
+
+        } catch (error) {
+            navigate('/error');
+        }
+    }
+
+    const getNumFilteredBoardList = async () => {
+        try {
+            const apiUrl = `http://140.238.14.81:8080/post/number/${numFilter}?size=${postsPerPage}&page=${currentPage}&sort=createdDate,desc`;
+
+            const resp = await axios.get(apiUrl);
+            setBoardList(resp.data);
+            setTotalPages(resp.data.totalPages);
+            console.log(resp.data);
+            console.log(resp.data.content);
+        } catch (error) {
+            navigate('/error');
+        }
+    }
+
     const getFilteredBoardList = async () => {
         try{
-            const apiUrl = `http://140.238.14.81:8080/post/gender/${genderFilter}?size=${postsPerPage}&page=${currentPage}&sort=createdDate,desc`;
+            setCurrentPage(0);
+            const apiUrl = `http://140.238.14.81:8080/post/filter?number=${numFilter}&gender=${genderFilter}&size=${postsPerPage}&page=${currentPage}&sort=createdDate,desc`;
+
+            const resp = await axios.get(apiUrl);
+            setBoardList(resp.data);
+            setTotalPages(resp.data.totalPages);
+            console.log(resp.data);
+            console.log(resp.data.content);
+
+        } catch (error) {
+            navigate('/error');
+        }
+    }
+    const getSearchBoardList = async () => {
+        try{
+            const apiUrl = `http://140.238.14.81:8080/post/search?keyword=${keyword}`;
 
             const resp = await axios.get(apiUrl);
             setBoardList(resp.data);
@@ -71,7 +162,7 @@ function Main() {
             console.log(resp.data.content);
 
         } catch (error) {
-            console.error(error);
+            navigate('/error');
         }
     }
 
@@ -79,21 +170,39 @@ function Main() {
         getBoardList();
     }, [currentPage]);
 
-    function applyGenderFilter() {
+    function applyFilter(event) {
         console.log(genderFilter);
-        if(genderFilter == 'ALL') {
+        console.log(numFilter);
+        if(genderFilter == 'ALL' && numFilter == 'ALL') {
             getBoardList();
-        } else {
+        }
+        else if(genderFilter == 'ALL' && numFilter != 'ALL') {
+            getNumFilteredBoardList();
+        }
+        else if(genderFilter != 'ALL' && numFilter == 'ALL') {
+            getGenFilteredBoardList();
+        }
+        else {
             getFilteredBoardList();
         }
     }
 
+    function handleSearch() {
+        getSearchBoardList();
+    }
+
     const handlePageClick = (selectedPage) => {
-        setCurrentPage(selectedPage.selected + 1);
+        setCurrentPage(selectedPage.selected);
     };
+
+    function handleLogout() {
+        localStorage.clear();
+        navigate('/');
+    }
 
     return(
         <div className="desktop">
+            {userId && (
             <div className="div">
                 <div className="banner-top">
                     <Link to="/main" style={{textDecoration: 'none'}}>
@@ -132,18 +241,20 @@ function Main() {
                 </div>
                 {/*여기까지가 기본 페이지 스타일*/}
                 <div className="frame-2">
-                    <div className="banner_bottom">
+                    <div className="banner_bottom_main">
                         <div className="gender_filter">
                         <div className="filter">
                         <div className="dd-wrapper" onClick={toggling}>
                             <button 
-                                className="dd-header"
-                                style={{ 
-                                    color: (selectedOption === '남' || selectedOption === '여') ? '#118196' : '#292929',
-                                    fontWeight: (selectedOption === '남' || selectedOption === '여') ? 'bold' : 'normal',
-                                }}    
+                                className="dd-header-main"    
                             >
-                                <img src = {gender} className = "filter_image"/>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="58" height="58" viewBox="0 0 58 58" fill="none">
+                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M21.2014 18.705C19.4665 18.0275 17.5564 17.9416 15.7676 18.4606C13.9788 18.9796 12.4114 20.0746 11.3085 21.5755C10.2057 23.0765 9.62906 24.8995 9.66821 26.7617C9.70735 28.6238 10.3601 30.421 11.525 31.8742C12.69 33.3275 14.3021 34.3556 16.1111 34.799C17.9201 35.2424 19.8249 35.0763 21.5298 34.3265C23.2348 33.5767 24.6446 32.285 25.5404 30.652C26.4363 29.0191 26.768 27.1361 26.4843 25.2952C26.4601 25.1384 26.4672 24.9783 26.5049 24.8242C26.5426 24.67 26.6104 24.5248 26.7042 24.3968C26.7981 24.2689 26.9162 24.1606 27.0519 24.0783C27.1876 23.996 27.3382 23.9412 27.495 23.9171C27.6519 23.893 27.812 23.9 27.9661 23.9378C28.1203 23.9755 28.2655 24.0432 28.3934 24.1371C28.5214 24.231 28.6296 24.3491 28.7119 24.4848C28.7942 24.6205 28.849 24.771 28.8731 24.9279C29.2376 27.2946 28.8107 29.7154 27.6586 31.8147C26.5066 33.914 24.6939 35.5744 22.5019 36.5382C20.3098 37.502 17.8608 37.7153 15.5351 37.1451C13.2094 36.5749 11.1369 35.2529 9.63925 33.3845C8.14159 31.516 7.30251 29.2054 7.25222 26.8114C7.20192 24.4173 7.94322 22.0735 9.36108 20.1438C10.7789 18.2141 12.7941 16.8063 15.0938 16.1389C17.3935 15.4715 19.8493 15.5818 22.0799 16.4526C22.2297 16.5088 22.3669 16.5942 22.4835 16.7039C22.6 16.8135 22.6937 16.9452 22.7589 17.0914C22.8242 17.2375 22.8597 17.3951 22.8636 17.5551C22.8674 17.7151 22.8394 17.8742 22.7812 18.0233C22.7231 18.1724 22.6359 18.3084 22.5247 18.4235C22.4135 18.5386 22.2806 18.6305 22.1336 18.6938C21.9866 18.7571 21.8285 18.7906 21.6685 18.7923C21.5085 18.794 21.3497 18.7651 21.2014 18.705Z" fill="black"/>
+                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M16.9167 47.125V37.4583C16.9167 37.1379 17.044 36.8305 17.2706 36.6039C17.4972 36.3773 17.8046 36.25 18.125 36.25C18.4455 36.25 18.7528 36.3773 18.9794 36.6039C19.206 36.8305 19.3334 37.1379 19.3334 37.4583V47.125C19.3334 47.4455 19.206 47.7528 18.9794 47.9794C18.7528 48.206 18.4455 48.3333 18.125 48.3333C17.8046 48.3333 17.4972 48.206 17.2706 47.9794C17.044 47.7528 16.9167 47.4455 16.9167 47.125Z" fill="black"/>
+                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M13.2917 41.0833C13.2917 40.7629 13.419 40.4555 13.6456 40.2289C13.8722 40.0023 14.1796 39.875 14.5 39.875H21.75C22.0705 39.875 22.3778 40.0023 22.6044 40.2289C22.831 40.4555 22.9584 40.7629 22.9584 41.0833C22.9584 41.4038 22.831 41.7111 22.6044 41.9378C22.3778 42.1644 22.0705 42.2917 21.75 42.2917H14.5C14.1796 42.2917 13.8722 42.1644 13.6456 41.9378C13.419 41.7111 13.2917 41.4038 13.2917 41.0833ZM34.9233 18.4428C33.5842 18.0648 32.1725 18.0229 30.8134 18.321C29.4543 18.619 28.1896 19.2478 27.1316 20.1515C26.0736 21.0552 25.2549 22.206 24.7481 23.5018C24.2412 24.7976 24.0618 26.1985 24.2259 27.5802C24.2455 27.7382 24.2337 27.8985 24.1911 28.0519C24.1486 28.2054 24.0762 28.3489 23.978 28.4742C23.8798 28.5995 23.7578 28.7042 23.619 28.7822C23.4803 28.8603 23.3274 28.9101 23.1693 28.9289C23.0112 28.9477 22.851 28.9351 22.6978 28.8917C22.5446 28.8484 22.4015 28.7752 22.2767 28.6764C22.1519 28.5775 22.0478 28.455 21.9705 28.3158C21.8932 28.1766 21.8441 28.0236 21.8261 27.8654C21.5438 25.4874 22.0543 23.0828 23.2783 21.0246C24.5024 18.9664 26.3715 17.3697 28.5957 16.4824C30.8199 15.5951 33.2748 15.4667 35.5794 16.1172C37.8841 16.7677 39.9095 18.1607 41.3415 20.08C42.7736 21.9993 43.532 24.3376 43.4993 26.7321C43.4665 29.1265 42.6444 31.4432 41.1604 33.3226C39.6764 35.202 37.6136 36.5391 35.292 37.1263C32.9705 37.7135 30.52 37.518 28.3209 36.5702C28.1752 36.5074 28.0432 36.4166 27.9326 36.3028C27.822 36.1891 27.7348 36.0546 27.6761 35.9072C27.5576 35.6095 27.5622 35.2768 27.689 34.9825C27.8157 34.6881 28.0542 34.4562 28.352 34.3376C28.6497 34.2191 28.9824 34.2238 29.2767 34.3505C30.3398 34.8085 31.4856 35.0435 32.6432 35.0408C33.8008 35.0381 34.9455 34.7979 36.0064 34.3349C37.0674 33.872 38.022 33.1962 38.8113 32.3494C39.6005 31.5026 40.2075 30.5028 40.5947 29.4119C40.9819 28.321 41.1411 27.1623 41.0624 26.0074C40.9837 24.8525 40.6688 23.726 40.1371 22.6978C39.6055 21.6695 38.8684 20.7613 37.9716 20.0294C37.0747 19.2975 36.0372 18.7575 34.9233 18.4428Z" fill="black"/>
+                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M39.6249 20.7918C39.3984 20.5652 39.2711 20.2579 39.2711 19.9375C39.2711 19.6171 39.3984 19.3098 39.6249 19.0832L48.6874 10.0207C48.7989 9.90528 48.9322 9.81322 49.0796 9.74989C49.227 9.68657 49.3856 9.65323 49.546 9.65184C49.7065 9.65045 49.8656 9.68102 50.0141 9.74178C50.1626 9.80253 50.2975 9.89225 50.411 10.0057C50.5244 10.1192 50.6141 10.2541 50.6749 10.4026C50.7356 10.5511 50.7662 10.7102 50.7648 10.8706C50.7634 11.0311 50.7301 11.1896 50.6668 11.337C50.6034 11.4845 50.5114 11.6178 50.396 11.7293L41.3335 20.7918C41.1069 21.0183 40.7996 21.1456 40.4792 21.1456C40.1588 21.1456 39.8515 21.0183 39.6249 20.7918Z" fill="black"/>
+                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M49.4498 18.125C49.2911 18.1229 49.1344 18.0896 48.9886 18.027C48.8428 17.9644 48.7107 17.8737 48.6 17.76C48.4892 17.6463 48.402 17.512 48.3431 17.3646C48.2843 17.2172 48.2551 17.0596 48.2572 16.9009L48.3176 12.099L43.5157 12.1594C43.1952 12.1636 42.8862 12.0403 42.6567 11.8166C42.4271 11.593 42.2958 11.2873 42.2917 10.9668C42.2875 10.6463 42.4108 10.3373 42.6345 10.1078C42.8581 9.87824 43.1638 9.74694 43.4843 9.74277L50.7657 9.65094L50.6739 16.9324C50.6718 17.091 50.6385 17.2478 50.5759 17.3936C50.5133 17.5394 50.4225 17.6715 50.3089 17.7822C50.1952 17.893 50.0609 17.9802 49.9135 18.039C49.7661 18.0979 49.6085 18.1271 49.4498 18.125Z" fill="black"/>
+                                </svg>
                                 {selectedOption}
                             </button>
                             {isOpen && (
@@ -155,9 +266,32 @@ function Main() {
                                     ))}
                                 </ul>
                             )}
-                            </div>
+                        </div>
+                        <div className="num-dropdown" onClick={numToggling}>
+                            <button
+                                className="num-dropdown-header"
+                            >
+                                <svg xmlns="http://www.w3.org/2000/svg" width="47" height="47" viewBox="0 0 47 47" fill="none">
+                                    <path d="M23.5 23.5C25.8372 23.5 28.0787 22.5715 29.7314 20.9189C31.384 19.2662 32.3125 17.0247 32.3125 14.6875C32.3125 12.3503 31.384 10.1088 29.7314 8.45612C28.0787 6.80346 25.8372 5.875 23.5 5.875C21.1628 5.875 18.9213 6.80346 17.2686 8.45612C15.616 10.1088 14.6875 12.3503 14.6875 14.6875C14.6875 17.0247 15.616 19.2662 17.2686 20.9189C18.9213 22.5715 21.1628 23.5 23.5 23.5ZM29.375 14.6875C29.375 16.2456 28.756 17.74 27.6543 18.8418C26.5525 19.9435 25.0581 20.5625 23.5 20.5625C21.9419 20.5625 20.4475 19.9435 19.3457 18.8418C18.244 17.74 17.625 16.2456 17.625 14.6875C17.625 13.1294 18.244 11.635 19.3457 10.5332C20.4475 9.43147 21.9419 8.8125 23.5 8.8125C25.0581 8.8125 26.5525 9.43147 27.6543 10.5332C28.756 11.635 29.375 13.1294 29.375 14.6875ZM41.125 38.1875C41.125 41.125 38.1875 41.125 38.1875 41.125H8.8125C8.8125 41.125 5.875 41.125 5.875 38.1875C5.875 35.25 8.8125 26.4375 23.5 26.4375C38.1875 26.4375 41.125 35.25 41.125 38.1875ZM38.1875 38.1758C38.1846 37.4531 37.7351 35.2794 35.7435 33.2878C33.8283 31.3725 30.2239 29.375 23.5 29.375C16.7731 29.375 13.1718 31.3725 11.2565 33.2878C9.26488 35.2794 8.81838 37.4531 8.8125 38.1758H38.1875Z" fill="#292929"/>
+                                </svg>
+                                {numSelectedOption}
+                            </button>
+                            {numIsOpen && (
+                                <ul className="num-dropdown-list">
+                                    {numOptions.map(num_option => (
+                                        <li className="num-dropdown-list-item" onClick={onNumOptionClicked(num_option)}>
+                                            {num_option}
+                                        </li>
+                                    ))}
+                                </ul>
+                            )}
+                        </div>
                     </div>
-                            <button onClick={applyGenderFilter} className="filter_button">게시글 필터 적용</button>
+                            <button onClick={applyFilter} className="filter_button">게시글 필터 적용</button>
+                        </div>
+                        <div className="search">
+                            <input value={keyword} onChange={(event) => setKeyword(event.target.value)} type="text" className="searchbar" placeholder="게시물 검색"/>
+                            <button className="search_button" onClick={() => handleSearch()}>검색</button>
                         </div>
                     </div>
                     <div className="box_array">
@@ -169,13 +303,13 @@ function Main() {
                                 </div>
                                 <div className = "box_info">
                                     <span className = "box_gender">
-                                        {val.gender}
+                                        {genderEnumMapping[val.gender]}
                                     </span>
                                     <span>
                                         |
                                     </span>
                                     <span className = "box_count">
-                                        {val.number}
+                                        {numberEnumMapping[val.number]}
                                     </span>
                                 </div>
                                 <div className = "box_line">
@@ -189,19 +323,30 @@ function Main() {
                     </div>
                 </div>
                     <ReactPaginate
-                        previousLabel={<img src={left} alt="이전" className="page_label" />}
-                        nextLabel={<img src={right} alt="다음" className="page_label" />}
-                        breakLabel={'...'}
-                        breakClassName={'break-me'}
-                        pageCount={totalPages}
-                        marginPagesDisplayed={2}
-                        pageRangeDisplayed={5}
-                        onPageChange={handlePageClick}
-                        containerClassName={'pagination'}
-                        activeClassName={'active'}
-                    />
+                            previousLabel={'이전'}
+                            nextLabel={'다음'}
+                            breakLabel={'...'}
+                            breakClassName={'break-me'}
+                            pageCount={totalPages}
+                            marginPagesDisplayed={2}
+                            pageRangeDisplayed={5}
+                            onPageChange={handlePageClick}
+                            containerClassName={'pagination'}
+                            activeClassName={'active'}
+                        />
                 </div>
-        </div>
+            )}
+            {!userId && (
+                <>
+                    <div>
+                        DASOM을 이용하려면 로그인해 주세요...
+                    </div>
+                    <button onClick={handleLogout}>
+                        로그인
+                    </button>
+                </>
+            )}
+            </div>
     );
 }
 

@@ -4,7 +4,6 @@ import { Link, useParams, useNavigate } from 'react-router-dom';
 import axios from "axios";
 import './MeetingRequest.css';
 import './default.css';
-import bell from './images/bells.png';
 import banner from './images/banner_image.png';
 
 function MeetingRequest() {
@@ -48,7 +47,7 @@ function MeetingRequest() {
       }
     } catch (error) {
       // 오류 발생 시의 처리
-      console.error('에러 발생:', error);
+      navigate('./error')
     }
   };
 

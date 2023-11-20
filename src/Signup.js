@@ -72,6 +72,7 @@ function Signup() {
       }
     } catch (error) {
       // 오류 발생 시의 처리
+      navigate('/error');
       console.error('에러 발생:', error);
     }
   };
@@ -117,6 +118,7 @@ function Signup() {
         }
       } catch (error) {
         // 오류 발생 시의 처리
+        navigate('/error');
         console.error('에러 발생:', error);
       }
     };
@@ -155,6 +157,7 @@ function Signup() {
         }
       } catch (error) {
         // 오류 발생 시의 처리
+        navigate('/error');
         console.error('에러 발생:', error);
       }
     };
@@ -162,11 +165,15 @@ function Signup() {
   }
 
   const getDupId = async () => {
-    const resp = await (await axios.get(`http://140.238.14.81:8080/users/nickname/${nickname}`));
-    console.log(resp.data);
+    try {
+      const resp = await (await axios.get(`http://140.238.14.81:8080/users/nickname/${nickname}`));
+      console.log(resp.data);
 
-    if(!resp.data) {
-      setIsDuplicated(false);
+      if(!resp.data) {
+        setIsDuplicated(false);
+      }
+    } catch (error) {
+      navigate('/error')
     }
   }
 

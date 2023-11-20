@@ -17,6 +17,19 @@ function Read() {
     const [board, setBoard] = useState({});
     const [isNotificationOpen, setIsNotificationOpen] = useState(false);
 
+    const genderEnumMapping = {
+        MALE: "남",
+        FEMALE: "여",
+    };
+
+    const numberEnumMapping = {
+        ONE: "1:1",
+        TWO: "2:2",
+        THREE: "3:3",
+        FOUR: "4:4",
+        FIVE: "5:5"
+    };
+
     const openNotification = () => {
         setIsNotificationOpen(true);
     };
@@ -26,20 +39,30 @@ function Read() {
     };
 
     const getBoard = async () => {
-        const resp = await (await axios.get(`http://140.238.14.81:8080/post/detail/${id}`));
-        setBoard(resp.data);
-        console.log(resp.data);
+        try {
+            const resp = await (await axios.get(`http://140.238.14.81:8080/post/detail/${id}`));
+            setBoard(resp.data);
+            console.log(resp.data);
+        } catch (error) {
+            navigate('/error');
+        }
     }
+
     useEffect(() => {
         getBoard();
     }, []);
+
     const handleDelete = async () => {
-        const sendUserId = {
-            userId: localStorage.getItem('userId')
+         try {
+            const sendUserId = {
+                userId: localStorage.getItem('userId')
+            }
+            const resp = await (await axios.post(`http://140.238.14.81:8080/post/${id}`, sendUserId));
+            alert("삭제되었습니다.");
+            navigate('/main');
+        } catch(error) {
+            navigate('/error');
         }
-        const resp = await (await axios.post(`http://140.238.14.81:8080/post/${id}`, sendUserId));
-        alert("삭제되었습니다.");
-        navigate('/main');
     }
 
     return(
@@ -89,13 +112,13 @@ function Read() {
                     </div>
                     <div className="info_block">
                         <div className="recruit_info">
-                            {board.gender}
+                            {genderEnumMapping[board.gender]}
                         </div>
                         <div className="partition">
                             |
                         </div>
                         <div className="recruit_info">
-                            {board.number}
+                            {numberEnumMapping[board.number]}
                         </div>
                     </div>
                     <div className="read_box_line">

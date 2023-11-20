@@ -59,9 +59,9 @@
     color: #5EBAC3;
 }
 
-.banner_bottom {
+.banner_bottom_main {
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-between;
     align-items: baseline;
     margin-bottom: 50px;
 }
@@ -78,11 +78,22 @@
 
 .filter {
     margin-right: 10px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    border-radius: 10px;
+    border: 1px solid #777777;
 }
 
-.dd-header {
-    border: 1px solid #777777;
-    border-radius: 10px;
+.dd-header-main {
+    padding: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.num-dropdown-header {
     padding: 20px;
     padding-top: 10px;
     padding-bottom: 10px;
@@ -164,42 +175,20 @@
 .pagination {
     display: flex;
     justify-content: center;
-    align-items: flex-start;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    padding-bottom: 30px;
-    font-size: 23px;
+    list-style: none;
+    padding: 0;
 }
 
-.pagination li {
-    list-style-type: none;
-}
-.previous {
-    margin-right: 30px;
-}
-
-.page {
-    margin-left: 25px;
-    margin-right: 25px;
+.pagination a {
+    padding: 10px;
+    margin: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    color: #000; /* 버튼 색상 */
 }
 
-.active {
-    margin-left: 25px;
-    margin-right: 25px;
-    background-color: #CEEEEE;
-    border-radius: 50%;
-    width: 35px;
-    height: 35px;
-    text-align: center;
-}
-
-.next {
-    margin-left: 30px;
-}
-
-.page_label {
-    width: 30px;
-    height: 30px;
+.pagination .active {
+    font-weight: bold;
 }
 
 .dd-list {
@@ -210,9 +199,7 @@
 
 .dd-list-item {
     list-style-type: none;
-    padding-top: 5px;
-    padding-left: 30px;
-    padding-bottom: 5px;
+    padding: 10px;
     border-radius: 10px;
 }
 
@@ -222,4 +209,47 @@
 
 .dd-list-item:hover {
     cursor: pointer;
+}
+
+.num-dropdown-list {
+    border: 1px solid #777777;
+    background-color: white;
+    z-index: 1;
+    position: absolute;
+    border-radius: 10px;
+    padding-inline-start: 0;
+}
+
+.num-dropdown-list-item {
+    list-style-type: none;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.num-dropdown-list-item:hover{
+    background-color: #5FC6C4;
+}
+
+.search {
+    margin-right: 20%;
+}
+
+.searchbar {
+    width: 300px;
+    height: 30px;
+    font-family: default_font;
+}
+
+.search_button {
+    background-color: #CEEEEE;
+    padding: 8px;
+    padding-left: 16px;
+    padding-right: 16px;
+    border-radius: 10px;
+    color: #4A4A4A;
+    margin-left: 10px;
+}
+
+.search_button:hover {
+    background-color: #5FC6C4;
 }
