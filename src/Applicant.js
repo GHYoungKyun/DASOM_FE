@@ -13,9 +13,14 @@ function Applicant() {
     const [reqId, setReqId] = useState('');
 
     const getReqList = async () => {
-        const resp = await (await axios.get(`http://140.238.14.81:8080/request/post/${id}?size=4&page=${currentPage}&sort=createdDate,desc`));
-        setReqList(resp.data);
-        console.log(resp.data);
+        try {
+            const resp = await (await axios.get(`http://140.238.14.81:8080/request/post/${id}?size=4&page=${currentPage}&sort=createdDate,desc`));
+            setReqList(resp.data);
+            setTotalPages(resp.data.totalPages);
+            console.log(resp.data);
+        } catch (error) {
+            navigate('/error');
+        }
     }
 
     useEffect(() => {
@@ -27,15 +32,27 @@ function Applicant() {
     }
 
     const handleAccept = async (reqId) => {
-        const resp = await (await axios.put(`http://140.238.14.81:8080/request/result/${reqId}?result=YES`, sendUserId));
-        alert("미팅 요청이 수락되었습니다!");
-        navigate("/main");
+        try {
+            const resp = await (await axios.put(`http://140.238.14.81:8080/request/result/${reqId}?result=YES`, sendUserId));
+            alert("미팅 요청이 수락되었습니다!");
+            navigate("/main");
+        } catch (error) {
+            navigate('/error');
+        }
     }
     const handleRefuse = async (reqId) => {
-        const resp = await (await axios.delete(`http://140.238.14.81:8080/request/${reqId}`));
-        alert("미팅 요청이 거절되었습니다!");
-        window.location.reload();
+        try {
+            const resp = await (await axios.delete(`http://140.238.14.81:8080/request/${reqId}`));
+            alert("미팅 요청이 거절되었습니다!");
+            window.location.reload();
+        } catch (error) {
+            navigate('/error');
+        }
     }
+
+    const handlePageClick = (selectedPage) => {
+        setCurrentPage(selectedPage.selected);
+    };
 
 
     return(
@@ -50,6 +67,18 @@ function Applicant() {
                     </li>
                 ))}
             </ul>
+            <ReactPaginate
+                previousLabel={'이전'}
+                nextLabel={'다음'}
+                breakLabel={'...'}
+                breakClassName={'break-me'}
+                pageCount={totalPages}
+                marginPagesDisplayed={2}
+                pageRangeDisplayed={5}
+                onPageChange={handlePageClick}
+                containerClassName={'pagination'}
+                activeClassName={'active'}
+            />
         </div>
     );
 }

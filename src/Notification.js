@@ -6,6 +6,7 @@ import './Notification.css';
 function Notification() {
     const [noticeList, setNoticeList] = useState([]);
     const userId = localStorage.getItem('userId');
+    const navigate = useNavigate();
 
     const getNoticeList = async () => {
         try{
@@ -16,7 +17,7 @@ function Notification() {
 
             noticeList.map((val, idx) => console.log(val));
         } catch (error) {
-            console.error(error);
+            navigate('/error');
         }
     };
 

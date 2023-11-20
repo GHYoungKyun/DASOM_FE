@@ -35,7 +35,7 @@ function MeetingRequest() {
       }
     } catch (error) {
       // 오류 발생 시의 처리
-      console.error('에러 발생:', error);
+      navigate('/error');
     }
   };
 

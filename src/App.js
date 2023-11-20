@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes} from 'react-router-dom';
 import Login from './Login';
 import MeetingRequest from './MeetingRequest';
 import MyPage from './MyPage';
@@ -12,6 +12,7 @@ import Read from './Read';
 import Redirect from './Redirect';
 import RedirectK from './RedirectK';
 import Notification from './Notification';
+import ErrorPage from './ErrorPage';
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
             <Route path="/oauth/redirected/naver" element={<Redirect />} />
             <Route path="/oauth/redirected/kakao" element={<RedirectK />} />
             <Route path="/notification" element={<Notification />} />
+            <Route path="/error" element={<ErrorPage />} />
         </Routes>
     </div>
   );

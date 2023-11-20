@@ -48,6 +48,7 @@ function MyPage() {
   }
   const [currentPage, pageChange] = useState('1');
   const userId = localStorage.getItem('userId');
+  const navigate = useNavigate();
 
   function MyRequest() {
 
@@ -58,14 +59,19 @@ function MyPage() {
     const [totalPages, setTotalPages] = useState(1);
 
     const getReqList = async () => {
-      const resp = await (await axios.get(`http://140.238.14.81:8080/request/${userId}?size=5&page=${reqCurrentPage}&sort=createdDate,desc`));
-      setReqList(resp.data);
-      console.log(resp.data);
+      try{
+        const resp = await (await axios.get(`http://140.238.14.81:8080/request/${userId}?size=5&page=${reqCurrentPage}&sort=createdDate,desc`));
+        setReqList(resp.data);
+        setTotalPages(resp.data.totalPages);
+        console.log(resp.data);
+      } catch (error) {
+        navigate('/error');
+      }
     }
 
     useEffect(() => {
       getReqList();
-    }, []);
+    }, [reqCurrentPage]);
 
     const editReq = async () => {
       try {
@@ -87,15 +93,20 @@ function MyPage() {
         window.location.reload();
       } catch (error) {
         // 오류 발생 시의 처리
+        navigate('/error');
         console.error('에러 발생:', error);
       }
     };
 
     const reqDelete = async (reqId) => {
-      const resp = await (await axios.delete(`http://140.238.14.81:8080/request/${reqId}`));
-      console.log(resp.data);
+      try{
+        const resp = await (await axios.delete(`http://140.238.14.81:8080/request/${reqId}`));
+        console.log(resp.data);
 
-      alert("신청이 삭제되었습니다!");
+        alert("신청이 삭제되었습니다!");
+      } catch (error) {
+        navigate('/error');
+      }
     }
 
     function handleDelete(reqId) {
@@ -112,6 +123,11 @@ function MyPage() {
       setIsUpdate(false);
       console.log(req);
     }
+
+    const handlePageClick = (selectedPage) => {
+      setReqCurrentPage(selectedPage.selected);
+      console.log(selectedPage.selected);
+    };
 
     return (
         <>
@@ -163,6 +179,18 @@ function MyPage() {
             )}
             </>
         ))}
+          <ReactPaginate
+              previousLabel={'이전'}
+              nextLabel={'다음'}
+              breakLabel={'...'}
+              breakClassName={'break-me'}
+              pageCount={totalPages}
+              marginPagesDisplayed={2}
+              pageRangeDisplayed={5}
+              onPageChange={handlePageClick}
+              containerClassName={'pagination'}
+              activeClassName={'active'}
+          />
         </>
     );
   }
@@ -171,16 +199,21 @@ function MyPage() {
     const [postCurrentPage, setPostCurrentPage] = useState(0);
     const [totalPages, setTotalPages] = useState(1);
     const getPostList = async () => {
-      const resp = await (await axios.get(`http://140.238.14.81:8080/post/${userId}?size=5&page${postCurrentPage}&sort=createdDate,desc`));
-      setPostList(resp.data);
+      try{
+        const resp = await (await axios.get(`http://140.238.14.81:8080/post/${userId}?size=5&page${postCurrentPage}&sort=createdDate,desc`));
+        setPostList(resp.data);
+        setTotalPages(resp.data.totalPages);
+      } catch (error) {
+        navigate('/error');
+      }
     }
 
     useEffect(() => {
       getPostList();
-    }, []);
+    }, [currentPage]);
 
     const handlePageClick = (selectedPage) => {
-      setPostCurrentPage(selectedPage.selected + 1);
+      setPostCurrentPage(selectedPage.selected);
     };
 
     return (
@@ -252,21 +285,30 @@ function MyPage() {
     const navigate = useNavigate();
 
     const getUser = async () => {
-      const resp = await (await axios.get(`http://140.238.14.81:8080/users/${userId}`));
-      setUserInfo(resp.data);
-      console.log(resp.data);
+      try {
+        const resp = await (await axios.get(`http://140.238.14.81:8080/users/${userId}`));
+        setUserInfo(resp.data);
+        console.log(resp.data);
+      } catch (error) {
+        navigate('/error');
+      }
     }
+
     useEffect(() => {
       getUser();
     }, []);
 
 
     const getDupId = async () => {
-      const resp = await (await axios.get(`http://140.238.14.81:8080/users/nickname/${userInfo.nickname}`));
-      console.log(resp.data);
+      try {
+        const resp = await (await axios.get(`http://140.238.14.81:8080/users/nickname/${userInfo.nickname}`));
+        console.log(resp.data);
 
-      if(!resp.data) {
-        setIsDuplicated(false);
+        if(!resp.data) {
+          setIsDuplicated(false);
+        }
+      } catch (error) {
+        navigate('/error');
       }
     }
 
@@ -291,7 +333,7 @@ function MyPage() {
         alert("수정되었습니다!")
       } catch (error) {
         // 오류 발생 시의 처리
-        console.error('에러 발생:', error);
+        navigate('/error');
       }
     };
 
@@ -302,8 +344,12 @@ function MyPage() {
     }
 
     const handleQuit = async () => {
-      const resp = await (await axios.delete(`http://140.238.14.81:8080/users/${userId}`));
-      navigate('/');
+      try{
+        const resp = await (await axios.delete(`http://140.238.14.81:8080/users/${userId}`));
+        navigate('/');
+      } catch (error) {
+        navigate('/error');
+      }
     }
 
     return (
