@@ -1,7 +1,12 @@
-<div>
-<h1>🤝 대학생 소개팅 서비스, 다솜! - FrontEnd </h1>
-<img src="https://img.shields.io/badge/React-#61DAFB?style=for-the-badge&logo=React&logoColor=white">
-<img src="https://img.shields.io/badge/Axios-#5A29E4?style=for-the-badge&logo=Axios&logoColor=white">
+<div style="text-align: left;"> 
+    <h2 style="border-bottom: 1px solid #d8dee4; color: #282d33;">  🤝 대학생 소개팅 서비스, 다솜! - FrontEnd </h2>  
+    <div style="font-weight: 700; font-size: 15px; text-align: left; color: #282d33;">  </div> 
+    </div>
+    <div style="text-align: left;">
+    <h2 style="border-bottom: 1px solid #d8dee4; color: #282d33;"> 🛠️ Tech Stacks </h2> <br> 
+    <div style="margin: ; text-align: left;" "text-align: left;"> <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=white">
+          </div>
+    </div>
 
 <h2>🙋‍♂️ 우리 프로젝트를 소개합니다! </h2>
 <p> 우리의 프로젝트 '다솜'은 대학생들을 대상으로 원하는 사람을 쉽게 만날 수 있도록 소개팅 서비스를 제공하는 웹 프로젝트입니다. 프로젝트 명인 '다솜'은 사랑을 뜻하는 순 우리말에서 비롯되었습니다.
