@@ -19,7 +19,7 @@ Node.js가 설치되어있어야 합니다.
 node.js 공식 웹사이트 https://nodejs.org/en
 
 <h3>1. react 프로젝트 생성</h3>
-npx create-react-app (프로젝트 이름)
+'''npx create-react-app (프로젝트 이름)'''
 
 <h3>2. Git Clone </h3>
 git clone https://github.com/GHYoungKyun/DASOM_FE.git
