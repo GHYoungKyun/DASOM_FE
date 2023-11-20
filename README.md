@@ -1,5 +1,5 @@
 <div style="text-align: left;"> 
-    <h2 style="border-bottom: 1px solid #d8dee4; color: #282d33;">  🤝 대학생 소개팅 서비스, 다솜! - FrontEnd </h2>  
+    <h1 style="border-bottom: 1px solid #d8dee4; color: #282d33;">  🤝 대학생 소개팅 서비스, 다솜! - FrontEnd </h1>  
     <div style="font-weight: 700; font-size: 15px; text-align: left; color: #282d33;">  </div> 
     </div>
     <div style="text-align: left;">
