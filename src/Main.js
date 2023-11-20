@@ -9,7 +9,9 @@ function Main() {
     const [currentPage, setCurrentPage] = useState(0);
     const [totalPages, setTotalPages] = useState(1);
     const [genderFilter, setGenderFilter] = useState('ALL');
+    const [numFilter, setNumFilter] = useState('ALL');
     const userId = localStorage.getItem('userId');
+    const [keyword, setKeyword] = useState('');
 
     const postsPerPage = 5;
 
@@ -73,7 +75,7 @@ function Main() {
         }
     };
 
-    const getFilteredBoardList = async () => {
+    const getGenFilteredBoardList = async () => {
         try{
             const apiUrl = `http://140.238.14.81:8080/post/gender/${genderFilter}?size=${postsPerPage}&page=${currentPage}&sort=createdDate,desc`;
 
@@ -87,17 +89,66 @@ function Main() {
         }
     }
 
+    const getNumFilteredBoardList = async () => {
+        const apiUrl = `http://140.238.14.81:8080/post/number/${numFilter}?size=${postsPerPage}&page=${currentPage}&sort=createdDate,desc`;
+
+        const resp = await axios.get(apiUrl);
+        setBoardList(resp.data);
+        console.log(resp.data);
+        console.log(resp.data.content);
+    }
+
+    const getFilteredBoardList = async () => {
+        try{
+            const apiUrl = `http://140.238.14.81:8080/post/filter?number=${numFilter}&gender=${genderFilter}&size=${postsPerPage}&page=${currentPage}&sort=createdDate,desc`;
+
+            const resp = await axios.get(apiUrl);
+            setBoardList(resp.data);
+            console.log(resp.data);
+            console.log(resp.data.content);
+
+        } catch (error) {
+            console.error(error);
+        }
+    }
+    const getSearchBoardList = async () => {
+        try{
+            const apiUrl = `http://140.238.14.81:8080/post/search?keyword=${keyword}`;
+
+            const resp = await axios.get(apiUrl);
+            setBoardList(resp.data);
+            console.log(resp.data);
+            console.log(resp.data.content);
+
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+
     useEffect(() => {
         getBoardList();
     }, [currentPage]);
 
-    function applyGenderFilter(event) {
+    function applyFilter(event) {
         console.log(genderFilter);
-        if(genderFilter == 'ALL') {
+        console.log(numFilter);
+        if(genderFilter == 'ALL' && numFilter == 'ALL') {
             getBoardList();
-        } else {
+        }
+        else if(genderFilter == 'ALL' && numFilter != 'ALL') {
+            getNumFilteredBoardList();
+        }
+        else if(genderFilter != 'ALL' && numFilter == 'ALL') {
+            getGenFilteredBoardList();
+        }
+        else {
             getFilteredBoardList();
         }
+    }
+
+    function handleSearch() {
+        getSearchBoardList();
     }
 
     const handlePageClick = (selectedPage) => {
@@ -130,8 +181,23 @@ function Main() {
                             <option value="MALE">남</option>
                             <option value="FEMALE">여</option>
                         </select>
-                        <button onClick={applyGenderFilter}>게시글 필터 적용</button>
                     </div>
+                    <div className="num_filter">
+                        <p>모집인원</p>
+                        <select value={numFilter} onChange={(event) => setNumFilter(event.target.value)} style={sizeSet}>
+                            <option value="ALL">전체</option>
+                            <option value="ONE">1:1</option>
+                            <option value="TWO">2:2</option>
+                            <option value="THREE">3:3</option>
+                            <option value="FOUR">4:4</option>
+                            <option value="FIVE">5:5</option>
+                        </select>
+                        <button onClick={applyFilter}>게시글 필터 적용</button>
+                    </div>
+                    <input value={keyword} onChange={(event) => setKeyword(event.target.value)} type="text" className="searchbar" placeholder="게시물 검색"/>
+                    <button className="search_button" onClick={() => handleSearch()}>검색</button>
+
+
 
                     {boardList && boardList.content.map((val,idx) => (
                         <Link to={`/read/${val.postId.id}`}>

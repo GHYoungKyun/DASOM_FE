@@ -25,9 +25,7 @@ function Edit() {
                 openKakaoAddress: board.openKakaoAddress,
                 userId: userId,
                 gender: board.gender,
-                number: board.number,
-                //alcohol: alcohol,
-                location: board.location
+                number: board.number
             };
 
             // Axios를 사용하여 POST 요청 보내기

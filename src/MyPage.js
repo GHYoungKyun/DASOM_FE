@@ -52,6 +52,8 @@ function MyPage() {
   function MyRequest() {
 
     const [reqList, setReqList] = useState(null);
+    const [req, setReq] = useState(null);
+    const [isUpdate, setIsUpdate] = useState(false);
     const [reqCurrentPage, setReqCurrentPage] = useState(0);
     const [totalPages, setTotalPages] = useState(1);
 
@@ -65,38 +67,101 @@ function MyPage() {
       getReqList();
     }, []);
 
-    const handleDelete = async (reqId) => {
+    const editReq = async () => {
+      try {
+        // POST 요청 보낼 엔드포인트 URL
+        const apiUrl = `http://140.238.14.81:8080/request/${req.requestId.id}`;
+
+        // 보낼 데이터
+        const dataToSend = {
+          title: req.title,
+          content: req.content,
+          userId: userId
+        };
+
+        // Axios를 사용하여 POST 요청 보내기
+        const response = await axios.put(apiUrl, dataToSend);
+        // 성공적으로 응답 받았을 때의 처리
+        console.log('응답 데이터:', response.data);
+        alert("수정되었습니다!")
+        window.location.reload();
+      } catch (error) {
+        // 오류 발생 시의 처리
+        console.error('에러 발생:', error);
+      }
+    };
+
+    const reqDelete = async (reqId) => {
       const resp = await (await axios.delete(`http://140.238.14.81:8080/request/${reqId}`));
       console.log(resp.data);
-      if(resp.data) {
-        alert("신청이 삭제되었습니다!");
-      }
-      else {
-        alert("신청을 삭제할 수 없습니다!");
-      }
+
+      alert("신청이 삭제되었습니다!");
+    }
+
+    function handleDelete(reqId) {
+      reqDelete(reqId);
+    }
+
+    function handleUpdate(req) {
+      setIsUpdate(true);
+      setReq(req);
+    }
+
+    function handleUpdateRequest() {
+      editReq();
+      setIsUpdate(false);
+      console.log(req);
     }
 
     return (
         <>
         {reqList && reqList.content.map((val, idx) => (
-            <div>
-              <div style={boxStyle}>
-                <p style={contentStyle} />
-              <span style={univStyle}>
+            <>
+            {isUpdate && (req.requestId.id == val.requestId.id) ? (
+                  <div>
+                    <div style={boxStyle}>
+                      <p style={contentStyle} />
+                      <span style={univStyle}>
               </span>
-              <h3 style={headerStyle}>
-                {val.title}
-              </h3>
-              <hr />
-              <span style={userStyle}>
+                      <h3 style={headerStyle}>
+                        <input type="text" value={req.title} onChange={(event) => setReq({...req, title: event.target.value})} />
+                      </h3>
+                      <h3 style={headerStyle}>
+                        <input type="text" value={req.content} onChange={(event) => setReq({...req, content: event.target.value})} />
+                      </h3>
+                      <hr />
+                      <span style={userStyle}>
+                    {req.nickname}
+              </span>
+                    </div>
+                      <button onClick={() => handleUpdateRequest()}>확인</button>
+                  </div>
+            ) : (
+                  <div>
+                    <div style={boxStyle}>
+                      <p style={contentStyle} />
+                      <span style={univStyle}>
+              </span>
+                      <h3 style={headerStyle}>
+                        {val.title}
+                      </h3>
+                      {val.content}
+                      <hr />
+                      <span style={userStyle}>
                     {val.nickname}
               </span>
-              </div>
-              <Link to={`/editreq/${val.requestId.id}`}>
-                <button>수정</button>
-              </Link>
-              <button onClick={() => handleDelete(val.requestId.id)}>삭제</button>
-            </div>
+                    </div>
+                    {(val.result == null) && (
+                        <>
+                          {/*<Link to={`/editreq/${val.requestId.id}`}>*/}
+                          <button onClick={() => handleUpdate(val)}>수정</button>
+                          {/*</Link>*/}
+                          <button onClick={() => handleDelete(val.requestId.id)}>삭제</button>
+                        </>
+                    )}
+                  </div>
+            )}
+            </>
         ))}
         </>
     );
