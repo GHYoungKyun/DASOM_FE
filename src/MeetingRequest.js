@@ -1,9 +1,9 @@
+import './MeetingRequest.css';
+import './default.css';
 import React, { useState } from 'react';
 import Notification from './Notification';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import axios from "axios";
-import './MeetingRequest.css';
-import './default.css';
 import banner from './images/banner_image.png';
 
 function MeetingRequest() {
@@ -69,7 +69,11 @@ function MeetingRequest() {
                         <div className="text-wrapper">DASOM</div>
                     </Link>
                     <div id="profile">
-                        <Link to="/mypage">{localStorage.getItem('nickname')}</Link>님
+                    <div className="top-nickname">
+                            <Link to="/mypage" id="nickname_to_mypage" title="마이페이지">
+                                {localStorage.getItem('nickname')}
+                            </Link>님
+                        </div>
                         <div>
                             <Link to="#" onClick={openNotification}>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 45 49" fill="none">
@@ -104,13 +108,13 @@ function MeetingRequest() {
           <label className="contentsInput">
             <div className="write_contents">제목</div>
             <div className="inputValue">
-              <input type="text" id="writeHeader"  onChange={(event) => setTitle(event.target.value)}/>
+              <input type="text" id="writeHeader" className="req-text" placeholder="제목을 입력해주세요!" onChange={(event) => setTitle(event.target.value)}/>
             </div>
           </label>
           <label className="contentsInput">
             <div className="write_contents">소개글</div>
             <div className="inputValue">
-              <textarea placeholder="메시지를 입력해주세요!" id="writeContent"  onChange={(event) => setContent(event.target.value)}/>
+              <textarea placeholder="메시지를 입력해주세요!" id="writeContent" className="req-text" onChange={(event) => setContent(event.target.value)}/>
             </div>
           </label>
           <div>

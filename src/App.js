@@ -31,6 +31,8 @@ function App() {
             <Route path="/oauth/redirected/kakao" element={<RedirectK />} />
             <Route path="/notification" element={<Notification />} />
             <Route path="/error" element={<ErrorPage />} />
+            
+            <Route path="*" element={<ErrorPage />} />
         </Routes>
     </div>
   );

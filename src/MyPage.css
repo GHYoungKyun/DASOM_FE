@@ -1,65 +1,4 @@
-#profile {
-    width: 300px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
 
-.text-wrapper {
-    color: #118196;
-    text-decoration: none;
-    font-size: 32px;
-    font-family: 'GeekbleMalang2WOFF2';
-}
-
-.banner-top {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    height: 100px;
-}
-
-.write_button {
-    background-color: #CEEEEE;
-    padding: 8px;
-    padding-left: 16px;
-    padding-right: 16px;
-    border-radius: 10px;
-    color: #4A4A4A;
-}
-
-.write_button:hover {
-    background-color: #5FC6C4;
-}
-
-
-.banner {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    background-color: #CEEEEE;
-    margin-top: 50px;
-    padding-top: 30px;
-    padding-bottom: 30px;
-    margin-bottom: 50px;
-}
-
-.banner_word {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-}
-
-.banner_words {
-    font-size: 20px;
-    margin-left: 20px;
-}
-
-.banner_logo {
-    font-family: 'GeekbleMalang2WOFF2';
-    font-size: 72px;
-    color: #5EBAC3;
-}
 
 .mypage_menu {
     width: 70%;
@@ -73,6 +12,15 @@
 }
 
 .box_style {
+    border: 2px solid #777777;
+    border-radius: 10px;
+    height: 300px;
+    width: 900px;
+    position: static;
+    color: #4A4A4A;
+}
+
+.modify_box_style {
     border: 2px solid #777777;
     border-radius: 10px;
     height: 300px;
@@ -177,6 +125,7 @@
     height: 30px;
     font-family: 'SUIT-Regular', sans-serif;
 }
+
 .edit_button {
     background-color: #CEEEEE;
     padding: 8px;
@@ -219,6 +168,16 @@
 
 #edit_content {
     margin-bottom: 130px;
+}
+
+.mypage-modify {
+    border-radius: 10px;
+    border: 1px solid #777777;
+    padding-left: 10px;
+}
+
+#modify-textarea {
+    padding-top: 10px;
 }
 
 .pagination {

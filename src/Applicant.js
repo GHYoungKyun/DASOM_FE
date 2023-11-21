@@ -1,9 +1,9 @@
+import './Applicant.css';
+import './default.css';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import ReactPaginate from 'react-paginate';
 import { useParams, useNavigate } from 'react-router-dom';
-import './Applicant.css';
-import './default.css';
 
 function Applicant() {
     const [reqList, setReqList] = useState(null);

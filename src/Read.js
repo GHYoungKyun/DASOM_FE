@@ -1,11 +1,10 @@
+import './Read.css';
+import './default.css';
 import React, {useEffect, useState} from 'react';
 import Notification from './Notification';
 import Applicant from './Applicant';
 import { Link } from 'react-router-dom';
 import axios from "axios";
-import './Read.css';
-import './default.css';
-import bell from './images/bells.png';
 import banner from './images/banner_image.png'
 import { useParams, useNavigate } from 'react-router-dom';
 
@@ -13,6 +12,7 @@ function Read() {
     const { id } = useParams();
     const navigate = useNavigate();
     console.log(id);
+
     const userId = localStorage.getItem('userId');
     const [board, setBoard] = useState({});
     const [isNotificationOpen, setIsNotificationOpen] = useState(false);
@@ -75,7 +75,11 @@ function Read() {
                         <div className="text-wrapper">DASOM</div>
                     </Link>
                     <div id="profile">
-                        <Link to="/mypage">{localStorage.getItem('nickname')}</Link>님
+                    <div className="top-nickname">
+                            <Link to="/mypage" id="nickname_to_mypage" title="마이페이지">
+                                {localStorage.getItem('nickname')}
+                            </Link>님
+                        </div>
                         <div>
                             <Link to="#" onClick={openNotification}>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 45 49" fill="none">
@@ -145,9 +149,11 @@ function Read() {
                     </div>
                 </div>
                 {(localStorage.getItem('nickname') != board.nickname) && (
-                    <Link to={`/meetingreq/${id}`}>
-                        <button className="apply_button">신청하기</button>
-                    </Link>
+                    <div className="apply_button_box">
+                        <Link to={`/meetingreq/${id}`}>
+                            <button className="apply_button">신청하기</button>
+                        </Link>
+                    </div>
                 )}
                 <div className="user_menu">
                     {(localStorage.getItem('nickname') == board.nickname) && (
@@ -157,13 +163,19 @@ function Read() {
                             <button className="apply_button">신청자 목록조회</button>
                         </Link>
                         */}
-                        <div>
-                            <Link to={`/edit/${id}`} >
-                                <button className="apply_button">수정</button>
-                            </Link>
-                            <button onClick={handleDelete} className="apply_button">삭제</button>
+                        <div className="apply_button_set">
+                            <div>
+                                <Link to={`/edit/${id}`} >
+                                    <button className="apply_button">수정</button>
+                                </Link>
+                            </div>
+                            <div>
+                                <button onClick={handleDelete} className="apply_button">삭제</button>
+                            </div>
                         </div>
-                        <Applicant />
+                        <div>
+                            <Applicant />
+                        </div>
                         </>
                     )}
                 </div>

@@ -1,6 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import {useLocation, useNavigate} from 'react-router-dom';
 import axios from 'axios';
+import './Login.css';
+import './default.css';
 
 const Redirect = () => {
     const location = useLocation();
@@ -48,8 +50,8 @@ const Redirect = () => {
     }, [location]);
 
     return (
-        <div>
-            <div>Processing...</div>
+        <div className="background">
+            <div style={{fontSize: "64px"}}>다솜에 로그인하는 중 입니다...</div>
         </div>
     );
 };

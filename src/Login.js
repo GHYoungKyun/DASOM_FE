@@ -1,6 +1,6 @@
-import React from 'react';
 import './Login.css';
 import './default.css'
+import React from 'react';
 import kakaoLogin from './images/kakao_login_large_narrow.png';
 import naverLogin from './images/btnG.png';
 

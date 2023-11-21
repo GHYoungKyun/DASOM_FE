@@ -1,11 +1,10 @@
+import './MyPage.css';
+import './default.css';
 import React, {useEffect, useState} from 'react';
 import Notification from './Notification';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from "axios";
 import ReactPaginate from 'react-paginate';
-import './MyPage.css';
-import './default.css';
-import bell from './images/bells.png';
 import banner from './images/banner_image.png';
 import { getByDisplayValue } from '@testing-library/react';
 
@@ -14,6 +13,24 @@ function MyPage() {
   const userId = localStorage.getItem('userId');
   const [isNotificationOpen, setIsNotificationOpen] = useState(false);
   const navigate = useNavigate();
+  const navigate2 = useNavigate();
+
+    // 유저 로그인 여부 확인 및 페이지 리다이렉트
+    useEffect(() => {
+      const isUserLoggedIn = () => {
+        const userId = localStorage.getItem('userId');
+        return userId !== null;
+      };
+  
+      const handlePageRedirect = () => {
+        if (!isUserLoggedIn()) {
+          // 유저가 로그인되어 있지 않다면 '/' 페이지로 이동
+          navigate2('/');
+        }
+      };
+  
+      handlePageRedirect();
+    }, [navigate2]);
 
     const openNotification = () => {
         setIsNotificationOpen(true);
@@ -36,16 +53,17 @@ function MyPage() {
           const resp = await (await axios.get(`http://140.238.14.81:8080/request/${userId}?size=5&page=${reqCurrentPage}&sort=createdDate,desc`));
           setReqList(resp.data);
           setTotalPages(resp.data.totalPages);
+          console.log(resp.data);
         } catch (error) {
           navigate('/error');
         }
       }
   
       useEffect(() => {
+        getReqList();
         if(!userId) {
           navigate('/');
         }
-        getReqList();
       }, [reqCurrentPage]);
   
       const editReq = async () => {
@@ -100,6 +118,7 @@ function MyPage() {
 
       const handlePageClick = (selectedPage) => {
         setReqCurrentPage(selectedPage.selected);
+        console.log(selectedPage.selected);
       };
   
       return (
@@ -108,12 +127,12 @@ function MyPage() {
               <>
               {isUpdate && (req.requestId.id == val.requestId.id) ? (
                     <div className="box_array">
-                      <div className="box_style">
+                      <div className="modify_box_style">
                         <div className="edit_input">
-                          <input type="text" value={req.title} style={{fontFamily: 'default_font', width: '500px', height: '30px', fontSize: '20px'}} onChange={(event) => setReq({...req, title: event.target.value})} />
+                          <input type="text" value={req.title} style={{fontFamily: 'default_font', width: '500px', height: '30px', fontSize: '20px'}} className="mypage-modify" onChange={(event) => setReq({...req, title: event.target.value})} />
                         </div>
                         <div className="edit_input" id="edit_content">
-                          <input type="textarea" value={req.content} style={{fontFamily: 'default_font', width: '500px', height: '100px', fontSize: '20px'}} onChange={(event) => setReq({...req, content: event.target.value})} />
+                          <textarea value={req.content} style={{fontFamily: 'default_font', width: '500px', height: '100px', fontSize: '20px'}} className="mypage-modify" id="modify-textarea" onChange={(event) => setReq({...req, content: event.target.value})} />
                         </div>
                         <div className="box_username">
                           {req.nickname}
@@ -172,12 +191,13 @@ function MyPage() {
     };
 
     const numberEnumMapping = {
-      ONE: "1:1",
-      TWO: "2:2",
-      THREE: "3:3",
-      FOUR: "4:4",
-      FIVE: "5:5"
+        ONE: "1:1",
+        TWO: "2:2",
+        THREE: "3:3",
+        FOUR: "4:4",
+        FIVE: "5:5"
     };
+
     const getPostList = async () => {
       try{
         const resp = await (await axios.get(`http://140.238.14.81:8080/post/${userId}?size=5&page=${postCurrentPage}&sort=createdDate,desc`));
@@ -197,62 +217,61 @@ function MyPage() {
     };
 
     return (
+        <>
           <div className="box_array">
-            {postList && postList.content.map((val,idx) => (
-                <Link to={`/read/${val.postId.id}`} style={{width: '300px', margin: '60px', textDecoration: 'none'}}>
-                  <div className="box_style">
-                    <div className = "box_header">
-                      {val.title}
+                        {postList && postList.content.map((val,idx) => (
+                            <Link to={`/read/${val.postId.id}`} style={{width: '300px', margin: '60px', textDecoration: 'none'}}>
+                            <div className="box_style">
+                                <div className = "box_header">
+                                    {val.title}
+                                </div>
+                                <div className = "box_info">
+                                    <span className = "box_gender">
+                                        {genderEnumMapping[val.gender]}
+                                    </span>
+                                    <span>
+                                        |
+                                    </span>
+                                    <span className = "box_count">
+                                      {numberEnumMapping[val.number]}
+                                    </span>
+                                    <span className = "box_date">
+                                      {val.createdDate
+                                          ? [
+                                              val.createdDate[0],
+                                              val.createdDate[1],
+                                              val.createdDate[2],
+                                          ].join('/') +
+                                          ' ' +
+                                          [
+                                              val.createdDate[3].toString().padStart(2, '0'),
+                                              val.createdDate[4].toString().padStart(2, '0'),
+                                          ].join(':')
+                                          : ''}
+                                    </span>
+                                </div>
+                                <div className = "box_line">
+                                </div>
+                                <div className = "box_username">
+                                    {val.nickname}
+                                </div>
+                            </div>
+                            </Link>
+                        ))}
                     </div>
-                    <div className = "box_info">
-                      <span className = "box_gender">
-                        {genderEnumMapping[val.gender]}
-                      </span>
-                      <span>
-                        |
-                      </span>
-                      <span className = "box_count">
-                        {numberEnumMapping[val.number]}
-                      </span>
-                      <span>
-                        |
-                      </span>
-                      <span className = "box_date">
-                        {val.createdDate
-                            ? [
-                                val.createdDate[0],
-                                val.createdDate[1],
-                                val.createdDate[2],
-                            ].join('/') +
-                            ' ' +
-                            [
-                                val.createdDate[3].toString().padStart(2, '0'),
-                                val.createdDate[4].toString().padStart(2, '0'),
-                            ].join(':')
-                            : ''}
-                      </span>
-                    </div>
-                    <div className = "box_line">
-                    </div>
-                    <div className = "box_username">
-                      {val.nickname}
-                    </div>
-                  </div>
-                </Link>
-            ))}
-            <ReactPaginate
-                previousLabel={'이전'}
-                nextLabel={'다음'}
-                breakLabel={'...'}
-                breakClassName={'break-me'}
-                pageCount={totalPages}
-                marginPagesDisplayed={2}
-                pageRangeDisplayed={5}
-                onPageChange={handlePageClick}
-                containerClassName={'pagination'}
-                activeClassName={'active'}
-            />
-          </div>
+          <ReactPaginate
+              previousLabel={'이전'}
+              nextLabel={'다음'}
+              breakLabel={'...'}
+              breakClassName={'break-me'}
+              pageCount={totalPages}
+              marginPagesDisplayed={2}
+              pageRangeDisplayed={5}
+              onPageChange={handlePageClick}
+              containerClassName={'pagination'}
+              activeClassName={'active'}
+          />
+        </>
     );
   }
 
@@ -297,7 +316,6 @@ function MyPage() {
         navigate('/error');
       }
     }
-
     useEffect(() => {
       getUser();
     }, []);
@@ -423,7 +441,11 @@ function MyPage() {
                         <div className="text-wrapper">DASOM</div>
                     </Link>
                     <div id="profile">
-                        <Link to="/mypage">{localStorage.getItem('nickname')}</Link>님
+                    <div className="top-nickname">
+                            <Link to="/mypage" id="nickname_to_mypage" title="마이페이지">
+                                {localStorage.getItem('nickname')}
+                            </Link>님
+                        </div>
                         <div>
                             <Link to="#" onClick={openNotification}>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 45 49" fill="none">

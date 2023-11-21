@@ -26,7 +26,7 @@
 }
 
 .Signup-form {
-  height: 460px;
+  height: 560px;
   width: 330px;
   background-color: white;
   border-radius: 10px;
@@ -74,6 +74,7 @@
 .Signup-input {
   width: 200px;
   height: 25px;
+  font-family: 'default_font';
 }
 
 .dd-wrapper {
@@ -140,4 +141,17 @@
   padding: 10px;
   padding-top: 30px;
   padding-bottom: 30px;
+}
+
+.nicknameDuplicated {
+  margin-top: 5px;
+}
+
+#nickDupFalse {
+  color: #EF8658;
+}
+
+#univ_toggle_arrow {
+  margin-left: 20px;
+  margin-right: 0;
 }

@@ -1,14 +1,11 @@
+import './Main.css';
+import './default.css';
 import React, { useState, useEffect } from 'react';
 import Notification from './Notification';
 import { Link, useNavigate } from 'react-router-dom';
 import ReactPaginate from 'react-paginate';
 import axios from "axios";
-import './Main.css';
-import './default.css'
 import banner from './images/banner_image.png';
-import gender from './images/gender.png';
-import left from './images/left.png';
-import right from './images/right.png';
 
 function Main() {
     const [boardList, setBoardList] = useState(null);
@@ -22,10 +19,30 @@ function Main() {
     const [numIsOpen, setNumIsOpen] = useState(false);
     const [numSelectedOption, setNumSelectedOption] = useState('전체')
     const options = ['전체', '남', '여'];
-    const numOptions = ['전체', '1:1', '2:2', '3:3', '4:4', '5:5']
+    const numOptions = ['전체', '1 : 1', '2 : 2', '3 : 3', '4 : 4', '5 : 5']
     const [isNotificationOpen, setIsNotificationOpen] = useState(false);
     const navigate = useNavigate();
     const [keyword, setKeyword] = useState('');
+
+    const navigate2 = useNavigate();
+
+    // 유저 로그인 여부 확인 및 페이지 리다이렉트
+    useEffect(() => {
+      const isUserLoggedIn = () => {
+        const userId = localStorage.getItem('userId');
+        return userId !== null;
+      };
+  
+      const handlePageRedirect = () => {
+        if (!isUserLoggedIn()) {
+          // 유저가 로그인되어 있지 않다면 '/' 페이지로 이동
+          navigate2('/');
+        }
+      };
+  
+      handlePageRedirect();
+    }, [navigate2]);
+
 
     const genderEnumMapping = {
         MALE: "남",
@@ -73,19 +90,19 @@ function Main() {
         if(value === '전체'){
             setNumFilter('ALL');
         }
-        else if(value === '1:1'){
+        else if(value === '1 : 1'){
             setNumFilter('ONE');
         }
-        else if(value === '2:2'){
+        else if(value === '2 : 2'){
             setNumFilter('TWO');
         }
-        else if(value === '3:3'){
+        else if(value === '3 : 3'){
             setNumFilter('THREE');
         }
-        else if(value === '4:4'){
+        else if(value === '4 : 4'){
             setNumFilter('FOUR');
         }
-        else if(value === '5:5'){
+        else if(value === '5 : 5'){
             setNumFilter('FIVE');
         }
         setNumIsOpen(false);
@@ -93,6 +110,7 @@ function Main() {
 
     const getBoardList = async () => {
         try{
+            setCurrentPage(0);
             const apiUrl = `http://140.238.14.81:8080/post?size=${postsPerPage}&page=${currentPage}&sort=createdDate,desc`;
 
             const resp = await axios.get(apiUrl);
@@ -108,6 +126,7 @@ function Main() {
 
     const getGenFilteredBoardList = async () => {
         try{
+            setCurrentPage(0);
             const apiUrl = `http://140.238.14.81:8080/post/gender/${genderFilter}?size=${postsPerPage}&page=${currentPage}&sort=createdDate,desc`;
 
             const resp = await axios.get(apiUrl);
@@ -137,6 +156,7 @@ function Main() {
 
     const getFilteredBoardList = async () => {
         try{
+            setCurrentPage(0);
             const apiUrl = `http://140.238.14.81:8080/post/filter?number=${numFilter}&gender=${genderFilter}&size=${postsPerPage}&page=${currentPage}&sort=createdDate,desc`;
 
             const resp = await axios.get(apiUrl);
@@ -219,8 +239,12 @@ function Main() {
                     <Link to="/main" style={{textDecoration: 'none'}}>
                         <div className="text-wrapper">DASOM</div>
                     </Link>
-                    <div id="profile_main">
-                        <Link to="/mypage">{localStorage.getItem('nickname')}</Link>님
+                    <div id="profile">
+                        <div className="top-nickname">
+                            <Link to="/mypage" id="nickname_to_mypage" title="마이페이지">
+                                {localStorage.getItem('nickname')}
+                            </Link>님
+                        </div>
                         <div>
                             <Link to="#" onClick={openNotification}>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 45 49" fill="none">
@@ -365,6 +389,62 @@ function Main() {
                             containerClassName={'pagination'}
                             activeClassName={'active'}
                         />
+                    <div className="our-info-block">
+                        <div className="our-info-left">
+                            <div className="our-info-header">
+                                DASOM
+                            </div>
+                            <div className="our-info-meant">
+                                사랑을 뜻하는 순우리말, 아는 선배 없이 미팅해요
+                            </div>
+                            <div className="our-info-member">
+                                <div className="our-info-developers">
+                                    Developers
+                                </div>
+                                <div className="our-info-front">
+                                    Front End: 권범준 김영균
+                                </div>
+                                <div className="our-info-back">
+                                    Back End: 이아린 임주혁
+                                </div>
+                            </div>
+                        </div>
+                        <div className="our-info-right">
+                            <div className="our-info-reps">
+                                <div>
+                                    <Link to="https://github.com/GHYoungKyun/DASOM_FE" className="our-info-link">
+                                        <div className="our-info-github">
+                                            <div>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" fill="none">
+                                                    <path d="M14.9883 2.23535C7.74316 2.23242 1.875 8.09766 1.875 15.3369C1.875 21.0615 5.5459 25.9277 10.6582 27.7148C11.3467 27.8877 11.2412 27.3984 11.2412 27.0645V24.7939C7.26563 25.2598 7.10449 22.6289 6.83789 22.1895C6.29883 21.2695 5.02441 21.0352 5.40527 20.5957C6.31055 20.1299 7.2334 20.7129 8.30273 22.292C9.07617 23.4375 10.585 23.2441 11.3496 23.0537C11.5166 22.3652 11.874 21.75 12.3662 21.2725C8.24707 20.5342 6.53027 18.0205 6.53027 15.0322C6.53027 13.582 7.00781 12.249 7.94531 11.1738C7.34766 9.40137 8.00098 7.88379 8.08887 7.6582C9.79102 7.50586 11.5605 8.87695 11.6982 8.98535C12.665 8.72461 13.7695 8.58692 15.0059 8.58692C16.248 8.58692 17.3555 8.73047 18.3311 8.99414C18.6621 8.74219 20.3027 7.56445 21.8848 7.70801C21.9697 7.93359 22.6084 9.41602 22.0459 11.165C22.9951 12.2432 23.4785 13.5879 23.4785 15.041C23.4785 18.0352 21.75 20.5518 17.6191 21.2783C17.973 21.6263 18.2539 22.0412 18.4455 22.499C18.6372 22.9567 18.7357 23.4481 18.7354 23.9443V27.2402C18.7588 27.5039 18.7354 27.7646 19.1748 27.7646C24.3633 26.0156 28.0986 21.1143 28.0986 15.3398C28.0986 8.09766 22.2275 2.23535 14.9883 2.23535Z" fill="black"/>
+                                                </svg>
+                                            </div>
+                                            <div className="our-info-link-text">
+                                                Front End
+                                            </div>
+                                        </div>
+                                    </Link>
+                                </div>
+                                <div>
+                                    <Link to="https://github.com/SiwonHae/DASOM_BE" className="our-info-link">
+                                        <div className="our-info-github">
+                                            <div>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" fill="none">
+                                                    <path d="M14.9883 2.23535C7.74316 2.23242 1.875 8.09766 1.875 15.3369C1.875 21.0615 5.5459 25.9277 10.6582 27.7148C11.3467 27.8877 11.2412 27.3984 11.2412 27.0645V24.7939C7.26563 25.2598 7.10449 22.6289 6.83789 22.1895C6.29883 21.2695 5.02441 21.0352 5.40527 20.5957C6.31055 20.1299 7.2334 20.7129 8.30273 22.292C9.07617 23.4375 10.585 23.2441 11.3496 23.0537C11.5166 22.3652 11.874 21.75 12.3662 21.2725C8.24707 20.5342 6.53027 18.0205 6.53027 15.0322C6.53027 13.582 7.00781 12.249 7.94531 11.1738C7.34766 9.40137 8.00098 7.88379 8.08887 7.6582C9.79102 7.50586 11.5605 8.87695 11.6982 8.98535C12.665 8.72461 13.7695 8.58692 15.0059 8.58692C16.248 8.58692 17.3555 8.73047 18.3311 8.99414C18.6621 8.74219 20.3027 7.56445 21.8848 7.70801C21.9697 7.93359 22.6084 9.41602 22.0459 11.165C22.9951 12.2432 23.4785 13.5879 23.4785 15.041C23.4785 18.0352 21.75 20.5518 17.6191 21.2783C17.973 21.6263 18.2539 22.0412 18.4455 22.499C18.6372 22.9567 18.7357 23.4481 18.7354 23.9443V27.2402C18.7588 27.5039 18.7354 27.7646 19.1748 27.7646C24.3633 26.0156 28.0986 21.1143 28.0986 15.3398C28.0986 8.09766 22.2275 2.23535 14.9883 2.23535Z" fill="black"/>
+                                                </svg>
+                                            </div>
+                                            <div className="our-info-link-text">
+                                                Back End
+                                            </div>
+                                        </div>
+                                    </Link>
+                                </div>
+                            </div>
+                            <div className="our-info-license">
+                                This work is licensed under the MIT license.
+                            </div>
+                        </div>
+                    </div>
                 </div>
             )}
             {!userId && (

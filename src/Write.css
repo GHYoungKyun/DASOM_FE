@@ -1,63 +1,4 @@
-#profile {
-    width: 300px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
 
-.text-wrapper {
-    color: #118196;
-    text-decoration: none;
-    font-size: 32px;
-    font-family: 'GeekbleMalang2WOFF2';
-}
-
-.banner-top {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    height: 100px;
-}
-
-.write_button {
-    background-color: #CEEEEE;
-    padding: 8px;
-    padding-left: 16px;
-    padding-right: 16px;
-    border-radius: 10px;
-    color: #4A4A4A;
-}
-
-.write_button:hover {
-    background-color: #5FC6C4;
-}
-
-.banner {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    background-color: #CEEEEE;
-    margin-top: 50px;
-    padding-top: 30px;
-    padding-bottom: 30px;
-}
-
-.banner_word {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-}
-
-.banner_words {
-    font-size: 20px;
-    margin-left: 20px;
-}
-
-.banner_logo {
-    font-family: 'GeekbleMalang2WOFF2';
-    font-size: 72px;
-    color: #5EBAC3;
-}
 
 .header {
     margin-top: 100px;
@@ -73,8 +14,8 @@
 .dropdown {
     display: flex;
     justify-content: flex-start;
-    align-items: baseline;
-    margin-bottom: 100px;
+    align-items: center;
+    margin-bottom: 50px;
 }
 
 .dd-gender {
@@ -130,9 +71,9 @@
 }
 
 .gender-list {
-    border: 1px solid black;
+    border: 2px solid #777777;
     border-radius: 10px;
-    font-size: 24px;
+    font-size: 20px;
     padding-inline-start: 0px;
 }
 
@@ -152,14 +93,19 @@
 .gender-header {
     font-size: 24px;
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-between;
     align-items: center;
+    border-radius: 10px;
+    border: 1px solid #777777;
+    width: 200px;
+    height: 60px;
+    padding: 5px;
 }
 
 .num-list {
-    border: 1px solid black;
+    border: 2px solid #777777;
     border-radius: 10px;
-    font-size: 24px;
+    font-size: 20px;
     padding-inline-start: 0px;
 }
 
@@ -178,25 +124,91 @@
 .num-header {
     font-size: 24px;
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-between;
     align-items: center;
+    border-radius: 10px;
+    border: 1px solid #777777;
+    width: 200px;
+    height: 60px;
+    padding: 5px;
+}
+
+.write-alcohol-header {
+    font-size: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 10px;
+    border: 1px solid #777777;
+    width: 200px;
+    height: 60px;
+    padding: 5px;
+    margin-bottom: 50px;
+}
+
+.alcohol-list {
+    border: 2px solid #777777;
+    border-radius: 10px;
+    padding-inline-start: 0px;
+    font-size: 20px;
+    z-index: 1;
+    position: absolute;
+    background-color: white;
+}
+
+.alcohol-list-item {
+    list-style-type: none;
+    padding-left: 20px;
+    padding-right: 60px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-radius: 10px;
+}
+
+.alcohol-list-item:hover {
+    background-color: #5FC6C4;
 }
 
 .write_submit {
     font-size: 24px;
 }
 
+.write-arrow {
+    margin-left: 20px;
+}
+
 #title {
     width: 500px;
-    height: 30px;
+    height: 35px;
     margin-top: 10px;
+    border-radius: 10px;
+    border: 1px solid #777777;
+    font-size: 20px;
+    padding-left: 10px; 
     font-family: 'default_font', sans-serif;
 }
 
 #content {
     width: 500px;
     height: 300px;
+    font-size: 20px;
+    border-radius: 10px;
+    padding-left: 10px;
+    padding-top: 10px;
+    border: 1px solid #777777;
     font-family: 'default_font', sans-serif;
+}
+
+#gender-write-arrow {
+    margin-left: 40px;
+}
+
+#num-write-arrow {
+    margin-left: 30px;
+}
+
+#write-header {
+    width: 250px;
 }
 
 svg {

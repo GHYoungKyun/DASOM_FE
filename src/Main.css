@@ -1,7 +1,7 @@
-#profile_main {
-    width: 400px;
+#profile {
+    width: 600px;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
 }
 
@@ -17,6 +17,10 @@
     justify-content: space-around;
     align-items: center;
     height: 100px;
+}
+
+.top-nickname {
+    margin-right: 10px;
 }
 
 .write_button {
@@ -62,8 +66,13 @@
 .banner_bottom_main {
     display: flex;
     justify-content: space-between;
-    align-items: baseline;
+    align-items: center;
     margin-bottom: 50px;
+}
+
+#nickname_to_mypage {
+    text-decoration: none;
+    color: #4A4A4A;
 }
 
 /*여기까지가 기본 페이지 스타일*/
@@ -126,7 +135,7 @@
 .box_style {
     border: 2px solid #777777;
     border-radius: 10px;
-    height: 300px;
+    height: 250px;
     width: 900px;
     position: static;
     color: #4A4A4A;
@@ -134,9 +143,9 @@
 
 .box_header {
     font-size: 36px;
-    margin-top: 40px;
+    margin-top: 50px;
     margin-left: 25px;
-    margin-bottom: 90px;
+    margin-bottom: 40px;
     text-decoration: none;
     color: #292929;
 }
@@ -180,6 +189,7 @@
 .pagination {
     display: flex;
     justify-content: center;
+    align-items: center;
     list-style: none;
     padding: 0;
 }
@@ -189,24 +199,29 @@
     margin: 5px;
     cursor: pointer;
     text-decoration: none;
+    color: #000; /* 버튼 색상 */
 }
 
 .pagination .active {
     font-weight: bold;
-    background-color: powderblue;
+    background-color: #CEEEEE;
     border-radius: 40%;
     padding: 10px;
 }
 
 .dd-list {
+    border: 2px solid #777777;
     border-radius: 10px;
-    border: 1px solid #4A4A4A;
+    font-size: 24px;
     padding-inline-start: 0px;
 }
 
 .dd-list-item {
     list-style-type: none;
-    padding: 10px;
+    padding-left: 20px;
+    padding-right: 60px;
+    padding-top: 10px;
+    padding-bottom: 10px;
     border-radius: 10px;
 }
 
@@ -219,17 +234,21 @@
 }
 
 .num-dropdown-list {
-    border: 1px solid #777777;
-    background-color: white;
+    border: 2px solid #777777;
+    border-radius: 10px;
+    font-size: 24px;
+    padding-inline-start: 0px;
     z-index: 1;
     position: absolute;
-    border-radius: 10px;
-    padding-inline-start: 0;
+    background-color: white;
 }
 
 .num-dropdown-list-item {
     list-style-type: none;
-    padding: 10px;
+    padding-left: 20px;
+    padding-right: 60px;
+    padding-top: 10px;
+    padding-bottom: 10px;
     border-radius: 10px;
 }
 
@@ -238,12 +257,16 @@
 }
 
 .search {
-    margin-right: 20%;
+    margin-right: 250px;
 }
 
 .searchbar {
     width: 300px;
-    height: 30px;
+    height: 35px;
+    font-size: 20px;
+    border-radius: 10px;
+    padding-left: 10px;
+    border: 1px solid #777777;
     font-family: default_font;
 }
 
@@ -273,4 +296,42 @@
 
 .logout_button:hover {
     background-color: #D2D2D2;
+}
+
+.our-info-block {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding-top: 100px;
+    padding-bottom: 100px;
+    background-color: #CEEEEE;
+    margin-top: 100px;
+}
+
+.our-info-header {
+    font-size: 48px;
+    margin-bottom: 10px;
+}
+
+.our-info-member {
+    margin-top: 60px;
+}
+
+.our-info-license {
+    margin-top: 40px;
+}
+
+.our-info-github {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.our-info-link {
+    text-decoration: none;
+    color: #4A4A4A
+}
+
+.our-info-developers {
+    margin-bottom: 10px;
 }

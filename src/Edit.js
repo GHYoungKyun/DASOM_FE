@@ -1,12 +1,10 @@
+import './Edit.css';
+import './default.css';
 import React, {useEffect, useState} from 'react';
 import Notification from './Notification';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import axios from "axios";
-import './Edit.css';
-import './default.css';
 import banner from './images/banner_image.png';
-import gender from './images/gender.png';
-import bell from './images/bells.png';
 
 function Edit() {
     const navigate = useNavigate();
@@ -157,7 +155,11 @@ function Edit() {
                         <div className="text-wrapper">DASOM</div>
                     </Link>
                     <div id="profile">
-                        <Link to="/mypage">{localStorage.getItem('nickname')}</Link>님
+                    <div className="top-nickname">
+                            <Link to="/mypage" id="nickname_to_mypage" title="마이페이지">
+                                {localStorage.getItem('nickname')}
+                            </Link>님
+                        </div>
                         <div>
                             <Link to="#" onClick={openNotification}>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 45 49" fill="none">
