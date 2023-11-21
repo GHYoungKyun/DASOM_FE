@@ -1,0 +1,152 @@
+#profile {
+    width: 300px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.text-wrapper {
+    color: #118196;
+    text-decoration: none;
+    font-size: 32px;
+    font-family: 'GeekbleMalang2WOFF2';
+}
+
+.banner-top {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 100px;
+}
+
+.write_button {
+    background-color: #CEEEEE;
+    padding: 8px;
+    padding-left: 16px;
+    padding-right: 16px;
+    border-radius: 10px;
+    color: #4A4A4A;
+}
+
+.write_button:hover {
+    background-color: #5FC6C4;
+}
+
+.banner {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #CEEEEE;
+    margin-top: 50px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+
+.banner_word {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.banner_words {
+    font-size: 20px;
+    margin-left: 20px;
+}
+
+.banner_logo {
+    font-family: 'GeekbleMalang2WOFF2';
+    font-size: 72px;
+    color: #5EBAC3;
+}
+
+.banner_bottom {
+    display: flex;
+    justify-content: flex-start;
+    align-items: baseline;
+    margin-bottom: 50px;
+}
+
+.header {
+    font-size: 36px;
+    font-weight: normal;
+}
+
+.dropdown_array {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+.gender-select {
+    margin-right: 20px;
+}
+
+.gender-select-header {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.gender-list {
+    position: absolute;
+    z-index: 1;
+    border-radius: 10px;
+    border: 2px solid #777777;
+    background-color: white;
+    font-size: 20px;
+}
+
+.gender-list-item {
+    border-radius: 10px;
+}
+
+.gender-list-item:hover {
+    background-color: #5FC6C4;
+}
+
+.num-select-header {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.num-list {
+    position: absolute;
+    z-index: 1;
+    border-radius: 10px;
+    background-color: white;
+    border: 2px solid #777777;
+    font-size: 20px;
+}
+
+.num-list-item {
+    border-radius: 10px;
+}
+
+.num-list-item:hover {
+    background-color: #5FC6C4;
+}
+
+.write_block {
+    width: 50%;
+    margin: auto;
+}
+
+.write_submit {
+    font-size: 20px;
+    margin-bottom: 30px;
+}
+
+.openkakaotalk {
+    font-size: 20px;
+}
+
+#title {
+    font-size: 18px;
+}
+
+#content {
+    font-size: 18px;
+}

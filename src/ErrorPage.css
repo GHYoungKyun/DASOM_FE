@@ -1,0 +1,39 @@
+.background {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #CEEEEE;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+.errorPage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.Oops {
+    font-size: 128px;
+    margin-bottom: 70px;
+    margin-right: 150px;
+    font-family: 'GeekbleMalang2WOFF2';
+}
+
+.error_report{
+    margin-bottom: 100px;
+}
+
+.home_button {
+    background-color: #118196;
+    padding: 30px;
+    padding-left: 50px;
+    padding-right: 50px;
+    border-radius: 10px;
+    color: #FFFFFF;
+}
+
