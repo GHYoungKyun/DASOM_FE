@@ -1,95 +1,268 @@
-.desktop {
-    background-color: #ffffff;
+#profile_main {
+    width: 400px;
     display: flex;
-    flex-direction: row;
-    justify-content: center;
-    width: 100%;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.desktop .div {
-    background-color: #ffffff;
-    height: 1600px;
-    position: relative;
-    width: 1440px;
+.text-wrapper {
+    color: #118196;
+    text-decoration: none;
+    font-size: 32px;
+    font-family: 'GeekbleMalang2WOFF2';
 }
 
-.desktop .frame {
-    background-color: #ffffff;
+.banner-top {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
     height: 100px;
-    left: 0;
-    position: absolute;
-    top: 0;
-    width: 1440px;
 }
 
-.desktop .text-wrapper {
-    color: #000000;
-    font-family: "Inter-Regular", Helvetica;
-    font-size: 20px;
-    font-weight: 400;
-    left: 60px;
-    letter-spacing: 0;
-    line-height: normal;
-    position: absolute;
-    text-align: center;
-    top: 40px;
-    width: 85px;
-}
-.desktop .profile {
+.write_button {
+    background-color: #CEEEEE;
+    padding: 8px;
+    padding-left: 16px;
+    padding-right: 16px;
     border-radius: 10px;
+    color: #4A4A4A;
+}
+
+.write_button:hover {
+    background-color: #5FC6C4;
+}
+
+.banner {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #CEEEEE;
+    margin-top: 50px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+
+.banner_word {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.banner_words {
+    font-size: 20px;
+    margin-left: 20px;
+}
+
+.banner_logo {
+    font-family: 'GeekbleMalang2WOFF2';
+    font-size: 72px;
+    color: #5EBAC3;
+}
+
+.banner_bottom_main {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 50px;
+}
+
+/*여기까지가 기본 페이지 스타일*/
+
+.gender_filter {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin-top: 50px;
+    margin-left: 250px;
+}
+
+.filter {
+    margin-right: 10px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    border-radius: 10px;
+<<<<<<< HEAD
     height: 55px;
     left: 1200px;
     position: absolute;
     top: 30px;
     width: 160px;
+=======
+    border: 1px solid #777777;
+>>>>>>> 0b23d86faba1cb9048d1ca28045bc05bdc0f2a49
 }
-.desktop .write_button {
-    background-color: #dadada;
+
+.dd-header-main {
+    padding: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.num-dropdown-header {
+    padding: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.filter_button {
+    background-color: #CEEEEE;
+    padding: 8px;
+    padding-left: 16px;
+    padding-right: 16px;
     border-radius: 10px;
+<<<<<<< HEAD
     height: 40px;
     left: 1000px;
+=======
+    color: #4A4A4A;
+}
+
+.filter_button:hover {
+    background-color: #5FC6C4;
+}
+
+.filter_image {
+    padding-right: 20px;
+}
+
+.box_array {
+    margin: auto;
+    width: 50%;
+}
+
+.box_style {
+    border: 2px solid #777777;
+    border-radius: 10px;
+    height: 300px;
+    width: 900px;
+    position: static;
+    color: #4A4A4A;
+}
+
+.box_header {
+    font-size: 36px;
+    margin-top: 40px;
+    margin-left: 25px;
+    margin-bottom: 90px;
+    text-decoration: none;
+    color: #292929;
+}
+
+.box_info {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    color: #969897;
+}
+
+.box_gender {
+    margin-left: 25px;
+    margin-right: 10px;
+}
+
+.box_count {
+    margin-left: 10px;
+}
+
+.box_line {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 850px;
+    height: 2px;
+    background: #969897;
+}
+
+.box_username {
+    margin-left: 25px;
+    color: #292929;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    padding: 0;
+}
+
+.pagination a {
+    padding: 10px;
+    margin: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    color: #000; /* 버튼 색상 */
+}
+
+.pagination .active {
+    font-weight: bold;
+}
+
+.dd-list {
+    border-radius: 10px;
+    border: 1px solid #4A4A4A;
+    padding-inline-start: 0px;
+}
+
+.dd-list-item {
+    list-style-type: none;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.dd-list-item:hover {
+    background-color: #5FC6C4;
+}
+
+.dd-list-item:hover {
+    cursor: pointer;
+}
+
+.num-dropdown-list {
+    border: 1px solid #777777;
+    background-color: white;
+    z-index: 1;
+>>>>>>> 0b23d86faba1cb9048d1ca28045bc05bdc0f2a49
     position: absolute;
-    top: 30px;
-    width: 140px;
+    border-radius: 10px;
+    padding-inline-start: 0;
 }
-.desktop .Frame {
-    height: 475px;
-    width: 1440px;
+
+.num-dropdown-list-item {
+    list-style-type: none;
+    padding: 10px;
+    border-radius: 10px;
 }
-.desktop .gender_filter {
-    position: absolute;
-    top: 600px;
-    left: 100px;
+
+.num-dropdown-list-item:hover{
+    background-color: #5FC6C4;
 }
-.num_filter {
-    position: absolute;
-    top: 600px;
-    left: 250px;
+
+.search {
+    margin-right: 20%;
 }
-.date_filter {
-    position: absolute;
-    top: 600px;
-    left: 400px;
-}
-.place_filter {
-    position: absolute;
-    top: 600px;
-    left: 550px;
-}
+
 .searchbar {
-    position: absolute;
-    top: 650px;
-    right: 200px;
-    width: 200px;
+    width: 300px;
     height: 30px;
+    font-family: default_font;
 }
+
 .search_button {
-    position: absolute;
-    top: 650px;
-    right: 150px;
-    width: 40px;
-    height: 30px;
+    background-color: #CEEEEE;
+    padding: 8px;
+    padding-left: 16px;
+    padding-right: 16px;
+    border-radius: 10px;
+    color: #4A4A4A;
+    margin-left: 10px;
 }
+<<<<<<< HEAD
 .dpsizeSet {
     width: 90px;
     height: 30px;
@@ -112,4 +285,23 @@
 
 .pagination .active {
     font-weight: bold; /* 활성화된 페이지의 텍스트 굵게 표시 */
+=======
+
+.search_button:hover {
+    background-color: #5FC6C4;
+}
+
+.logout_button {
+    background-color: #E2E2E2;
+    padding: 8px;
+    padding-left: 16px;
+    padding-right: 16px;
+    border-radius: 10px;
+    color: #4A4A4A;
+    margin-left: 10px;
+}
+
+.logout_button:hover {
+    background-color: #D2D2D2;
+>>>>>>> 0b23d86faba1cb9048d1ca28045bc05bdc0f2a49
 }

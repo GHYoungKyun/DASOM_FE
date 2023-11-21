@@ -1,3 +1,55 @@
+
+.applicant {
+    margin: auto;
+    width: 80%;
+    margin-top: 100px;
+    
+}
+
+#applicant-header {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    background-color: #5FC6C4;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.applicant-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#applicant-content {
+    border: 1px solid #777777;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.space {
+    width: 200px;
+    text-align: center;
+}
+
+#space {
+    width: 250px;
+}
+
+.okay_button {
+    background-color: #CEEEEE;
+    padding: 8px;
+    padding-left: 16px;
+    padding-right: 16px;
+    border-radius: 10px;
+    color: #4A4A4A;
+    margin-left: 20px;
+    margin-right: 10px;
+}
+
+.okay_button:hover {
+    background-color: #5FC6C4;
+}
+
 .pagination {
     display: flex;
     justify-content: center;
@@ -15,4 +67,17 @@
 
 .pagination .active {
     font-weight: bold; /* 활성화된 페이지의 텍스트 굵게 표시 */
+}
+
+.no_button {
+    background-color: #FFDD7F;
+    padding: 8px;
+    padding-left: 16px;
+    padding-right: 16px;
+    border-radius: 10px;
+    color: #4A4A4A;
+}
+
+.no_button:hover {
+    background-color: #EF8658;
 }

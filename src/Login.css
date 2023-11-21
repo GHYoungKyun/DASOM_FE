@@ -1,43 +1,73 @@
-.main {
-    margin-left: auto;
-    margin-right: auto;
-    width: 60%;
+.loginHeader {
+    font-size: 36px;
+    text-align: center;
+    margin-bottom: 20px;
 }
 
-.header {
-    margin-top: 50px;
-    margin-bottom: 50px;
+.loginHello {
+    text-align: center;
+    margin-bottom: 60px;
 }
 
-.allForm {
-    background-color: rgb(224, 224, 224);
-    padding-top: 40px;
-    padding-bottom: 40px;
-    border-radius: 7px;
-}
-
-.idInput {
-    margin: 50px;
-    margin-bottom: 30px;
-}
-
-.passwdInput {
-    margin: 50px;
-    margin-top: 0px;
-}
-
-.loginButton {
-    display: block;
+.buttonBox {
+    display: grid;
+    justify-content: center;
+    align-content: center;
+    background-color: #FFFFFF;
+    width: 600px;
+    height: 400px;
     margin: auto;
-    width: 100px;
-    height: 40px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0);
 }
 
-.Text {
+.kakaoLogin {
+    aspect-ratio: 4 / 1;
     width: 300px;
-    height: 30px;
 }
 
-.inputInfo {
-    margin-bottom: 10px;
+.naverLogin {
+    aspect-ratio: 4 / 1;
+    width: 300px;
+}
+
+.main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin-left: 0;
+}
+
+.background {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #CEEEEE;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+body, html {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+button {
+    background: none;
+    color: inherit;
+    border: none;
+    padding: 0;
+    font: inherit;
+    cursor: pointer;
+    outline: inherit;
 }

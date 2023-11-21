@@ -3,6 +3,7 @@ import axios from 'axios';
 import ReactPaginate from 'react-paginate';
 import { useParams, useNavigate } from 'react-router-dom';
 import './Applicant.css';
+import './default.css';
 
 function Applicant() {
     const [reqList, setReqList] = useState(null);
@@ -54,16 +55,38 @@ function Applicant() {
         setCurrentPage(selectedPage.selected);
     };
 
-
     return(
-        <div>
-            <h2>신청자 목록</h2>
+        <div className="applicant">
             <ul>
+                <li className="applicant-item" id="applicant-header">
+                    <div className="space" id="space">
+                        제목
+                    </div>
+                    <div className="space" id="space">
+                        소개글
+                    </div>
+                    <div className="space" id="space">
+                        닉네임
+                    </div>
+                    <div className="space" id="space">
+                        관리
+                    </div>
+                </li>
                 {reqList && reqList.content.map((val,idx) => (
-                    <li key={val.reqId}>
-                        {val.title}/{val.content}/{val.userId.id}
-                        <button onClick={() => handleAccept(val.requestId.id)}>수락</button>
-                        <button onClick={() => handleRefuse(val.requestId.id)}>거절</button>
+                    <li key={val.reqId} className="applicant-item" id="applicant-content">
+                        <div className="space">
+                            {val.title}
+                        </div>
+                        <div className="space">
+                            {val.content}
+                        </div>
+                        <div className="space">
+                            {val.userId.id}
+                        </div>
+                        <div className="space">
+                            <button className="okay_button" onClick={() => handleAccept(val.requestId.id)}>수락</button>
+                            <button className="no_button" onClick={() => handleRefuse(val.requestId.id)}>거절</button>
+                        </div>
                     </li>
                 ))}
             </ul>
