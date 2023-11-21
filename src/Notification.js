@@ -2,14 +2,9 @@ import React, {useEffect, useState} from "react";
 import {Link, useNavigate} from 'react-router-dom';
 import axios from 'axios';
 import './Notification.css';
-<<<<<<< HEAD
-
-function Notification() {
-=======
 import './default.css'
 
 function Notification({ onClose }) {
->>>>>>> 0b23d86faba1cb9048d1ca28045bc05bdc0f2a49
     const [noticeList, setNoticeList] = useState([]);
     const userId = localStorage.getItem('userId');
     const navigate = useNavigate();
@@ -32,27 +27,6 @@ function Notification({ onClose }) {
     }, []);
 
     return(
-<<<<<<< HEAD
-        <div>
-            <h2>알림함</h2>
-            <ul>
-                {noticeList && noticeList.map((val,idx) => (
-                    <li key={idx}>
-                        {val.requestName}/
-                        {val.requestContent}/
-                        {val.requestTime ?
-                            val.requestTime[0] + '/' + val.requestTime[1] + '/' + val.requestTime[2] : ''
-                        }/
-                        {val.postTitle}
-                        {val.openKakao}
-                        {val.kind}
-                    </li>
-                ))}
-            </ul>
-        </div>
-
-
-=======
         <div className="modal">
             <div className="modal-content">
                 <div className="notification_top">
@@ -89,7 +63,6 @@ function Notification({ onClose }) {
             </div>
         </div>
 
->>>>>>> 0b23d86faba1cb9048d1ca28045bc05bdc0f2a49
     );
 }
 

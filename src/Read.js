@@ -13,7 +13,7 @@ function Read() {
     const { id } = useParams();
     const navigate = useNavigate();
     console.log(id);
-
+    const userId = localStorage.getItem('userId');
     const [board, setBoard] = useState({});
     const [isNotificationOpen, setIsNotificationOpen] = useState(false);
 
@@ -49,6 +49,9 @@ function Read() {
     }
 
     useEffect(() => {
+        if(!userId) {
+            navigate('/');
+        }
         getBoard();
     }, []);
 
@@ -126,9 +129,18 @@ function Read() {
                     <div className="post_info">
                         <div className="writer_id">{board.nickname}</div>
                         <div className="write_date">
-                            {board.createdDate ?
-                                board.createdDate[0] + '/' + board.createdDate[1] + '/' + board.createdDate[2] :  ''
-                            }
+                            {board.createdDate
+                                ? [
+                                    board.createdDate[0],
+                                    board.createdDate[1],
+                                    board.createdDate[2],
+                                ].join('/') +
+                                ' ' +
+                                [
+                                    board.createdDate[3].toString().padStart(2, '0'),
+                                    board.createdDate[4].toString().padStart(2, '0'),
+                                ].join(':')
+                                : ''}
                         </div>
                     </div>
                 </div>

@@ -93,7 +93,6 @@ function Main() {
 
     const getBoardList = async () => {
         try{
-            setCurrentPage(0);
             const apiUrl = `http://140.238.14.81:8080/post?size=${postsPerPage}&page=${currentPage}&sort=createdDate,desc`;
 
             const resp = await axios.get(apiUrl);
@@ -109,7 +108,6 @@ function Main() {
 
     const getGenFilteredBoardList = async () => {
         try{
-            setCurrentPage(0);
             const apiUrl = `http://140.238.14.81:8080/post/gender/${genderFilter}?size=${postsPerPage}&page=${currentPage}&sort=createdDate,desc`;
 
             const resp = await axios.get(apiUrl);
@@ -139,7 +137,6 @@ function Main() {
 
     const getFilteredBoardList = async () => {
         try{
-            setCurrentPage(0);
             const apiUrl = `http://140.238.14.81:8080/post/filter?number=${numFilter}&gender=${genderFilter}&size=${postsPerPage}&page=${currentPage}&sort=createdDate,desc`;
 
             const resp = await axios.get(apiUrl);
@@ -167,8 +164,22 @@ function Main() {
     }
 
     useEffect(() => {
-        getBoardList();
-    }, [currentPage]);
+        if(!userId) {
+            navigate('/');
+        }
+        if(genderFilter == 'ALL' && numFilter == 'ALL') {
+            getBoardList(currentPage);
+        }
+        else if(genderFilter == 'ALL' && numFilter != 'ALL') {
+            getNumFilteredBoardList(currentPage);
+        }
+        else if(genderFilter != 'ALL' && numFilter == 'ALL') {
+            getGenFilteredBoardList(currentPage);
+        }
+        else {
+            getFilteredBoardList(currentPage);
+        }
+    }, [currentPage, genderFilter, numFilter]);
 
     function applyFilter(event) {
         console.log(genderFilter);
@@ -313,6 +324,23 @@ function Main() {
                                     </span>
                                     <span className = "box_count">
                                         {numberEnumMapping[val.number]}
+                                    </span>
+                                    <span>
+                                        |
+                                    </span>
+                                    <span className = "box_date">
+                                        {val.createdDate
+                                            ? [
+                                                val.createdDate[0],
+                                                val.createdDate[1],
+                                                val.createdDate[2],
+                                            ].join('/') +
+                                            ' ' +
+                                            [
+                                                val.createdDate[3].toString().padStart(2, '0'),
+                                                val.createdDate[4].toString().padStart(2, '0'),
+                                            ].join(':')
+                                            : ''}
                                     </span>
                                 </div>
                                 <div className = "box_line">

@@ -3,14 +3,11 @@ import Notification from './Notification';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from "axios";
 import './Write.css';
-<<<<<<< HEAD
-=======
 import './default.css';
 import bell from './images/bells.png';
 import banner from './images/banner_image.png';
 import gender_image from './images/gender.png';
 import user_image from './images/user.png';
->>>>>>> 0b23d86faba1cb9048d1ca28045bc05bdc0f2a49
 
 function Write() {
 
@@ -24,8 +21,6 @@ function Write() {
     const [num, setNum] = useState('TWO');
     const [openKakaoAddress, setOpenKakaoAddress] = useState('');
     const [alcohol, setAlcohol] = useState('12');
-<<<<<<< HEAD
-=======
     const genderOptions = ['남', '여'];
     const [isGenderOpen, setIsGenderOpen] = useState(false);
     const [isNumOpen, setIsNumOpen] = useState(false);
@@ -78,7 +73,6 @@ function Write() {
         
         setNumSelected(value);
     }
->>>>>>> 0b23d86faba1cb9048d1ca28045bc05bdc0f2a49
 
     const postData = async () => {
         try {
@@ -107,10 +101,7 @@ function Write() {
         } catch (error) {
             // 오류 발생 시의 처리
             navigate('/error');
-<<<<<<< HEAD
-=======
             console.error('에러 발생:', error);
->>>>>>> 0b23d86faba1cb9048d1ca28045bc05bdc0f2a49
         }
     };
     function submit() {
@@ -125,47 +116,6 @@ function Write() {
     }
     return(
         <div className="makeBlock">
-<<<<<<< HEAD
-            <div className="Project">
-                <Link to="/main">
-                    <div className="project_title"><strong>DASOM</strong></div>
-                </Link>
-                <div className="profile">
-                    <Link to="/mypage">
-                        {localStorage.getItem('nickname')}
-                    </Link>
-                    님
-                </div>
-            </div>
-            <h1 className="header"> 과팅 or 미팅 정보를 입력해주세요.</h1>
-            <hr />
-            <p>모집성별</p>
-            <select value={gender} onChange={(event) => setGender(event.target.value)} className="sizeSet">
-                <option value="MALE">남</option>
-                <option value="FEMALE">여</option>
-            </select>
-            <p>모집인원</p>
-            <select value={num} onChange={(event) => setNum(event.target.value)} className="sizeSet">
-                <option value="ONE">1:1</option>
-                <option value="TWO">2:2</option>
-                <option value="THREE">3:3</option>
-                <option value="FOUR">4:4</option>
-                <option value="FIVE">5:5</option>
-            </select>
-            <h1 className="header">과팅 or 미팅에 대해 소개해주세요.</h1>
-            <hr />
-            <p>제목</p>
-            <input type="text" id="title" onChange={(event) => setTitle(event.target.value)} placeholder="글 제목을 입력해주세요."/>
-            <p>오픈카카오톡 주소</p>
-            <input type="text" id="title" onChange={(event) => setOpenKakaoAddress(event.target.value)} placeholder="오픈카카오톡 주소 입력."/>
-            <p>주량</p>
-            <input type="text" id="title" onChange={(event) => setAlcohol(event.target.value)} placeholder="주량 입력."/>
-            <textarea id="content" onChange={(event) => setContent(event.target.value)} placeholder="글 내용을 입력해주세요."/>
-            <Link to="/main">
-                <button className="cancel_button">취소</button>
-            </Link>
-            <button onClick={submit} className="upload_button">글 등록</button>
-=======
             <div className="banner-top">
                     <Link to="/main" style={{textDecoration: 'none'}}>
                         <div className="text-wrapper">DASOM</div>
@@ -273,7 +223,6 @@ function Write() {
                     <button onClick={submit} className="upload_button">글 등록</button>
                 </div>
             </div>
->>>>>>> 0b23d86faba1cb9048d1ca28045bc05bdc0f2a49
         </div>
     );
 }

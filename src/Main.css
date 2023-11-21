@@ -82,15 +82,7 @@
     justify-content: flex-start;
     align-items: center;
     border-radius: 10px;
-<<<<<<< HEAD
-    height: 55px;
-    left: 1200px;
-    position: absolute;
-    top: 30px;
-    width: 160px;
-=======
     border: 1px solid #777777;
->>>>>>> 0b23d86faba1cb9048d1ca28045bc05bdc0f2a49
 }
 
 .dd-header-main {
@@ -115,10 +107,6 @@
     padding-left: 16px;
     padding-right: 16px;
     border-radius: 10px;
-<<<<<<< HEAD
-    height: 40px;
-    left: 1000px;
-=======
     color: #4A4A4A;
 }
 
@@ -167,6 +155,11 @@
 
 .box_count {
     margin-left: 10px;
+    margin-right: 10px;
+}
+
+.box_date {
+    margin-left: 10px;
 }
 
 .box_line {
@@ -196,11 +189,13 @@
     margin: 5px;
     cursor: pointer;
     text-decoration: none;
-    color: #000; /* 버튼 색상 */
 }
 
 .pagination .active {
     font-weight: bold;
+    background-color: powderblue;
+    border-radius: 40%;
+    padding: 10px;
 }
 
 .dd-list {
@@ -227,7 +222,6 @@
     border: 1px solid #777777;
     background-color: white;
     z-index: 1;
->>>>>>> 0b23d86faba1cb9048d1ca28045bc05bdc0f2a49
     position: absolute;
     border-radius: 10px;
     padding-inline-start: 0;
@@ -262,30 +256,6 @@
     color: #4A4A4A;
     margin-left: 10px;
 }
-<<<<<<< HEAD
-.dpsizeSet {
-    width: 90px;
-    height: 30px;
-}
-
-.pagination {
-    display: flex;
-    justify-content: center;
-    list-style: none;
-    padding: 0;
-}
-
-.pagination a {
-    padding: 10px;
-    margin: 5px;
-    cursor: pointer;
-    text-decoration: none;
-    color: #000; /* 버튼 색상 */
-}
-
-.pagination .active {
-    font-weight: bold; /* 활성화된 페이지의 텍스트 굵게 표시 */
-=======
 
 .search_button:hover {
     background-color: #5FC6C4;
@@ -303,5 +273,4 @@
 
 .logout_button:hover {
     background-color: #D2D2D2;
->>>>>>> 0b23d86faba1cb9048d1ca28045bc05bdc0f2a49
 }

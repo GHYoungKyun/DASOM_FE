@@ -1,10 +1,6 @@
 import React, { useState } from 'react';
-<<<<<<< HEAD
-import { useParams, useNavigate } from 'react-router-dom';
-=======
 import Notification from './Notification';
 import { Link, useParams, useNavigate } from 'react-router-dom';
->>>>>>> 0b23d86faba1cb9048d1ca28045bc05bdc0f2a49
 import axios from "axios";
 import './MeetingRequest.css';
 import './default.css';
@@ -17,8 +13,6 @@ function MeetingRequest() {
   const [content, setContent] = useState("");
   const userId = localStorage.getItem('userId');
   const { id } = useParams();
-<<<<<<< HEAD
-=======
   const [isNotificationOpen, setIsNotificationOpen] = useState(false);
 
     const openNotification = () => {
@@ -28,7 +22,6 @@ function MeetingRequest() {
     const closeNotification = () => {
         setIsNotificationOpen(false);
     };
->>>>>>> 0b23d86faba1cb9048d1ca28045bc05bdc0f2a49
 
   const navigate = useNavigate();
   const postData = async () => {
@@ -54,11 +47,7 @@ function MeetingRequest() {
       }
     } catch (error) {
       // 오류 발생 시의 처리
-<<<<<<< HEAD
-      navigate('/error');
-=======
       navigate('./error')
->>>>>>> 0b23d86faba1cb9048d1ca28045bc05bdc0f2a49
     }
   };
 
@@ -127,17 +116,6 @@ function MeetingRequest() {
           <div>
             <button onClick={handleSubmit} type="submit" className="submitSet">전송하기</button>
           </div>
-<<<<<<< HEAD
-        </label>
-        <label className="contentsInput">
-          <div className="inputValue">
-            <textarea placeholder="메시지를 입력해주세요!" id="writeContent"  onChange={(event) => setContent(event.target.value)}/>
-          </div>
-        </label>
-        <div>
-          <button onClick={handleSubmit} type="submit" className="submitSet">전송하기</button>
-=======
->>>>>>> 0b23d86faba1cb9048d1ca28045bc05bdc0f2a49
         </div>
     </div>
   );

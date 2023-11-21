@@ -36,13 +36,15 @@ function MyPage() {
           const resp = await (await axios.get(`http://140.238.14.81:8080/request/${userId}?size=5&page=${reqCurrentPage}&sort=createdDate,desc`));
           setReqList(resp.data);
           setTotalPages(resp.data.totalPages);
-          console.log(resp.data);
         } catch (error) {
           navigate('/error');
         }
       }
   
       useEffect(() => {
+        if(!userId) {
+          navigate('/');
+        }
         getReqList();
       }, [reqCurrentPage]);
   
@@ -98,7 +100,6 @@ function MyPage() {
 
       const handlePageClick = (selectedPage) => {
         setReqCurrentPage(selectedPage.selected);
-        console.log(selectedPage.selected);
       };
   
       return (
@@ -164,9 +165,22 @@ function MyPage() {
     const [postList, setPostList] = useState(null);
     const [postCurrentPage, setPostCurrentPage] = useState(0);
     const [totalPages, setTotalPages] = useState(1);
+
+    const genderEnumMapping = {
+      MALE: "남",
+      FEMALE: "여",
+    };
+
+    const numberEnumMapping = {
+      ONE: "1:1",
+      TWO: "2:2",
+      THREE: "3:3",
+      FOUR: "4:4",
+      FIVE: "5:5"
+    };
     const getPostList = async () => {
       try{
-        const resp = await (await axios.get(`http://140.238.14.81:8080/post/${userId}?size=5&page${postCurrentPage}&sort=createdDate,desc`));
+        const resp = await (await axios.get(`http://140.238.14.81:8080/post/${userId}?size=5&page=${postCurrentPage}&sort=createdDate,desc`));
         setPostList(resp.data);
         setTotalPages(resp.data.totalPages);
       } catch (error) {
@@ -176,7 +190,7 @@ function MyPage() {
 
     useEffect(() => {
       getPostList();
-    }, [currentPage]);
+    }, [postCurrentPage]);
 
     const handlePageClick = (selectedPage) => {
       setPostCurrentPage(selectedPage.selected);
@@ -184,45 +198,61 @@ function MyPage() {
 
     return (
           <div className="box_array">
-                        {postList && postList.content.map((val,idx) => (
-                            <Link to={`/read/${val.postId.id}`} style={{width: '300px', margin: '60px', textDecoration: 'none'}}>
-                            <div className="box_style">
-                                <div className = "box_header">
-                                    {val.title}
-                                </div>
-                                <div className = "box_info">
-                                    <span className = "box_gender">
-                                        {val.gender}
-                                    </span>
-                                    <span>
-                                        |
-                                    </span>
-                                    <span className = "box_count">
-                                        {val.number}
-                                    </span>
-                                </div>
-                                <div className = "box_line">
-                                </div>
-                                <div className = "box_username">
-                                    {val.nickname}
-                                </div>
-                            </div>
-                            </Link>
-                        ))}
+            {postList && postList.content.map((val,idx) => (
+                <Link to={`/read/${val.postId.id}`} style={{width: '300px', margin: '60px', textDecoration: 'none'}}>
+                  <div className="box_style">
+                    <div className = "box_header">
+                      {val.title}
                     </div>
-          <ReactPaginate
-              previousLabel={'이전'}
-              nextLabel={'다음'}
-              breakLabel={'...'}
-              breakClassName={'break-me'}
-              pageCount={totalPages}
-              marginPagesDisplayed={2}
-              pageRangeDisplayed={5}
-              onPageChange={handlePageClick}
-              containerClassName={'pagination'}
-              activeClassName={'active'}
-          />
-        </>
+                    <div className = "box_info">
+                      <span className = "box_gender">
+                        {genderEnumMapping[val.gender]}
+                      </span>
+                      <span>
+                        |
+                      </span>
+                      <span className = "box_count">
+                        {numberEnumMapping[val.number]}
+                      </span>
+                      <span>
+                        |
+                      </span>
+                      <span className = "box_date">
+                        {val.createdDate
+                            ? [
+                                val.createdDate[0],
+                                val.createdDate[1],
+                                val.createdDate[2],
+                            ].join('/') +
+                            ' ' +
+                            [
+                                val.createdDate[3].toString().padStart(2, '0'),
+                                val.createdDate[4].toString().padStart(2, '0'),
+                            ].join(':')
+                            : ''}
+                      </span>
+                    </div>
+                    <div className = "box_line">
+                    </div>
+                    <div className = "box_username">
+                      {val.nickname}
+                    </div>
+                  </div>
+                </Link>
+            ))}
+            <ReactPaginate
+                previousLabel={'이전'}
+                nextLabel={'다음'}
+                breakLabel={'...'}
+                breakClassName={'break-me'}
+                pageCount={totalPages}
+                marginPagesDisplayed={2}
+                pageRangeDisplayed={5}
+                onPageChange={handlePageClick}
+                containerClassName={'pagination'}
+                activeClassName={'active'}
+            />
+          </div>
     );
   }
 

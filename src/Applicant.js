@@ -81,7 +81,7 @@ function Applicant() {
                             {val.content}
                         </div>
                         <div className="space">
-                            {val.userId.id}
+                            {val.nickname}
                         </div>
                         <div className="space">
                             <button className="okay_button" onClick={() => handleAccept(val.requestId.id)}>수락</button>

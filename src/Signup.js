@@ -38,7 +38,6 @@ function Signup() {
   ]
   
   const toggling = () => setIsOpen(!isOpen);
->>>>>>> 0b23d86faba1cb9048d1ca28045bc05bdc0f2a49
 
   const navigate = useNavigate();
 

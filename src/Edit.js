@@ -2,15 +2,11 @@ import React, {useEffect, useState} from 'react';
 import Notification from './Notification';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import axios from "axios";
-<<<<<<< HEAD
-import './Write.css';
-=======
 import './Edit.css';
 import './default.css';
 import banner from './images/banner_image.png';
 import gender from './images/gender.png';
 import bell from './images/bells.png';
->>>>>>> 0b23d86faba1cb9048d1ca28045bc05bdc0f2a49
 
 function Edit() {
     const navigate = useNavigate();
@@ -110,11 +106,7 @@ function Edit() {
                 openKakaoAddress: board.openKakaoAddress,
                 userId: userId,
                 gender: board.gender,
-<<<<<<< HEAD
-                number: board.number
-=======
                 number: board.number,
->>>>>>> 0b23d86faba1cb9048d1ca28045bc05bdc0f2a49
             };
 
             // Axios를 사용하여 POST 요청 보내기
@@ -125,11 +117,7 @@ function Edit() {
             navigate(`/read/${id}`);
         } catch (error) {
             // 오류 발생 시의 처리
-<<<<<<< HEAD
-            navigate('/error');
-=======
             navigate('/error')
->>>>>>> 0b23d86faba1cb9048d1ca28045bc05bdc0f2a49
             console.error('에러 발생:', error);
         }
     };
@@ -154,6 +142,9 @@ function Edit() {
         }
     }
     useEffect(() => {
+        if(!userId) {
+            navigate('/');
+        }
         getBoard();
     }, []);
 
@@ -165,40 +156,6 @@ function Edit() {
                     <Link to="/main" style={{textDecoration: 'none'}}>
                         <div className="text-wrapper">DASOM</div>
                     </Link>
-<<<<<<< HEAD
-                    <div className="profile">
-                        <Link to="/mypage">
-
-                        </Link>
-                    </div>
-                </div>
-                <h1 className="header"> 과팅 or 미팅 정보를 입력해주세요.</h1>
-                <hr />
-                <p>모집성별</p>
-                <select value={board.gender} onChange={(event) => setBoard({...board, gender: event.target.value})} className="sizeSet">
-                    <option value="MALE">남</option>
-                    <option value="FEMALE">여</option>
-                </select>
-                <p>모집인원</p>
-                <select value={board.number} onChange={(event) => setBoard({...board, number: event.target.value})} className="sizeSet">
-                    <option value="ONE">1:1</option>
-                    <option value="TWO">2:2</option>
-                    <option value="THREE">3:3</option>
-                    <option value="FOUR">4:4</option>
-                    <option value="FIVE">5:5</option>
-                </select>
-                <h1 className="header">과팅 or 미팅에 대해 소개해주세요.</h1>
-                <hr />
-                <p>제목</p>
-                <input value={board.title} type="text" id="title" onChange={(event) => setBoard({...board, title: event.target.value})} placeholder="글 제목을 입력해주세요."/>
-                <p>오픈카카오톡 주소</p>
-                <input value={board.openKakaoAddress} type="text" id="title" onChange={(event) => setBoard({...board, openKakaoAddress: event.target.value})} placeholder="오픈카카오톡 주소 입력."/>
-                <textarea value={board.content} id="content" onChange={(event) => setBoard({...board, content: event.target.value})} placeholder="글 내용을 입력해주세요."/>
-                <Link to="/main">
-                    <button className="cancel_button">취소</button>
-                </Link>
-                <button onClick={submit} className="upload_button">글 수정</button>
-=======
                     <div id="profile">
                         <Link to="/mypage">{localStorage.getItem('nickname')}</Link>님
                         <div>
@@ -290,7 +247,6 @@ function Edit() {
                         <button onClick={submit} className="upload_button">글 수정</button>
                     </div>
                 </div>
->>>>>>> 0b23d86faba1cb9048d1ca28045bc05bdc0f2a49
             </div>
         )}
         </>
