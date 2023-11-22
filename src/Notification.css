@@ -46,14 +46,23 @@
   .notification_list {
     list-style-type: none;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
-    padding-top: 20px;
-    padding-bottom: 20px;
+    padding-top: 15px;
+    padding-bottom: 15px;
     border-top: 1px solid #777777;
     border-bottom: 1px solid #777777;
   }
 
   .notification_content {
-    margin-right: 30px;
+    width: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+    border-right: 1px solid #777777;
+  }
+
+  ul {
+    padding-left: 0;
   }

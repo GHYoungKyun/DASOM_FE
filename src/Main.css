@@ -82,7 +82,7 @@
     justify-content: flex-start;
     align-items: flex-start;
     margin-top: 50px;
-    margin-left: 250px;
+    margin-left: 25%;
 }
 
 .filter {
@@ -259,7 +259,7 @@
 }
 
 .search {
-    margin-right: 250px;
+    margin-right: 10%;
 }
 
 .searchbar {

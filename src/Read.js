@@ -123,13 +123,19 @@ function Read() {
                     </div>
                     <div className="info_block">
                         <div className="recruit_info">
-                            {genderEnumMapping[board.gender]}
+                            <span style={{fontWeight: "bolder"}}>모집 성별&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>{genderEnumMapping[board.gender]}
                         </div>
                         <div className="partition">
                             |
                         </div>
                         <div className="recruit_info">
-                            {numberEnumMapping[board.number]}
+                            <span style={{fontWeight: "bolder"}}>인원수&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>{numberEnumMapping[board.number]}
+                        </div>
+                        <div className="partition">
+                            |
+                        </div>
+                        <div className="recruit_info">
+                            <span style={{fontWeight: "bolder"}}>평균 주량&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>{board.alcohol}
                         </div>
                     </div>
                     <div className="read_box_line">

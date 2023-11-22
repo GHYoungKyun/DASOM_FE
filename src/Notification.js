@@ -27,6 +27,11 @@ function Notification({ onClose }) {
       handlePageRedirect();
     }, [navigate2]);
 
+    const statusEnumMapping = {
+        REQUEST: "신청",
+        YES: "수락",
+        NO: "거절"
+    };
 
     const getNoticeList = async () => {
         try{
@@ -58,25 +63,25 @@ function Notification({ onClose }) {
                 </div>
                 <ul>
                     {noticeList && noticeList.map((val,idx) => (
-                        <li key={idx} className="notification_list">
-                            <div className="notification_content">
-                                {val.requestName}
-                            </div>
-                            <div className="notification_content">
-                                {val.requestContent}
-                            </div>
-                            <div className="notification_content">
-                                {val.requestTime ?
-                                    val.requestTime[0] + '/' + val.requestTime[1] + '/' + val.requestTime[2] : ''
-                                }
-                            </div>
-                            <div className="notification_content">
-                                {val.postTitle}
-                            </div>
-                            <div className="notification_content">
-                                {val.kind}
-                            </div>
-                        </li>
+                            <li key={idx} className="notification_list">
+                                <div className="notification_content">
+                                    {val.requestName}
+                                </div>
+                                <div className="notification_content">
+                                    {val.requestTime ?
+                                        val.requestTime[0] + '/' + val.requestTime[1] + '/' + val.requestTime[2] : ''
+                                    }
+                                </div>
+                                <div className="notification_content">
+                                    {val.postTitle}
+                                </div>
+                                <div className="notification_content">
+                                    {val.kind === "YES" ? val.openKakao : val.requestContent}
+                                </div>
+                                <div className="notification_content">
+                                    {statusEnumMapping[val.kind]}
+                                </div>
+                            </li>
                     ))}
                 </ul>
             </div>

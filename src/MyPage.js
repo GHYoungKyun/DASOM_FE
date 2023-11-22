@@ -133,7 +133,7 @@ function MyPage() {
           {reqList && reqList.content.map((val, idx) => (
               <>
               {isUpdate && (req.requestId.id == val.requestId.id) ? (
-                    <div className="box_array">
+                    <div className="box_array_myreq">
                       <div className="modify_box_style">
                         <div className="edit_input">
                           <input type="text" value={req.title} style={{fontFamily: 'default_font', width: '500px', height: '30px', fontSize: '20px'}} className="mypage-modify" onChange={(event) => setReq({...req, title: event.target.value})} />
@@ -145,29 +145,35 @@ function MyPage() {
                           {req.nickname}
                         </div>
                       </div>
+                      <div style={{marginTop: "10px"}}>
                         <button onClick={() => handleUpdateRequest()} className="edit_button">확인</button>
+                      </div>
                     </div>
               ) : (
                     <div className="box_array_myreq">
-                      <div className="box_style">
-                        <div className="box_header_req">
-                          {val.title}
+                      <Link to={`/read/${val.postId.id}`} style={{textDecoration: "none"}}>
+                        <div className="box_style">
+                          <div className="box_header_req">
+                            {val.title}
+                          </div>
+                          <div className="box_content">
+                            {val.content}
+                          </div>
+                          <div className="box_username">
+                            {val.nickname}
+                          </div>
                         </div>
-                        <div className="box_content">
-                          {val.content}
-                        </div>
-                        <div className="box_username">
-                          {val.nickname}
-                        </div>
-                      </div>
-                      {(val.result == null) && (
-                          <>
-                            {/*<Link to={`/editreq/${val.requestId.id}`}>*/}
-                            <button onClick={() => handleUpdate(val)} className="edit_button">수정</button>
-                            {/*</Link>*/}
-                            <button onClick={() => handleDelete(val.requestId.id)} className="delete_button">삭제</button>
-                          </>
-                      )}
+                        {(val.result == null) && (
+                            <>
+                              <div className="edit_delete_button_set">
+                                {/*<Link to={`/editreq/${val.requestId.id}`}>*/}
+                                <button onClick={() => handleUpdate(val)} className="edit_button">수정</button>
+                                {/*</Link>*/}
+                                <button onClick={() => handleDelete(val.requestId.id)} className="delete_button">삭제</button>
+                              </div>
+                            </>
+                        )}
+                        </Link>
                     </div>
               )}
               </>

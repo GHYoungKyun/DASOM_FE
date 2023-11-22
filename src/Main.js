@@ -14,10 +14,10 @@ function Main() {
     const [genderFilter, setGenderFilter] = useState('ALL');
     const [numFilter, setNumFilter] = useState('ALL');
     const userId = localStorage.getItem('userId');
-    const [selectedOption, setSelectedOption] = useState('전체');
+    const [selectedOption, setSelectedOption] = useState('모집성별');
     const [isOpen, setIsOpen] = useState(false);
     const [numIsOpen, setNumIsOpen] = useState(false);
-    const [numSelectedOption, setNumSelectedOption] = useState('전체')
+    const [numSelectedOption, setNumSelectedOption] = useState('인원')
     const options = ['전체', '남', '여'];
     const numOptions = ['전체', '1 : 1', '2 : 2', '3 : 3', '4 : 4', '5 : 5']
     const [isNotificationOpen, setIsNotificationOpen] = useState(false);

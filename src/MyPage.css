@@ -9,7 +9,8 @@
 .box_array_myreq {
     margin: auto;
     width: 50%;
-    margin-bottom: 70px;
+    margin-bottom: 30px;
+    height: 350px;
 }
 
 .box_style {
@@ -127,7 +128,8 @@
     border-radius: 10px;
     width: 200px;
     height: 30px;
-    font-family: 'SUIT-Regular', sans-serif;
+    font-family: 'default_font';
+    padding-left: 10px;
 }
 
 .edit_button {
@@ -137,8 +139,6 @@
     padding-right: 16px;
     border-radius: 10px;
     color: #4A4A4A;
-    margin-left: 20px;
-    margin-top: 10px;
     margin-right: 10px;
 }
 
@@ -153,11 +153,14 @@
     padding-right: 16px;
     border-radius: 10px;
     color: #4A4A4A;
-    margin-bottom: 200px;
 }
 
 .delete_button:hover {
     background-color: #EF8658;
+}
+
+.edit_delete_button_set {
+    margin-top: 10px;
 }
 
 .edit_input {

@@ -93,7 +93,7 @@
 .gender-header {
     font-size: 24px;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
     border-radius: 10px;
     border: 1px solid #777777;
@@ -124,7 +124,7 @@
 .num-header {
     font-size: 24px;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
     border-radius: 10px;
     border: 1px solid #777777;
@@ -143,6 +143,14 @@
 
 .write-arrow {
     margin-left: 20px;
+}
+
+.filter-explain {
+    margin-bottom: 10px;
+    font-size: 24px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
 }
 
 #title {
@@ -180,5 +188,5 @@
 }
 
 svg {
-    margin-right: 20px;
+    margin-right: 10px;
 }

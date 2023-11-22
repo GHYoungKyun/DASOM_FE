@@ -153,6 +153,14 @@
   margin-top: 5px;
 }
 
+.arrow {
+  transition: transform 0.5s;
+}
+
+.arrow.rotate {
+  transform: rotate(180deg);
+}
+
 #nickDupFalse {
   color: #EF8658;
 }
