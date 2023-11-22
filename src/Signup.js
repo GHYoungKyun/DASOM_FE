@@ -167,7 +167,7 @@ function Signup() {
 
     //여기에 회원정보 제출하는 함수 작성
     const signupData = async () => {
-      if (!isDuplicated || !isVerified) {
+      if (isDuplicated || !isVerified) {
         alert('닉네임 중복확인과 이메일 인증을 완료해주세요!');
         return;
       }
