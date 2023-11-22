@@ -12,11 +12,14 @@ import { useParams, useNavigate } from 'react-router-dom';
 function Read() {
     const { id } = useParams();
     const navigate = useNavigate();
-    console.log(id);
 
     const userId = localStorage.getItem('userId');
     const [board, setBoard] = useState({});
     const [isNotificationOpen, setIsNotificationOpen] = useState(false);
+    //request 불러옴
+    const [reqList, setReqList] = useState([]);
+    const [totalPages, setTotalPages] = useState(1);
+    const [isRequested, setIsRequested] = useState(false);
 
     const genderEnumMapping = {
         MALE: "남",
@@ -43,11 +46,41 @@ function Read() {
         try {
             const resp = await (await axios.get(`http://140.238.14.81:8080/post/detail/${id}`));
             setBoard(resp.data);
-            console.log(resp.data);
         } catch (error) {
             navigate('/error');
         }
+    };
+
+    const getReqList = async () => {
+        try {
+            let tempList = [];
+            let isFound = false;
+
+            for (let currentPage = 0; currentPage < totalPages; currentPage++) {
+                const resp = await axios.get(`http://140.238.14.81:8080/request/post/${id}?size=4&page=${currentPage}&sort=createdDate,desc`);
+                tempList = [...tempList, ...resp.data.content];
+            }
+
+            // 각 페이지의 데이터에 대해 반복하여 로직 수행
+            tempList.forEach((val) => {
+                if (val.userId.id === userId) {
+                    isFound = true;
+                }
+            });
+            if(isFound) {
+                Swal.fire({
+                    title: "이미 신청한 게시글 입니다!",
+                });
+            }
+            else {
+                navigate(`/meetingreq/${id}`);
+            }
+        } catch (error) {
+            console.log(error);
+            navigate('/error');
+        }
     }
+
 
     useEffect(() => {
         if(!userId) {
@@ -71,6 +104,11 @@ function Read() {
             navigate('/error');
         }
     }
+
+    function handleReq() {
+        getReqList();
+    }
+
 
     return(
         <div>
@@ -160,19 +198,12 @@ function Read() {
                 </div>
                 {(localStorage.getItem('nickname') != board.nickname) && (
                     <div className="apply_button_box">
-                        <Link to={`/meetingreq/${id}`}>
-                            <button className="apply_button">신청하기</button>
-                        </Link>
+                        <button onClick={handleReq} className="apply_button">신청하기</button>
                     </div>
                 )}
                 <div className="user_menu">
                     {(localStorage.getItem('nickname') == board.nickname) && (
                         <>
-                        {/*
-                        <Link to={`/applicant/${id}`}>
-                            <button className="apply_button">신청자 목록조회</button>
-                        </Link>
-                        */}
                         <div className="apply_button_set">
                             <div>
                                 <Link to={`/edit/${id}`} >

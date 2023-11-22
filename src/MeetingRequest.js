@@ -52,13 +52,6 @@ function MeetingRequest() {
   };
 
   function handleSubmit(event) {
-    console.log(title);
-    console.log(content);
-    console.log(userId);
-    console.log(id);
-    //console.log(numPeople);
-    //console.log(univ);
-    //console.log(location);
     postData();
   }
 

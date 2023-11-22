@@ -114,7 +114,6 @@ function Main() {
 
     const getBoardList = async () => {
         try{
-            setCurrentPage(0);
             const apiUrl = `http://140.238.14.81:8080/post?size=${postsPerPage}&page=${currentPage}&sort=createdDate,desc`;
 
             const resp = await axios.get(apiUrl);
@@ -130,7 +129,6 @@ function Main() {
 
     const getGenFilteredBoardList = async () => {
         try{
-            setCurrentPage(0);
             const apiUrl = `http://140.238.14.81:8080/post/gender/${genderFilter}?size=${postsPerPage}&page=${currentPage}&sort=createdDate,desc`;
 
             const resp = await axios.get(apiUrl);
@@ -160,7 +158,6 @@ function Main() {
 
     const getFilteredBoardList = async () => {
         try{
-            setCurrentPage(0);
             const apiUrl = `http://140.238.14.81:8080/post/filter?number=${numFilter}&gender=${genderFilter}&size=${postsPerPage}&page=${currentPage}&sort=createdDate,desc`;
 
             const resp = await axios.get(apiUrl);
@@ -175,7 +172,7 @@ function Main() {
     }
     const getSearchBoardList = async () => {
         try{
-            const apiUrl = `http://140.238.14.81:8080/post/search?keyword=${keyword}`;
+            const apiUrl = `http://140.238.14.81:8080/post/search?keyword=${keyword}&size=${postsPerPage}&page=${currentPage}&sort=createdDate,desc`;
 
             const resp = await axios.get(apiUrl);
             setBoardList(resp.data);
@@ -192,18 +189,21 @@ function Main() {
             navigate('/');
         }
         if(genderFilter == 'ALL' && numFilter == 'ALL') {
-            getBoardList(currentPage);
+            getBoardList();
         }
         else if(genderFilter == 'ALL' && numFilter != 'ALL') {
-            getNumFilteredBoardList(currentPage);
+            getNumFilteredBoardList();
         }
         else if(genderFilter != 'ALL' && numFilter == 'ALL') {
-            getGenFilteredBoardList(currentPage);
+            getGenFilteredBoardList();
         }
-        else {
-            getFilteredBoardList(currentPage);
+        else if(genderFilter != 'ALL' && numFilter != 'ALL') {
+            getFilteredBoardList();
         }
-    }, [currentPage, genderFilter, numFilter]);
+        else if(keyword) {
+            getSearchBoardList();
+        }
+    }, [currentPage, genderFilter, numFilter, keyword]);
 
     function applyFilter(event) {
         console.log(genderFilter);
