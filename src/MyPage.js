@@ -6,6 +6,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from "axios";
 import ReactPaginate from 'react-paginate';
 import banner from './images/banner_image.png';
+import Swal from 'sweetalert2';
 import { getByDisplayValue } from '@testing-library/react';
 
 function MyPage() {
@@ -82,7 +83,10 @@ function MyPage() {
           const response = await axios.put(apiUrl, dataToSend);
           // 성공적으로 응답 받았을 때의 처리
           console.log('응답 데이터:', response.data);
-          alert("수정되었습니다!")
+          Swal.fire({
+            title: "수정되었습니다!",
+            icon: "success"
+          });
           window.location.reload();
         } catch (error) {
           // 오류 발생 시의 처리
@@ -95,7 +99,10 @@ function MyPage() {
         try{
           const resp = await (await axios.delete(`http://140.238.14.81:8080/request/${reqId}`));
           console.log(resp.data);
-        alert("신청이 삭제되었습니다!");
+          Swal.fire({
+            title: "신청이 삭제되었습니다",
+            icon: "success"
+          });
       } catch (error) {
         navigate('/error');
       }
@@ -141,7 +148,7 @@ function MyPage() {
                         <button onClick={() => handleUpdateRequest()} className="edit_button">확인</button>
                     </div>
               ) : (
-                    <div className="box_array">
+                    <div className="box_array_myreq">
                       <div className="box_style">
                         <div className="box_header_req">
                           {val.title}
@@ -354,7 +361,10 @@ function MyPage() {
         const response = await axios.put(apiUrl, dataToSend);
         // 성공적으로 응답 받았을 때의 처리
         console.log('응답 데이터:', response.data);
-        alert("수정되었습니다!")
+        Swal.fire({
+          title: "수정되었습니다!",
+          icon: "success"
+        });
       } catch (error) {
         // 오류 발생 시의 처리
         navigate('/error');

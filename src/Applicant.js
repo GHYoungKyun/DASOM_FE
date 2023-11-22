@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import ReactPaginate from 'react-paginate';
 import { useParams, useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 function Applicant() {
     const [reqList, setReqList] = useState(null);
@@ -35,7 +36,10 @@ function Applicant() {
     const handleAccept = async (reqId) => {
         try {
             const resp = await (await axios.put(`http://140.238.14.81:8080/request/result/${reqId}?result=YES`, sendUserId));
-            alert("미팅 요청이 수락되었습니다!");
+            Swal.fire({
+                title: "미팅 요청이 수락되었습니다!",
+                icon: "success"
+              });
             navigate("/main");
         } catch (error) {
             navigate('/error');
@@ -44,7 +48,10 @@ function Applicant() {
     const handleRefuse = async (reqId) => {
         try {
             const resp = await (await axios.delete(`http://140.238.14.81:8080/request/${reqId}`));
-            alert("미팅 요청이 거절되었습니다!");
+            Swal.fire({
+                title: "미팅 요청이 거절되었습니다",
+                icon: "success"
+              });
             window.location.reload();
         } catch (error) {
             navigate('/error');

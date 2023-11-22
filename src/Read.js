@@ -6,6 +6,7 @@ import Applicant from './Applicant';
 import { Link } from 'react-router-dom';
 import axios from "axios";
 import banner from './images/banner_image.png'
+import Swal from 'sweetalert2';
 import { useParams, useNavigate } from 'react-router-dom';
 
 function Read() {
@@ -61,7 +62,10 @@ function Read() {
                 userId: localStorage.getItem('userId')
             }
             const resp = await (await axios.post(`http://140.238.14.81:8080/post/${id}`, sendUserId));
-            alert("삭제되었습니다.");
+            Swal.fire({
+                title: "삭제되었습니다",
+                icon: "success"
+              });
             navigate('/main');
         } catch(error) {
             navigate('/error');

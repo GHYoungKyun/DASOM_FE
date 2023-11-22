@@ -108,13 +108,13 @@ function MeetingRequest() {
           <label className="contentsInput">
             <div className="write_contents">제목</div>
             <div className="inputValue">
-              <input type="text" id="writeHeader" className="req-text" placeholder="제목을 입력해주세요!" onChange={(event) => setTitle(event.target.value)}/>
+              <input type="text" id="writeHeader" className="req-text" placeholder="제목을 입력해주세요" onChange={(event) => setTitle(event.target.value)}/>
             </div>
           </label>
           <label className="contentsInput">
             <div className="write_contents">소개글</div>
             <div className="inputValue">
-              <textarea placeholder="메시지를 입력해주세요!" id="writeContent" className="req-text" onChange={(event) => setContent(event.target.value)}/>
+              <textarea placeholder="간단한 소개글을 입력해주세요" id="writeContent" className="req-text" onChange={(event) => setContent(event.target.value)}/>
             </div>
           </label>
           <div>

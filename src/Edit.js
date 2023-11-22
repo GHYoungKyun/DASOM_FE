@@ -5,6 +5,7 @@ import Notification from './Notification';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import axios from "axios";
 import banner from './images/banner_image.png';
+import Swal from 'sweetalert2';
 
 function Edit() {
     const navigate = useNavigate();
@@ -111,7 +112,10 @@ function Edit() {
             const response = await axios.put(apiUrl, dataToSend);
             // 성공적으로 응답 받았을 때의 처리
             console.log('응답 데이터:', response.data);
-            alert("수정되었습니다!")
+            Swal.fire({
+                title: "수정되었습니다!",
+                icon: "success"
+              });
             navigate(`/read/${id}`);
         } catch (error) {
             // 오류 발생 시의 처리
@@ -235,13 +239,13 @@ function Edit() {
                     </div>
                     <div className="write_submit">
                         제목<br />
-                        <input value={board.title} type="text" id="title" onChange={(event) => setBoard({...board, title: event.target.value})} placeholder="글 제목을 입력해주세요."/>
+                        <input value={board.title} type="text" id="title" onChange={(event) => setBoard({...board, title: event.target.value})} placeholder="제목을 입력해주세요"/>
                     </div>
                     <div className="openkakaotalk">
                         오픈카카오톡 주소<br />
-                        <input value={board.openKakaoAddress} type="text" id="title" onChange={(event) => setBoard({...board, openKakaoAddress: event.target.value})} placeholder="오픈카카오톡 주소 입력."/>
+                        <input value={board.openKakaoAddress} type="text" id="title" onChange={(event) => setBoard({...board, openKakaoAddress: event.target.value})} placeholder="오픈카카오톡 주소를 입력해주세요"/>
                     </div>
-                    <textarea value={board.content} id="content" onChange={(event) => setBoard({...board, content: event.target.value})} placeholder="글 내용을 입력해주세요."/>
+                    <textarea value={board.content} id="content" onChange={(event) => setBoard({...board, content: event.target.value})} placeholder="간단한 소개글을 입력해주세요"/>
                     <div className ="submit_button">
                         <Link to="/main">
                             <button className="cancel_button">취소</button>

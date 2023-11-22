@@ -263,14 +263,14 @@ function Write() {
                 <div className="write_submit">
                     <div className="submit_header">
                         제목<br />
-                        <input type="text" id="title" onChange={(event) => setTitle(event.target.value)} placeholder="글 제목을 입력해주세요."/>
+                        <input type="text" id="title" onChange={(event) => setTitle(event.target.value)} placeholder="글 제목을 입력해주세요"/>
                     </div>
                     <div className="openkakaotalk">
                         오픈카카오톡 주소<br />
-                        <input type="text" id="title" onChange={(event) => setOpenKakaoAddress(event.target.value)} placeholder="오픈카카오톡 주소 입력."/>
+                        <input type="text" id="title" onChange={(event) => setOpenKakaoAddress(event.target.value)} placeholder="오픈카카오톡 주소를 입력해주세요"/>
                     </div>
                     <div className="content">
-                        <textarea id="content" onChange={(event) => setContent(event.target.value)} placeholder="글 내용을 입력해주세요."/>
+                        <textarea id="content" onChange={(event) => setContent(event.target.value)} placeholder="간단한 소개글을 입력해주세요"/>
                     </div>
                 </div>
                 <div className="submit_button">

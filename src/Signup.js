@@ -4,6 +4,7 @@ import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import signup_image from './images/27572996_Mans_hand_giving_heart_gift_to_woman.png'
 import {useNavigate} from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 function Signup() {
 
@@ -110,14 +111,20 @@ function Signup() {
       //여기에 회원정보 제출하는 함수 작성
       postData();
     } else {
-      alert('닉네임 중복 확인을 해주세요!');
+      Swal.fire({
+        title: "닉네임 중복 확인을 해주세요!",
+        icon: "warning"
+      });
     }
   }
   
   function submit2() {
     // 메일이 전송되지 않았을 경우 경고창 띄우기
     if (!isSended) {
-      alert('메일 전송을 완료해주세요!');
+      Swal.fire({
+        title: "메일 전송을 완료해주세요!",
+        icon: "warning"
+      });
       return; // 함수 실행 종료
     }
 
@@ -168,7 +175,10 @@ function Signup() {
     //여기에 회원정보 제출하는 함수 작성
     const signupData = async () => {
       if (isDuplicated || !isVerified) {
-        alert('닉네임 중복확인과 이메일 인증을 완료해주세요!');
+        Swal.fire({
+          title: "닉네임 중복확인과 이메일 인증을 완료해주세요!",
+          icon: "warning"
+        });;
         return;
       }
 
@@ -242,7 +252,7 @@ function Signup() {
               <div className="signup-detail">
                 <div className="signup-nickname">
                   <label>닉네임<br />
-                    <input type="text" onChange={(event) => setNickname(event.target.value)} className="Signup-input"></input>
+                    <input type="text" onChange={(event) => setNickname(event.target.value)} className="Signup-input" placeholder='닉네임을 입력해주세요'></input>
                     <br /><button onClick={handleButtonClick} className="nicknameButton">닉네임 중복 확인</button>
                   </label>
                   {isButtonClicked && (isDuplicated ? (
@@ -287,7 +297,7 @@ function Signup() {
                 </div>
                 <div className="email">
                   <label>대학교 이메일<br />
-                    <input type="text" onChange={(event) => setEmail(event.target.value)} className="Signup-input"></input>
+                    <input type="text" onChange={(event) => setEmail(event.target.value)} className="Signup-input" placeholder='대학교 이메일을 입력해주세요'></input>
                         <button onClick={submit} className="submit">메일보내기</button>
                   </label>
                   {isSended && mailButtonClicked && (
@@ -303,7 +313,7 @@ function Signup() {
                 </div>
                 <div className="verify_num">
                   <label className="num-input">인증번호 <br />
-                    <input type="text" onChange={(event) => setNum(event.target.value)} className="Signup-input"></input>
+                    <input type="text" onChange={(event) => setNum(event.target.value)} className="Signup-input" placeholder='인증번호를 입력해주세요'></input>
                     <div>
                       <button onClick={submit2} className="submit" id="num-verify">인증번호</button>
                     </div>
