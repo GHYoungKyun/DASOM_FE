@@ -16,7 +16,7 @@ function Signup() {
   const [isDuplicated, setIsDuplicated] = useState(true);
   const [isOpen, setIsOpen] = useState(false);
   const [isButtonClicked, setIsButtonClicked] = useState(false);
-  const [isRotated, setIsRotated] = useState(false);
+  const [mailButtonClicked, setMailButtonClicked] = useState(false);
   const univOptions = [
     '가천대학교', '가톨릭대학교', '강원대학교', '건국대학교', '건국대학교(글로컬)', '경기과학기술대학교', 
     '경기대학교', '경남대학교', '경남정보대학교', '경복대학교', '경북대학교', '경상국립대학교', '경성대학교', 
@@ -101,6 +101,7 @@ function Signup() {
 
   function submit() {
     if (!isDuplicated && isButtonClicked) {
+      setMailButtonClicked(true);
       console.log(nickname);
       console.log(univ);
       console.log(univEmail);
@@ -166,6 +167,11 @@ function Signup() {
 
     //여기에 회원정보 제출하는 함수 작성
     const signupData = async () => {
+      if (!isDuplicated || !isVerified) {
+        alert('닉네임 중복확인과 이메일 인증을 완료해주세요!');
+        return;
+      }
+
       try {
         // POST 요청 보낼 엔드포인트 URL
         const apiUrl = 'http://140.238.14.81:8080/users/signup';
@@ -229,7 +235,6 @@ function Signup() {
           <div className="Signup-header">DASOM</div>
           <img src={signup_image} />
         </div>
-          {!isVerified && (
             <div className="Signup-form">
               <div className="form-header">
                 회원가입
@@ -254,7 +259,7 @@ function Signup() {
                   <label>대학교<br />
                   <div className="dd-wrapper" onClick={toggling}>
                     <button 
-                        className="dd-header"  
+                        className="dd-header" id="signup-univ" 
                         >
                             {univ}
                             <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 30 30" fill="none" id="univ_toggle_arrow">
@@ -271,7 +276,7 @@ function Signup() {
                     {isOpen && (
                         <ul className="dd-list">
                             {univOptions.map(option => (
-                                <li className="dd-list-item" onClick={onOptionClicked(option)}>
+                                <li className="dd-list-item-signup" onClick={onOptionClicked(option)}>
                                     {option}
                                 </li>
                             ))}
@@ -285,29 +290,37 @@ function Signup() {
                     <input type="text" onChange={(event) => setEmail(event.target.value)} className="Signup-input"></input>
                         <button onClick={submit} className="submit">메일보내기</button>
                   </label>
+                  {isSended && mailButtonClicked && (
+                    <div style={{marginTop: "10px"}}>
+                      메일이 전송되었습니다!
+                    </div>
+                  )}
+                  {!isSended && mailButtonClicked && (
+                    <div style={{color: "#EF8658", marginTop: "10px"}}>
+                      메일 전송에 실패했습니다! 다시 시도해주세요
+                    </div>
+                  )}
                 </div>
                 <div className="verify_num">
                   <label className="num-input">인증번호 <br />
                     <input type="text" onChange={(event) => setNum(event.target.value)} className="Signup-input"></input>
                     <div>
-                      <button onClick={submit2} className="submit">인증번호</button>
+                      <button onClick={submit2} className="submit" id="num-verify">인증번호</button>
                     </div>
                   </label>
                 </div>
+                <div style={{marginTop: "30px"}}>
+                  {isVerified && (
+                    <div>인증 완료되었습니다. <br />아래 버튼을 통해 가입을 완료해주세요.</div>
+                  )}
+                  <button onClick={submit3} className="submit" id="signupComplete">
+                    회원가입
+                  </button>
+                </div>
               </div>
+              <div>
             </div>
-          )}
-        {isVerified && (
-          <>
-            <div className="verify">
-              <p>인증 완료되었습니다. <br />아래 버튼을 통해 가입을 완료해주세요.</p>
-              <button onClick={submit3} className="submit">
-              회원가입
-              </button>
-            </div>
-          </>
-        )}
-
+        </div>
       </div>
     </div>
   );

@@ -231,12 +231,16 @@ function Main() {
         navigate('/');
     }
 
+    function refreshPage() {
+        window.location.reload();
+    }
+
     return(
         <div className="desktop">
             {userId && (
             <div className="div">
                 <div className="banner-top">
-                    <Link to="/main" style={{textDecoration: 'none'}}>
+                    <Link to="/main" style={{textDecoration: 'none'}} onClick={refreshPage}>
                         <div className="text-wrapper">DASOM</div>
                     </Link>
                     <div id="profile">
@@ -325,7 +329,6 @@ function Main() {
                             )}
                         </div>
                     </div>
-                            <button onClick={applyFilter} className="filter_button">게시글 필터 적용</button>
                         </div>
                         <div className="search">
                             <input value={keyword} onChange={(event) => setKeyword(event.target.value)} type="text" className="searchbar" placeholder="게시물 검색"/>

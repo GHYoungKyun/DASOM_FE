@@ -20,7 +20,6 @@ function Write() {
     const [gender, setGender] = useState('MALE');
     const [num, setNum] = useState('TWO');
     const [openKakaoAddress, setOpenKakaoAddress] = useState('');
-    const [alcohol, setAlcohol] = useState('12');
     const genderOptions = ['남', '여'];
     const [isGenderOpen, setIsGenderOpen] = useState(false);
     const [isNumOpen, setIsNumOpen] = useState(false);
@@ -28,6 +27,9 @@ function Write() {
     const numOptions = ['1 : 1', '2 : 2', '3 : 3', '4 : 4', '5 : 5'];
     const [numSelected, setNumSelected] = useState('2 : 2');
     const [isNotificationOpen, setIsNotificationOpen] = useState(false);
+    const [alcohol, setAlcohol] = useState('0.5병');
+    const [isAlOpen, setIsAlOpen] = useState(false);
+    const alOptions = ['0.5병', '1병', '1.5병', '2병', '2.5병', '3병 이상'];
 
     const openNotification = () => {
         setIsNotificationOpen(true);
@@ -40,6 +42,8 @@ function Write() {
     const gender_toggling = () => setIsGenderOpen(!isGenderOpen);
 
     const num_toggling = () => setIsNumOpen(!isNumOpen);
+
+    const alcohol_toggling = () => setIsAlOpen(!isAlOpen);
 
     const genderOptionClicked = value => () => {
 
@@ -72,6 +76,10 @@ function Write() {
         }
         
         setNumSelected(value);
+    }
+
+    const alcoholOptionClicked = value => () => {
+        setAlcohol(value);
     }
 
     const postData = async () => {
@@ -121,7 +129,11 @@ function Write() {
                         <div className="text-wrapper">DASOM</div>
                     </Link>
                     <div id="profile">
-                        <Link to="/mypage">{localStorage.getItem('nickname')}</Link>님
+                    <div className="top-nickname">
+                            <Link to="/mypage" id="nickname_to_mypage" title="마이페이지">
+                                {localStorage.getItem('nickname')}
+                            </Link>님
+                        </div>
                         <div>
                             <Link to="#" onClick={openNotification}>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 45 49" fill="none">
@@ -168,6 +180,16 @@ function Write() {
                                 <path fill-rule="evenodd" clip-rule="evenodd" d="M49.4498 18.125C49.2911 18.1229 49.1344 18.0896 48.9886 18.027C48.8428 17.9644 48.7107 17.8737 48.6 17.76C48.4892 17.6463 48.402 17.512 48.3431 17.3646C48.2843 17.2172 48.2551 17.0596 48.2572 16.9009L48.3176 12.099L43.5157 12.1594C43.1952 12.1636 42.8862 12.0403 42.6567 11.8166C42.4271 11.593 42.2958 11.2873 42.2917 10.9668C42.2875 10.6463 42.4108 10.3373 42.6345 10.1078C42.8581 9.87824 43.1638 9.74694 43.4843 9.74277L50.7657 9.65094L50.6739 16.9324C50.6718 17.091 50.6385 17.2478 50.5759 17.3936C50.5133 17.5394 50.4225 17.6715 50.3089 17.7822C50.1952 17.893 50.0609 17.9802 49.9135 18.039C49.7661 18.0979 49.6085 18.1271 49.4498 18.125Z" fill="black"/>
                             </svg>
                             {genderSelected}
+                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 30 30" fill="none" id="univ_toggle_arrow">
+                              <g clip-path="url(#clip0_203_5)">
+                                <path d="M29.7598 7.98636C29.7598 7.7344 29.6602 7.47656 29.4668 7.2832C29.0801 6.89648 28.4473 6.89648 28.0605 7.2832L14.8242 20.5195L1.78125 7.47656C1.39453 7.08984 0.76172 7.08984 0.375002 7.47656C-0.011717 7.86328 -0.011717 8.49609 0.375002 8.88281L14.1211 22.6348C14.5078 23.0215 15.1406 23.0215 15.5273 22.6348L29.4668 8.69531C29.666 8.4961 29.7598 8.24417 29.7598 7.98636Z" fill="black"/>
+                              </g>
+                              <defs>
+                                <clipPath id="clip0_203_5">
+                                  <rect width="30" height="30" fill="white" transform="matrix(-1 0 0 -1 30 30)"/>
+                                </clipPath>
+                              </defs>
+                            </svg>
                         </button>
                         {isGenderOpen && (
                             <ul className="gender-list">
@@ -187,6 +209,16 @@ function Write() {
                                 <path d="M23.5 23.5C25.8372 23.5 28.0787 22.5715 29.7314 20.9189C31.384 19.2662 32.3125 17.0247 32.3125 14.6875C32.3125 12.3503 31.384 10.1088 29.7314 8.45612C28.0787 6.80346 25.8372 5.875 23.5 5.875C21.1628 5.875 18.9213 6.80346 17.2686 8.45612C15.616 10.1088 14.6875 12.3503 14.6875 14.6875C14.6875 17.0247 15.616 19.2662 17.2686 20.9189C18.9213 22.5715 21.1628 23.5 23.5 23.5ZM29.375 14.6875C29.375 16.2456 28.756 17.74 27.6543 18.8418C26.5525 19.9435 25.0581 20.5625 23.5 20.5625C21.9419 20.5625 20.4475 19.9435 19.3457 18.8418C18.244 17.74 17.625 16.2456 17.625 14.6875C17.625 13.1294 18.244 11.635 19.3457 10.5332C20.4475 9.43147 21.9419 8.8125 23.5 8.8125C25.0581 8.8125 26.5525 9.43147 27.6543 10.5332C28.756 11.635 29.375 13.1294 29.375 14.6875ZM41.125 38.1875C41.125 41.125 38.1875 41.125 38.1875 41.125H8.8125C8.8125 41.125 5.875 41.125 5.875 38.1875C5.875 35.25 8.8125 26.4375 23.5 26.4375C38.1875 26.4375 41.125 35.25 41.125 38.1875ZM38.1875 38.1758C38.1846 37.4531 37.7351 35.2794 35.7435 33.2878C33.8283 31.3725 30.2239 29.375 23.5 29.375C16.7731 29.375 13.1718 31.3725 11.2565 33.2878C9.26488 35.2794 8.81838 37.4531 8.8125 38.1758H38.1875Z" fill="#292929"/>
                             </svg>
                             {numSelected}
+                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 30 30" fill="none" id="univ_toggle_arrow">
+                              <g clip-path="url(#clip0_203_5)">
+                                <path d="M29.7598 7.98636C29.7598 7.7344 29.6602 7.47656 29.4668 7.2832C29.0801 6.89648 28.4473 6.89648 28.0605 7.2832L14.8242 20.5195L1.78125 7.47656C1.39453 7.08984 0.76172 7.08984 0.375002 7.47656C-0.011717 7.86328 -0.011717 8.49609 0.375002 8.88281L14.1211 22.6348C14.5078 23.0215 15.1406 23.0215 15.5273 22.6348L29.4668 8.69531C29.666 8.4961 29.7598 8.24417 29.7598 7.98636Z" fill="black"/>
+                              </g>
+                              <defs>
+                                <clipPath id="clip0_203_5">
+                                  <rect width="30" height="30" fill="white" transform="matrix(-1 0 0 -1 30 30)"/>
+                                </clipPath>
+                              </defs>
+                            </svg>
                         </button>
                         {isNumOpen && (
                         <ul className="num-list">
@@ -199,6 +231,35 @@ function Write() {
                         )}
                     </div>
                 </div>
+                <div className="dd-num" id="alcohol-dd" onClick={alcohol_toggling}>
+                        <button
+                            className="num-header"
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" width="47" height="47" viewBox="0 0 47 47" fill="none">
+                                <path d="M23.5 23.5C25.8372 23.5 28.0787 22.5715 29.7314 20.9189C31.384 19.2662 32.3125 17.0247 32.3125 14.6875C32.3125 12.3503 31.384 10.1088 29.7314 8.45612C28.0787 6.80346 25.8372 5.875 23.5 5.875C21.1628 5.875 18.9213 6.80346 17.2686 8.45612C15.616 10.1088 14.6875 12.3503 14.6875 14.6875C14.6875 17.0247 15.616 19.2662 17.2686 20.9189C18.9213 22.5715 21.1628 23.5 23.5 23.5ZM29.375 14.6875C29.375 16.2456 28.756 17.74 27.6543 18.8418C26.5525 19.9435 25.0581 20.5625 23.5 20.5625C21.9419 20.5625 20.4475 19.9435 19.3457 18.8418C18.244 17.74 17.625 16.2456 17.625 14.6875C17.625 13.1294 18.244 11.635 19.3457 10.5332C20.4475 9.43147 21.9419 8.8125 23.5 8.8125C25.0581 8.8125 26.5525 9.43147 27.6543 10.5332C28.756 11.635 29.375 13.1294 29.375 14.6875ZM41.125 38.1875C41.125 41.125 38.1875 41.125 38.1875 41.125H8.8125C8.8125 41.125 5.875 41.125 5.875 38.1875C5.875 35.25 8.8125 26.4375 23.5 26.4375C38.1875 26.4375 41.125 35.25 41.125 38.1875ZM38.1875 38.1758C38.1846 37.4531 37.7351 35.2794 35.7435 33.2878C33.8283 31.3725 30.2239 29.375 23.5 29.375C16.7731 29.375 13.1718 31.3725 11.2565 33.2878C9.26488 35.2794 8.81838 37.4531 8.8125 38.1758H38.1875Z" fill="#292929"/>
+                            </svg>
+                            {alcohol}
+                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 30 30" fill="none" id="univ_toggle_arrow">
+                              <g clip-path="url(#clip0_203_5)">
+                                <path d="M29.7598 7.98636C29.7598 7.7344 29.6602 7.47656 29.4668 7.2832C29.0801 6.89648 28.4473 6.89648 28.0605 7.2832L14.8242 20.5195L1.78125 7.47656C1.39453 7.08984 0.76172 7.08984 0.375002 7.47656C-0.011717 7.86328 -0.011717 8.49609 0.375002 8.88281L14.1211 22.6348C14.5078 23.0215 15.1406 23.0215 15.5273 22.6348L29.4668 8.69531C29.666 8.4961 29.7598 8.24417 29.7598 7.98636Z" fill="black"/>
+                              </g>
+                              <defs>
+                                <clipPath id="clip0_203_5">
+                                  <rect width="30" height="30" fill="white" transform="matrix(-1 0 0 -1 30 30)"/>
+                                </clipPath>
+                              </defs>
+                            </svg>
+                        </button>
+                        {isAlOpen && (
+                        <ul className="num-list">
+                            {alOptions.map(alOption => (
+                                <li className="num-list-item" onClick={alcoholOptionClicked(alOption)}>
+                                    {alOption}
+                                </li>
+                            ))}
+                        </ul>
+                        )}
+                </div>
                 <div className="write_submit">
                     <div className="submit_header">
                         제목<br />
@@ -207,10 +268,6 @@ function Write() {
                     <div className="openkakaotalk">
                         오픈카카오톡 주소<br />
                         <input type="text" id="title" onChange={(event) => setOpenKakaoAddress(event.target.value)} placeholder="오픈카카오톡 주소 입력."/>
-                    </div>
-                    <div className="alcohol">
-                        주량<br />
-                        <input type="text" id="title" onChange={(event) => setAlcohol(event.target.value)} placeholder="주량 입력."/>
                     </div>
                     <div className="content">
                         <textarea id="content" onChange={(event) => setContent(event.target.value)} placeholder="글 내용을 입력해주세요."/>

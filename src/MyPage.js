@@ -303,6 +303,7 @@ function MyPage() {
     const userId = localStorage.getItem('userId');
     const [userInfo, setUserInfo] = useState({});
     const [isDuplicated, setIsDuplicated] = useState(true);
+    const [isClicked, setIsClicked] = useState(false);
     const [nickname, setNickname] = useState(localStorage.getItem('nickname'));
     const navigate = useNavigate();
 
@@ -336,6 +337,7 @@ function MyPage() {
 
     function handleDupId() {
       getDupId();
+      setIsClicked(true);
     }
 
     const editUser = async () => {
@@ -363,6 +365,7 @@ function MyPage() {
     function handleEdit() {
       console.log(userInfo.nickname);
       localStorage.setItem('nickname', userInfo.nickname);
+      setIsClicked(false);
       editUser();
     }
 
@@ -382,9 +385,19 @@ function MyPage() {
               <label>
                 <h3>닉네임</h3>
                 <input type="text" value={userInfo.nickname} onChange={(event) => setUserInfo({...userInfo, nickname: event.target.value})} className="nickNameInput"/>
-                {isDuplicated && (<button onClick={handleDupId} className="nicknameButton">닉네임 중복 확인 </button>)}
-                {!isDuplicated && (<button onClick={handleEdit} className="nicknameButton">닉네임 수정</button>)}
+                {isDuplicated && (<button onClick={handleDupId} className="nicknameButton" id="nickname-button">닉네임 중복 확인 </button>)}
+                {!isDuplicated && (<button onClick={handleEdit} className="nicknameButton" id="nickname-button">닉네임 수정</button>)}
               </label>
+                {isDuplicated && isClicked && (
+                  <div style={{color: "#EF8658", marginTop: "10px"}}>
+                    닉네임이 중복됩니다! 다시 입력해주세요!
+                  </div>
+                )}
+                {!isDuplicated && isClicked && (
+                  <div style={{marginTop: "10px"}}>
+                    닉네임 수정 버튼을 눌러 수정을 완료해주세요!
+                  </div>
+                )}
               <h3>{userInfo.school}</h3>
               <label>
               </label><br />
@@ -434,6 +447,11 @@ function MyPage() {
     //어떻게 통합된 value를 세개의 Colorchange 함수에 전달할 것인가?
   }
 
+  function handleLogout() {
+    localStorage.clear();
+    navigate('/');
+  }
+
   return (
     <div>
                 <div className="banner-top">
@@ -459,6 +477,9 @@ function MyPage() {
                         <Link to="/write">
                             <button className="write_button">새 게시물 작성</button>
                         </Link>
+                        <button onClick={handleLogout} className="logout_button">
+                            로그아웃
+                        </button>
                     </div>
                 </div>
                 <div className="banner">
