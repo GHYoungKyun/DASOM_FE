@@ -47,7 +47,7 @@ function Applicant() {
     }
     const handleRefuse = async (reqId) => {
         try {
-            const resp = await (await axios.delete(`http://140.238.14.81:8080/request/${reqId}`));
+            const resp = await (await axios.put(`http://140.238.14.81:8080/request/result/${reqId}?result=NO`, sendUserId));
             Swal.fire({
                 title: "미팅 요청이 거절되었습니다",
                 icon: "success"
@@ -80,21 +80,25 @@ function Applicant() {
                     </div>
                 </li>
                 {reqList && reqList.content.map((val,idx) => (
-                    <li key={val.reqId} className="applicant-item" id="applicant-content">
-                        <div className="space">
-                            {val.title}
-                        </div>
-                        <div className="space">
-                            {val.content}
-                        </div>
-                        <div className="space">
-                            {val.nickname}
-                        </div>
-                        <div className="space">
-                            <button className="okay_button" onClick={() => handleAccept(val.requestId.id)}>수락</button>
-                            <button className="no_button" onClick={() => handleRefuse(val.requestId.id)}>거절</button>
-                        </div>
-                    </li>
+                    <>
+                        {!val.result && (
+                            <li key={val.reqId} className="applicant-item" id="applicant-content">
+                                <div className="space">
+                                    {val.title}
+                                </div>
+                                <div className="space">
+                                    {val.content}
+                                </div>
+                                <div className="space">
+                                    {val.nickname}
+                                </div>
+                                <div className="space">
+                                    <button className="okay_button" onClick={() => handleAccept(val.requestId.id)}>수락</button>
+                                    <button className="no_button" onClick={() => handleRefuse(val.requestId.id)}>거절</button>
+                                </div>
+                            </li>
+                        )}
+                    </>
                 ))}
             </ul>
             <ReactPaginate
