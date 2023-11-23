@@ -163,6 +163,7 @@ function MyPage() {
                             {val.nickname}
                           </div>
                         </div>
+                        </Link>
                         {(val.result == null) && (
                             <>
                               <div className="edit_delete_button_set">
@@ -173,7 +174,6 @@ function MyPage() {
                               </div>
                             </>
                         )}
-                        </Link>
                     </div>
               )}
               </>

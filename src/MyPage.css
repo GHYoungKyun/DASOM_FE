@@ -47,14 +47,20 @@
     margin-bottom: 30px;
     text-decoration: none;
     color: #292929;
+    white-space: nowrap; /* 줄바꿈을 방지합니다. */
+    overflow: hidden; /* 넘치는 텍스트를 숨깁니다. */
+    text-overflow: ellipsis;
 }
 
 .box_content {
     margin-top: 10px;
     margin-left: 25px;
-    margin-bottom: 40px;
+    margin-bottom: 70px;
     text-decoration: none;
     color: #292929;
+    white-space: nowrap; /* 줄바꿈을 방지합니다. */
+    overflow: hidden; /* 넘치는 텍스트를 숨깁니다. */
+    text-overflow: ellipsis;
 }
 
 .box_info {
