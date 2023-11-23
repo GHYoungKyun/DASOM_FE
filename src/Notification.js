@@ -81,7 +81,7 @@ function Notification({ onClose }) {
                                 </div>
                                 <div className="notification_partition">
                                 </div>
-                                <div className="notification_content">
+                                <div className="notification_content" id={val.kind === "YES" ? "" : "notification_content"}>
                                     
                                     {val.kind === "YES" ? val.openKakao : val.requestContent}
                                 
