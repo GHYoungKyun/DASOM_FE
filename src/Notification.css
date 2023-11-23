@@ -52,13 +52,12 @@
     padding-bottom: 20px;
     border-top: 1px solid #777777;
     border-bottom: 1px solid #777777;
+    position: relative;
   }
 
   .notification_content {
     width: 200px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    text-align: center;
     min-height: 40px;
     word-wrap: break-word;
   }
@@ -70,12 +69,6 @@
     background-color: #777777;
     margin-left: 20px;
     margin-right: 20px;
-  }
-
-  #notification_content {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
   }
 
   ul {
