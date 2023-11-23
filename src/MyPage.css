@@ -1,65 +1,4 @@
-#profile {
-    width: 300px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
 
-.text-wrapper {
-    color: #118196;
-    text-decoration: none;
-    font-size: 32px;
-    font-family: 'GeekbleMalang2WOFF2';
-}
-
-.banner-top {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    height: 100px;
-}
-
-.write_button {
-    background-color: #CEEEEE;
-    padding: 8px;
-    padding-left: 16px;
-    padding-right: 16px;
-    border-radius: 10px;
-    color: #4A4A4A;
-}
-
-.write_button:hover {
-    background-color: #5FC6C4;
-}
-
-
-.banner {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    background-color: #CEEEEE;
-    margin-top: 50px;
-    padding-top: 30px;
-    padding-bottom: 30px;
-    margin-bottom: 50px;
-}
-
-.banner_word {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-}
-
-.banner_words {
-    font-size: 20px;
-    margin-left: 20px;
-}
-
-.banner_logo {
-    font-family: 'GeekbleMalang2WOFF2';
-    font-size: 72px;
-    color: #5EBAC3;
-}
 
 .mypage_menu {
     width: 70%;
@@ -67,12 +6,23 @@
     margin-bottom: 100px;
 }
 
-.box_array {
+.box_array_myreq {
     margin: auto;
     width: 50%;
+    margin-bottom: 30px;
+    height: 350px;
 }
 
 .box_style {
+    border: 2px solid #777777;
+    border-radius: 10px;
+    height: 300px;
+    width: 900px;
+    position: static;
+    color: #4A4A4A;
+}
+
+.modify_box_style {
     border: 2px solid #777777;
     border-radius: 10px;
     height: 300px;
@@ -95,16 +45,24 @@
     margin-top: 40px;
     margin-left: 25px;
     margin-bottom: 30px;
+    margin-right: 25px;
     text-decoration: none;
     color: #292929;
+    white-space: nowrap; /* 줄바꿈을 방지합니다. */
+    overflow: hidden; /* 넘치는 텍스트를 숨깁니다. */
+    text-overflow: ellipsis;
 }
 
 .box_content {
     margin-top: 10px;
     margin-left: 25px;
-    margin-bottom: 40px;
+    margin-bottom: 70px;
+    margin-right: 25px;
     text-decoration: none;
     color: #292929;
+    white-space: nowrap; /* 줄바꿈을 방지합니다. */
+    overflow: hidden; /* 넘치는 텍스트를 숨깁니다. */
+    text-overflow: ellipsis;
 }
 
 .box_info {
@@ -150,6 +108,9 @@
     padding-right: 16px;
     border-radius: 10px;
     color: #4A4A4A;
+}
+
+#nickname-button {
     margin-left: 20px;
 }
 
@@ -175,7 +136,8 @@
     border-radius: 10px;
     width: 200px;
     height: 30px;
-    font-family: 'SUIT-Regular', sans-serif;
+    font-family: 'default_font';
+    padding-left: 10px;
 }
 
 .edit_button {
@@ -185,8 +147,6 @@
     padding-right: 16px;
     border-radius: 10px;
     color: #4A4A4A;
-    margin-left: 20px;
-    margin-top: 10px;
     margin-right: 10px;
 }
 
@@ -201,11 +161,14 @@
     padding-right: 16px;
     border-radius: 10px;
     color: #4A4A4A;
-    margin-bottom: 200px;
 }
 
 .delete_button:hover {
     background-color: #EF8658;
+}
+
+.edit_delete_button_set {
+    margin-top: 10px;
 }
 
 .edit_input {
@@ -222,6 +185,15 @@
     margin-bottom: 130px;
 }
 
+.mypage-modify {
+    border-radius: 10px;
+    border: 1px solid #777777;
+    padding-left: 10px;
+}
+
+#modify-textarea {
+    padding-top: 10px;
+}
 
 .pagination {
     display: flex;

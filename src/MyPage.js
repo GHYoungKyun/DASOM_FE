@@ -1,12 +1,12 @@
+import './MyPage.css';
+import './default.css';
 import React, {useEffect, useState} from 'react';
 import Notification from './Notification';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from "axios";
 import ReactPaginate from 'react-paginate';
-import './MyPage.css';
-import './default.css';
-import bell from './images/bells.png';
 import banner from './images/banner_image.png';
+import Swal from 'sweetalert2';
 import { getByDisplayValue } from '@testing-library/react';
 
 function MyPage() {
@@ -14,6 +14,24 @@ function MyPage() {
   const userId = localStorage.getItem('userId');
   const [isNotificationOpen, setIsNotificationOpen] = useState(false);
   const navigate = useNavigate();
+  const navigate2 = useNavigate();
+
+    // 유저 로그인 여부 확인 및 페이지 리다이렉트
+    useEffect(() => {
+      const isUserLoggedIn = () => {
+        const userId = localStorage.getItem('userId');
+        return userId !== null;
+      };
+  
+      const handlePageRedirect = () => {
+        if (!isUserLoggedIn()) {
+          // 유저가 로그인되어 있지 않다면 '/' 페이지로 이동
+          navigate2('/');
+        }
+      };
+  
+      handlePageRedirect();
+    }, [navigate2]);
 
     const openNotification = () => {
         setIsNotificationOpen(true);
@@ -62,7 +80,10 @@ function MyPage() {
           const response = await axios.put(apiUrl, dataToSend);
           // 성공적으로 응답 받았을 때의 처리
           console.log('응답 데이터:', response.data);
-          alert("수정되었습니다!")
+          Swal.fire({
+            title: "수정되었습니다!",
+            icon: "success"
+          });
           window.location.reload();
         } catch (error) {
           // 오류 발생 시의 처리
@@ -73,9 +94,16 @@ function MyPage() {
   
       const reqDelete = async (reqId) => {
         try{
-          const resp = await (await axios.delete(`http://140.238.14.81:8080/request/${reqId}`));
+          const dataToSend = {
+            userId: userId
+          };
+          const resp = await axios.post(`http://140.238.14.81:8080/request/${reqId}`, dataToSend);
           console.log(resp.data);
-        alert("신청이 삭제되었습니다!");
+          Swal.fire({
+            title: "신청이 삭제되었습니다",
+            icon: "success"
+          });
+          window.location.reload();
       } catch (error) {
         navigate('/error');
       }
@@ -106,41 +134,45 @@ function MyPage() {
           {reqList && reqList.content.map((val, idx) => (
               <>
               {isUpdate && (req.requestId.id == val.requestId.id) ? (
-                    <div className="box_array">
-                      <div className="box_style">
+                    <div className="box_array_myreq">
+                      <div className="modify_box_style">
                         <div className="edit_input">
-                          <input type="text" value={req.title} style={{fontFamily: 'default_font', width: '500px', height: '30px', fontSize: '20px'}} onChange={(event) => setReq({...req, title: event.target.value})} />
+                          <input type="text" value={req.title} style={{fontFamily: 'default_font', width: '500px', height: '30px', fontSize: '20px'}} className="mypage-modify" onChange={(event) => setReq({...req, title: event.target.value})} />
                         </div>
                         <div className="edit_input" id="edit_content">
-                          <input type="textarea" value={req.content} style={{fontFamily: 'default_font', width: '500px', height: '100px', fontSize: '20px'}} onChange={(event) => setReq({...req, content: event.target.value})} />
+                          <textarea value={req.content} style={{fontFamily: 'default_font', width: '500px', height: '100px', fontSize: '20px'}} className="mypage-modify" id="modify-textarea" onChange={(event) => setReq({...req, content: event.target.value})} />
                         </div>
                         <div className="box_username">
                           {req.nickname}
                         </div>
                       </div>
+                      <div style={{marginTop: "10px"}}>
                         <button onClick={() => handleUpdateRequest()} className="edit_button">확인</button>
+                      </div>
                     </div>
               ) : (
-                    <div className="box_array">
-                      <div className="box_style">
-                        <div className="box_header_req">
-                          {val.title}
+                    <div className="box_array_myreq">
+                      <Link to={`/read/${val.postId.id}`} style={{textDecoration: "none"}}>
+                        <div className="box_style">
+                          <div className="box_header_req">
+                            {val.title}
+                          </div>
+                          <div className="box_content">
+                            {val.content}
+                          </div>
+                          <div className="box_username">
+                            {val.nickname}
+                          </div>
                         </div>
-                        <div className="box_content">
-                          {val.content}
-                        </div>
-                        <div className="box_username">
-                          {val.nickname}
-                        </div>
-                      </div>
-                      {(val.result == null) && (
-                          <>
-                            {/*<Link to={`/editreq/${val.requestId.id}`}>*/}
-                            <button onClick={() => handleUpdate(val)} className="edit_button">수정</button>
-                            {/*</Link>*/}
-                            <button onClick={() => handleDelete(val.requestId.id)} className="delete_button">삭제</button>
-                          </>
-                      )}
+                        </Link>
+                        {(val.result == null) && (
+                            <>
+                              <div className="edit_delete_button_set">
+                                <button onClick={() => handleUpdate(val)} className="edit_button">수정</button>
+                                <button onClick={() => handleDelete(val.requestId.id)} className="delete_button">삭제</button>
+                              </div>
+                            </>
+                        )}
                     </div>
               )}
               </>
@@ -164,9 +196,23 @@ function MyPage() {
     const [postList, setPostList] = useState(null);
     const [postCurrentPage, setPostCurrentPage] = useState(0);
     const [totalPages, setTotalPages] = useState(1);
+
+    const genderEnumMapping = {
+      MALE: "남",
+      FEMALE: "여",
+    };
+
+    const numberEnumMapping = {
+        ONE: "1:1",
+        TWO: "2:2",
+        THREE: "3:3",
+        FOUR: "4:4",
+        FIVE: "5:5"
+    };
+
     const getPostList = async () => {
       try{
-        const resp = await (await axios.get(`http://140.238.14.81:8080/post/${userId}?size=5&page${postCurrentPage}&sort=createdDate,desc`));
+        const resp = await (await axios.get(`http://140.238.14.81:8080/post/${userId}?size=5&page=${postCurrentPage}&sort=createdDate,desc`));
         setPostList(resp.data);
         setTotalPages(resp.data.totalPages);
       } catch (error) {
@@ -176,7 +222,7 @@ function MyPage() {
 
     useEffect(() => {
       getPostList();
-    }, [currentPage]);
+    }, [postCurrentPage]);
 
     const handlePageClick = (selectedPage) => {
       setPostCurrentPage(selectedPage.selected);
@@ -193,13 +239,27 @@ function MyPage() {
                                 </div>
                                 <div className = "box_info">
                                     <span className = "box_gender">
-                                        {val.gender}
+                                        {genderEnumMapping[val.gender]}
                                     </span>
                                     <span>
                                         |
                                     </span>
                                     <span className = "box_count">
-                                        {val.number}
+                                      {numberEnumMapping[val.number]}
+                                    </span>
+                                    <span className = "box_date">
+                                      {val.createdDate
+                                          ? [
+                                              val.createdDate[0],
+                                              val.createdDate[1],
+                                              val.createdDate[2],
+                                          ].join('/') +
+                                          ' ' +
+                                          [
+                                              val.createdDate[3].toString().padStart(2, '0'),
+                                              val.createdDate[4].toString().padStart(2, '0'),
+                                          ].join(':')
+                                          : ''}
                                     </span>
                                 </div>
                                 <div className = "box_line">
@@ -255,6 +315,7 @@ function MyPage() {
     const userId = localStorage.getItem('userId');
     const [userInfo, setUserInfo] = useState({});
     const [isDuplicated, setIsDuplicated] = useState(true);
+    const [isClicked, setIsClicked] = useState(false);
     const [nickname, setNickname] = useState(localStorage.getItem('nickname'));
     const navigate = useNavigate();
 
@@ -288,6 +349,7 @@ function MyPage() {
 
     function handleDupId() {
       getDupId();
+      setIsClicked(true);
     }
 
     const editUser = async () => {
@@ -304,7 +366,10 @@ function MyPage() {
         const response = await axios.put(apiUrl, dataToSend);
         // 성공적으로 응답 받았을 때의 처리
         console.log('응답 데이터:', response.data);
-        alert("수정되었습니다!")
+        Swal.fire({
+          title: "수정되었습니다!",
+          icon: "success"
+        });
       } catch (error) {
         // 오류 발생 시의 처리
         navigate('/error');
@@ -315,6 +380,7 @@ function MyPage() {
     function handleEdit() {
       console.log(userInfo.nickname);
       localStorage.setItem('nickname', userInfo.nickname);
+      setIsClicked(false);
       editUser();
     }
 
@@ -334,9 +400,19 @@ function MyPage() {
               <label>
                 <h3>닉네임</h3>
                 <input type="text" value={userInfo.nickname} onChange={(event) => setUserInfo({...userInfo, nickname: event.target.value})} className="nickNameInput"/>
-                {isDuplicated && (<button onClick={handleDupId} className="nicknameButton">닉네임 중복 확인 </button>)}
-                {!isDuplicated && (<button onClick={handleEdit} className="nicknameButton">닉네임 수정</button>)}
+                {isDuplicated && (<button onClick={handleDupId} className="nicknameButton" id="nickname-button">닉네임 중복 확인 </button>)}
+                {!isDuplicated && (<button onClick={handleEdit} className="nicknameButton" id="nickname-button">닉네임 수정</button>)}
               </label>
+                {isDuplicated && isClicked && (
+                  <div style={{color: "#EF8658", marginTop: "10px"}}>
+                    닉네임이 중복됩니다! 다시 입력해주세요!
+                  </div>
+                )}
+                {!isDuplicated && isClicked && (
+                  <div style={{marginTop: "10px"}}>
+                    닉네임 수정 버튼을 눌러 수정을 완료해주세요!
+                  </div>
+                )}
               <h3>{userInfo.school}</h3>
               <label>
               </label><br />
@@ -386,6 +462,11 @@ function MyPage() {
     //어떻게 통합된 value를 세개의 Colorchange 함수에 전달할 것인가?
   }
 
+  function handleLogout() {
+    localStorage.clear();
+    navigate('/');
+  }
+
   return (
     <div>
                 <div className="banner-top">
@@ -393,7 +474,11 @@ function MyPage() {
                         <div className="text-wrapper">DASOM</div>
                     </Link>
                     <div id="profile">
-                        <Link to="/mypage">{localStorage.getItem('nickname')}</Link>님
+                    <div className="top-nickname">
+                            <Link to="/mypage" id="nickname_to_mypage" title="마이페이지">
+                                {localStorage.getItem('nickname')}
+                            </Link>님
+                        </div>
                         <div>
                             <Link to="#" onClick={openNotification}>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 45 49" fill="none">
@@ -407,6 +492,9 @@ function MyPage() {
                         <Link to="/write">
                             <button className="write_button">새 게시물 작성</button>
                         </Link>
+                        <button onClick={handleLogout} className="logout_button">
+                            로그아웃
+                        </button>
                     </div>
                 </div>
                 <div className="banner">

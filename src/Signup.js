@@ -1,9 +1,10 @@
-import React, {useState} from 'react';
-import axios from 'axios';
 import './Signup.css';
 import './default.css';
+import React, {useState, useEffect} from 'react';
+import axios from 'axios';
 import signup_image from './images/27572996_Mans_hand_giving_heart_gift_to_woman.png'
 import {useNavigate} from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 function Signup() {
 
@@ -15,6 +16,8 @@ function Signup() {
   const [isVerified, setIsVerified] = useState(false);
   const [isDuplicated, setIsDuplicated] = useState(true);
   const [isOpen, setIsOpen] = useState(false);
+  const [isButtonClicked, setIsButtonClicked] = useState(false);
+  const [mailButtonClicked, setMailButtonClicked] = useState(false);
   const univOptions = [
     '가천대학교', '가톨릭대학교', '강원대학교', '건국대학교', '건국대학교(글로컬)', '경기과학기술대학교', 
     '경기대학교', '경남대학교', '경남정보대학교', '경복대학교', '경북대학교', '경상국립대학교', '경성대학교', 
@@ -35,11 +38,31 @@ function Signup() {
     '한국공학대학교', '한국교통대학교', '한국방송통신대학교', '한국외국어대학교', '한국항공대학교', '한남대학교', 
     '한밭대학교', '한성대학교', '한양대학교', '한양대학교(ERICA)', '한양사이버대학교', '한양여자대학교', 
     '호서대학교', '홍익대학교'
-  ]
+  ];
   
   const toggling = () => setIsOpen(!isOpen);
 
   const navigate = useNavigate();
+
+  const navigate2 = useNavigate();
+
+    // 유저 로그인 여부 확인 및 페이지 리다이렉트
+    useEffect(() => {
+      const isUserLoggedIn = () => {
+        const userId = localStorage.getItem('userId');
+        return userId !== null;
+      };
+  
+      const handlePageRedirect = () => {
+        if (!isUserLoggedIn()) {
+          // 유저가 로그인되어 있지 않다면 '/' 페이지로 이동
+          navigate2('/');
+        }
+      };
+  
+      handlePageRedirect();
+    }, [navigate2]);
+
 
   const userId = localStorage.getItem('userId');
 
@@ -78,15 +101,33 @@ function Signup() {
   };
 
   function submit() {
-    console.log(nickname);
-    console.log(univ);
-    console.log(univEmail);
-    console.log(userId);
+    if (!isDuplicated && isButtonClicked) {
+      setMailButtonClicked(true);
+      console.log(nickname);
+      console.log(univ);
+      console.log(univEmail);
+      console.log(userId);
 
-    //여기에 회원정보 제출하는 함수 작성
-    postData();
+      //여기에 회원정보 제출하는 함수 작성
+      postData();
+    } else {
+      Swal.fire({
+        title: "닉네임 중복 확인을 해주세요!",
+        icon: "warning"
+      });
+    }
   }
+  
   function submit2() {
+    // 메일이 전송되지 않았을 경우 경고창 띄우기
+    if (!isSended) {
+      Swal.fire({
+        title: "메일 전송을 완료해주세요!",
+        icon: "warning"
+      });
+      return; // 함수 실행 종료
+    }
+
     console.log(nickname);
     console.log(univ);
     console.log(univEmail);
@@ -124,6 +165,8 @@ function Signup() {
     };
     verData();
   }
+
+
   function submit3() {
     console.log(nickname);
     console.log(univ);
@@ -131,6 +174,14 @@ function Signup() {
 
     //여기에 회원정보 제출하는 함수 작성
     const signupData = async () => {
+      if (isDuplicated || !isVerified) {
+        Swal.fire({
+          title: "닉네임 중복확인과 이메일 인증을 완료해주세요!",
+          icon: "warning"
+        });;
+        return;
+      }
+
       try {
         // POST 요청 보낼 엔드포인트 URL
         const apiUrl = 'http://140.238.14.81:8080/users/signup';
@@ -182,6 +233,11 @@ function Signup() {
     getDupId();
   }
 
+  function handleButtonClick() {
+    handleDupId();
+    setIsButtonClicked(true);
+  }
+
   return (
     <div className="background">
       <div className="signup_page">
@@ -189,7 +245,6 @@ function Signup() {
           <div className="Signup-header">DASOM</div>
           <img src={signup_image} />
         </div>
-        {!isSended && (
             <div className="Signup-form">
               <div className="form-header">
                 회원가입
@@ -197,22 +252,41 @@ function Signup() {
               <div className="signup-detail">
                 <div className="signup-nickname">
                   <label>닉네임<br />
-                    <input type="text" onChange={(event) => setNickname(event.target.value)} className="Signup-input"></input>
-                    <br /><button onClick={handleDupId} className="nicknameButton">닉네임 중복 확인</button>
+                    <input type="text" onChange={(event) => setNickname(event.target.value)} className="Signup-input" placeholder='닉네임을 입력해주세요'></input>
+                    <br /><button onClick={handleButtonClick} className="nicknameButton">닉네임 중복 확인</button>
                   </label>
+                  {isButtonClicked && (isDuplicated ? (
+                    <div className="nicknameDuplicated" id="nickDupFalse"> 
+                      닉네임이 중복됩니다. 다시 입력해주세요!
+                    </div>
+                  ) : (
+                    <div className="nicknameDuplicated"> 
+                      닉네임 중복확인이 완료되었습니다!
+                    </div>
+                  ))}
                 </div>
                 <div className="signup-univ">
                   <label>대학교<br />
                   <div className="dd-wrapper" onClick={toggling}>
                     <button 
-                        className="dd-header"  
+                        className="dd-header" id="signup-univ" 
                         >
                             {univ}
+                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 30 30" fill="none" id="univ_toggle_arrow">
+                              <g clip-path="url(#clip0_203_5)">
+                                <path d="M29.7598 7.98636C29.7598 7.7344 29.6602 7.47656 29.4668 7.2832C29.0801 6.89648 28.4473 6.89648 28.0605 7.2832L14.8242 20.5195L1.78125 7.47656C1.39453 7.08984 0.76172 7.08984 0.375002 7.47656C-0.011717 7.86328 -0.011717 8.49609 0.375002 8.88281L14.1211 22.6348C14.5078 23.0215 15.1406 23.0215 15.5273 22.6348L29.4668 8.69531C29.666 8.4961 29.7598 8.24417 29.7598 7.98636Z" fill="black"/>
+                              </g>
+                              <defs>
+                                <clipPath id="clip0_203_5">
+                                  <rect width="30" height="30" fill="white" transform="matrix(-1 0 0 -1 30 30)"/>
+                                </clipPath>
+                              </defs>
+                            </svg>
                     </button>
                     {isOpen && (
                         <ul className="dd-list">
                             {univOptions.map(option => (
-                                <li className="dd-list-item" onClick={onOptionClicked(option)}>
+                                <li className="dd-list-item-signup" onClick={onOptionClicked(option)}>
                                     {option}
                                 </li>
                             ))}
@@ -223,36 +297,40 @@ function Signup() {
                 </div>
                 <div className="email">
                   <label>대학교 이메일<br />
-                    <input type="text" onChange={(event) => setEmail(event.target.value)} className="Signup-input"></input>
-                    {!isDuplicated && (
+                    <input type="text" onChange={(event) => setEmail(event.target.value)} className="Signup-input" placeholder='대학교 이메일을 입력해주세요'></input>
                         <button onClick={submit} className="submit">메일보내기</button>
-                    )}
+                  </label>
+                  {isSended && mailButtonClicked && (
+                    <div style={{marginTop: "10px"}}>
+                      메일이 전송되었습니다!
+                    </div>
+                  )}
+                  {!isSended && mailButtonClicked && (
+                    <div style={{color: "#EF8658", marginTop: "10px"}}>
+                      메일 전송에 실패했습니다! 다시 시도해주세요
+                    </div>
+                  )}
+                </div>
+                <div className="verify_num">
+                  <label className="num-input">인증번호 <br />
+                    <input type="text" onChange={(event) => setNum(event.target.value)} className="Signup-input" placeholder='인증번호를 입력해주세요'></input>
+                    <div>
+                      <button onClick={submit2} className="submit" id="num-verify">인증번호</button>
+                    </div>
                   </label>
                 </div>
+                <div style={{marginTop: "30px"}}>
+                  {isVerified && (
+                    <div>인증 완료되었습니다. <br />아래 버튼을 통해 가입을 완료해주세요.</div>
+                  )}
+                  <button onClick={submit3} className="submit" id="signupComplete">
+                    회원가입
+                  </button>
+                </div>
               </div>
+              <div>
             </div>
-        )}
-
-        {isSended && !isVerified && (
-            <div className="signup-num">
-              <label className="num-input">인증번호 <br />
-                <input type="text" onChange={(event) => setNum(event.target.value)} className="Signup-input"></input>
-                <button onClick={submit2} className="submit">인증번호</button>
-              </label>
-            </div>
-        )}
-
-        {isVerified && (
-          <>
-            <div className="verify">
-              <p>인증 완료되었습니다. <br />아래 버튼을 통해 가입을 완료해주세요.</p>
-              <button onClick={submit3} className="submit">
-              회원가입
-              </button>
-            </div>
-          </>
-        )}
-
+        </div>
       </div>
     </div>
   );

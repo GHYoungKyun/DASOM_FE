@@ -1,70 +1,54 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+# 🤝 대학생 소개팅 서비스, 다솜! - FrontEnd
 
-In the project directory, you can run:
+<img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=white">
 
-### `npm start`
+## 🙋‍♂️ 우리 프로젝트를 소개합니다!
+&nbsp;우리의 프로젝트 '다솜'은 대학생들을 대상으로 원하는 사람을 쉽게 만날 수 있도록 소개팅 서비스를 제공하는 웹 프로젝트입니다. 프로젝트 명인 '다솜'은 사랑을 뜻하는 순 우리말에서 비롯되었습니다.  
+ &nbsp;설레는 마음으로 대학교에 오게 된 신입생, 휴학이나 학업 등의 이유로 학교에 친한 친구가 없는 학생들 중에서 새로운 사람을 만날 기회가 없거나, 내성적인 성격으로 친구를 쉽게 만들지 못하는 학생들이 있습니다. 우리의 프로젝트 다솜은 이러한 학생들을 대상으로 쉽게 만남을 할 수 있도록 도움을 주기 위해서 이 프로젝트를 기획하게 되었습니다.  
+ > BackEnd Repository : https://github.com/SiwonHae/DASOM_BE
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## 💻 프로젝트 설치
+* Node.js가 설치되어있어야 합니다.
+* node.js 공식 웹사이트 https://nodejs.org/en
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### 1. React 프로젝트 생성
+```bash
+npx create-react-app (프로젝트 이름)
+```
 
-### `npm test`
+### 2. Git Clone
+```bash
+git clone https://github.com/GHYoungKyun/DASOM_FE.git
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 3. Axios설치
+```bash
+npm install axios
+```
 
-### `npm run build`
+### 4. sweetalert2 설치
+```bash
+npm install sweetalert2
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### 5. 프로젝트 실행
+```bash
+npm run start
+```
+## 💻 프로젝트 기능
+* 미팅모집 게시글 등록/수정/삭제
+* 미팅모집 게시글 신청자 조회
+* 미팅신청글 등록/수정/삭제
+* 마이페이지를 통해 내 정보, 게시글, 미팅신청내역 조회/수정/삭제
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## 🪪 라이선스
+&nbsp;This work is licensed under the MIT license.  
+&nbsp;이 작업물은 MIT 라이선스에 따라 라이선스가 부여되어 있습니다.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## 🧑‍💻 프로젝트 멤버
+|                                   BackEnd                                   |                                   BackEnd                                    |                                   FrontEnd                                   |                                   FrontEnd                                    |
+| :--------------------------------------------------------------------------: | :---------------------------------------------------------------------------: | :--------------------------------------------------------------------------: | :--------------------------------------------------------------------------: |
+| <img src="https://avatars.githubusercontent.com/u/62338444?v=4" width="100"> | <img src="https://avatars.githubusercontent.com/u/79629309?v=4" width="100"> | <img src="https://avatars.githubusercontent.com/u/84309081?v=4" width="100"> | <img src="https://avatars.githubusercontent.com/u/144300980?v=4" width="100"> |
+|                    [임주혁](https://github.com/siwonhae)                     |                    [이아린](https://github.com/linavell)                     |                      [김영균](https://github.com/ghyoungkyun)                      |                   [권범준](https://github.com/goonbam0306)                 |

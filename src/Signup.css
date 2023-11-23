@@ -2,7 +2,7 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
-  margin-top: 200px;;
+  margin-top: auto;
   margin-bottom: auto;
 }
 
@@ -26,10 +26,11 @@
 }
 
 .Signup-form {
-  height: 460px;
-  width: 330px;
+  height: auto;
+  width: 390px;
   background-color: white;
   border-radius: 10px;
+
 }
 
 .form-header {
@@ -74,6 +75,11 @@
 .Signup-input {
   width: 200px;
   height: 25px;
+  margin-top: 10px;
+  font-family: 'default_font';
+  border-radius: 10px;
+  border: 1px solid #777777;
+  padding-left: 10px;
 }
 
 .dd-wrapper {
@@ -100,12 +106,14 @@
   position: absolute;
 }
 
-.dd-list-item {
+.dd-list-item-signup {
   list-style-type: none;
   padding-top: 5px;
   padding-left: 30px;
   padding-bottom: 5px;
   border-radius: 10px;
+  font-size: 20px;
+  cursor: pointer;
 }
 
 .dd-list-item:hover {
@@ -140,4 +148,38 @@
   padding: 10px;
   padding-top: 30px;
   padding-bottom: 30px;
+}
+
+.nicknameDuplicated {
+  margin-top: 5px;
+}
+
+.arrow {
+  transition: transform 0.5s;
+}
+
+.arrow.rotate {
+  transform: rotate(180deg);
+}
+
+#nickDupFalse {
+  color: #EF8658;
+}
+
+#univ_toggle_arrow {
+  margin-left: 20px;
+  margin-right: 0;
+}
+
+#signup-univ {
+  margin-top: 10px;
+}
+
+#signupComplete {
+  margin-bottom: 30px;
+  margin-left: 0;
+}
+
+#num-verify {
+  margin-left: 0;
 }

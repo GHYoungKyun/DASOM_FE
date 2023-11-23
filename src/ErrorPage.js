@@ -1,7 +1,7 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
 import './ErrorPage.css';
 import './default.css';
+import React from 'react';
+import { Link } from 'react-router-dom';
 import errorImage from './images/error_image.png'
 
 const ErrorPage = () => {

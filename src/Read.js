@@ -1,21 +1,25 @@
+import './Read.css';
+import './default.css';
 import React, {useEffect, useState} from 'react';
 import Notification from './Notification';
 import Applicant from './Applicant';
 import { Link } from 'react-router-dom';
 import axios from "axios";
-import './Read.css';
-import './default.css';
-import bell from './images/bells.png';
 import banner from './images/banner_image.png'
+import Swal from 'sweetalert2';
 import { useParams, useNavigate } from 'react-router-dom';
 
 function Read() {
     const { id } = useParams();
     const navigate = useNavigate();
-    console.log(id);
 
+    const userId = localStorage.getItem('userId');
     const [board, setBoard] = useState({});
     const [isNotificationOpen, setIsNotificationOpen] = useState(false);
+    //request 불러옴
+    const [reqList, setReqList] = useState([]);
+    const [totalPages, setTotalPages] = useState(1);
+    const [isRequested, setIsRequested] = useState(false);
 
     const genderEnumMapping = {
         MALE: "남",
@@ -42,13 +46,46 @@ function Read() {
         try {
             const resp = await (await axios.get(`http://140.238.14.81:8080/post/detail/${id}`));
             setBoard(resp.data);
-            console.log(resp.data);
         } catch (error) {
+            navigate('/error');
+        }
+    };
+
+    const getReqList = async () => {
+        try {
+            let tempList = [];
+            let isFound = false;
+
+            for (let currentPage = 0; currentPage < totalPages; currentPage++) {
+                const resp = await axios.get(`http://140.238.14.81:8080/request/post/${id}?size=4&page=${currentPage}&sort=createdDate,desc`);
+                tempList = [...tempList, ...resp.data.content];
+            }
+
+            // 각 페이지의 데이터에 대해 반복하여 로직 수행
+            tempList.forEach((val) => {
+                if (val.userId.id === userId) {
+                    isFound = true;
+                }
+            });
+            if(isFound) {
+                Swal.fire({
+                    title: "이미 신청한 게시글 입니다!",
+                });
+            }
+            else {
+                navigate(`/meetingreq/${id}`);
+            }
+        } catch (error) {
+            console.log(error);
             navigate('/error');
         }
     }
 
+
     useEffect(() => {
+        if(!userId) {
+            navigate('/');
+        }
         getBoard();
     }, []);
 
@@ -58,12 +95,20 @@ function Read() {
                 userId: localStorage.getItem('userId')
             }
             const resp = await (await axios.post(`http://140.238.14.81:8080/post/${id}`, sendUserId));
-            alert("삭제되었습니다.");
+            Swal.fire({
+                title: "삭제되었습니다",
+                icon: "success"
+              });
             navigate('/main');
         } catch(error) {
             navigate('/error');
         }
     }
+
+    function handleReq() {
+        getReqList();
+    }
+
 
     return(
         <div>
@@ -72,7 +117,11 @@ function Read() {
                         <div className="text-wrapper">DASOM</div>
                     </Link>
                     <div id="profile">
-                        <Link to="/mypage">{localStorage.getItem('nickname')}</Link>님
+                    <div className="top-nickname">
+                            <Link to="/mypage" id="nickname_to_mypage" title="마이페이지">
+                                {localStorage.getItem('nickname')}
+                            </Link>님
+                        </div>
                         <div>
                             <Link to="#" onClick={openNotification}>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 45 49" fill="none">
@@ -112,13 +161,19 @@ function Read() {
                     </div>
                     <div className="info_block">
                         <div className="recruit_info">
-                            {genderEnumMapping[board.gender]}
+                            <span style={{fontWeight: "bolder"}}>모집 성별&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>{genderEnumMapping[board.gender]}
                         </div>
                         <div className="partition">
                             |
                         </div>
                         <div className="recruit_info">
-                            {numberEnumMapping[board.number]}
+                            <span style={{fontWeight: "bolder"}}>인원수&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>{numberEnumMapping[board.number]}
+                        </div>
+                        <div className="partition">
+                            |
+                        </div>
+                        <div className="recruit_info">
+                            <span style={{fontWeight: "bolder"}}>평균 주량&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>{board.alcohol}
                         </div>
                     </div>
                     <div className="read_box_line">
@@ -126,32 +181,42 @@ function Read() {
                     <div className="post_info">
                         <div className="writer_id">{board.nickname}</div>
                         <div className="write_date">
-                            {board.createdDate ?
-                                board.createdDate[0] + '/' + board.createdDate[1] + '/' + board.createdDate[2] :  ''
-                            }
+                            {board.createdDate
+                                ? [
+                                    board.createdDate[0],
+                                    board.createdDate[1],
+                                    board.createdDate[2],
+                                ].join('/') +
+                                ' ' +
+                                [
+                                    board.createdDate[3].toString().padStart(2, '0'),
+                                    board.createdDate[4].toString().padStart(2, '0'),
+                                ].join(':')
+                                : ''}
                         </div>
                     </div>
                 </div>
                 {(localStorage.getItem('nickname') != board.nickname) && (
-                    <Link to={`/meetingreq/${id}`}>
-                        <button className="apply_button">신청하기</button>
-                    </Link>
+                    <div className="apply_button_box">
+                        <button onClick={handleReq} className="apply_button">신청하기</button>
+                    </div>
                 )}
                 <div className="user_menu">
                     {(localStorage.getItem('nickname') == board.nickname) && (
                         <>
-                        {/*
-                        <Link to={`/applicant/${id}`}>
-                            <button className="apply_button">신청자 목록조회</button>
-                        </Link>
-                        */}
-                        <div>
-                            <Link to={`/edit/${id}`} >
-                                <button className="apply_button">수정</button>
-                            </Link>
-                            <button onClick={handleDelete} className="apply_button">삭제</button>
+                        <div className="apply_button_set">
+                            <div>
+                                <Link to={`/edit/${id}`} >
+                                    <button className="apply_button">수정</button>
+                                </Link>
+                            </div>
+                            <div>
+                                <button onClick={handleDelete} className="apply_button">삭제</button>
+                            </div>
                         </div>
-                        <Applicant />
+                        <div>
+                            <Applicant />
+                        </div>
                         </>
                     )}
                 </div>
