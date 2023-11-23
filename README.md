@@ -28,7 +28,12 @@ git clone https://github.com/GHYoungKyun/DASOM_FE.git
 npm install axios
 ```
 
-### 4. 프로젝트 실행
+### 4. sweetalert2 설치
+```bash
+npm install sweetalert2
+```
+
+### 5. 프로젝트 실행
 ```bash
 npm run start
 ```

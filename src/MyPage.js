@@ -62,9 +62,6 @@ function MyPage() {
   
       useEffect(() => {
         getReqList();
-        if(!userId) {
-          navigate('/');
-        }
       }, [reqCurrentPage]);
   
       const editReq = async () => {
@@ -97,12 +94,16 @@ function MyPage() {
   
       const reqDelete = async (reqId) => {
         try{
-          const resp = await (await axios.delete(`http://140.238.14.81:8080/request/${reqId}`));
+          const dataToSend = {
+            userId: userId
+          };
+          const resp = await axios.post(`http://140.238.14.81:8080/request/${reqId}`, dataToSend);
           console.log(resp.data);
           Swal.fire({
             title: "신청이 삭제되었습니다",
             icon: "success"
           });
+          window.location.reload();
       } catch (error) {
         navigate('/error');
       }
@@ -167,9 +168,7 @@ function MyPage() {
                         {(val.result == null) && (
                             <>
                               <div className="edit_delete_button_set">
-                                {/*<Link to={`/editreq/${val.requestId.id}`}>*/}
                                 <button onClick={() => handleUpdate(val)} className="edit_button">수정</button>
-                                {/*</Link>*/}
                                 <button onClick={() => handleDelete(val.requestId.id)} className="delete_button">삭제</button>
                               </div>
                             </>
