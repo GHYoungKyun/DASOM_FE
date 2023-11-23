@@ -15,7 +15,7 @@
     background-color: white;
     padding: 20px;
     border-radius: 10px;
-    width: 1000px;
+    width: 1200px;
     max-height: 800vh;
     overflow-y: auto;
   }
@@ -48,8 +48,8 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-top: 15px;
-    padding-bottom: 15px;
+    padding-top: 20px;
+    padding-bottom: 20px;
     border-top: 1px solid #777777;
     border-bottom: 1px solid #777777;
   }
@@ -59,8 +59,23 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 40px;
-    border-right: 1px solid #777777;
+    min-height: 40px;
+    word-wrap: break-word;
+  }
+
+  .notification_partition {
+    width: 1px; /* 추가 */
+    min-height: 40px;
+    height: 100%;
+    background-color: #777777;
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+
+  #notification_content {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   ul {

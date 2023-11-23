@@ -67,16 +67,26 @@ function Notification({ onClose }) {
                                 <div className="notification_content">
                                     {val.requestName}
                                 </div>
+                                <div className="notification_partition">
+                                </div>
                                 <div className="notification_content">
                                     {val.requestTime ?
                                         val.requestTime[0] + '/' + val.requestTime[1] + '/' + val.requestTime[2] : ''
                                     }
                                 </div>
+                                <div className="notification_partition">
+                                </div>
                                 <div className="notification_content">
                                     {val.postTitle}
                                 </div>
-                                <div className="notification_content">
+                                <div className="notification_partition">
+                                </div>
+                                <div className="notification_content" id={val.kind === "YES" ? "" : "notification_content"}>
+                                    
                                     {val.kind === "YES" ? val.openKakao : val.requestContent}
+                                
+                                </div>
+                                <div className="notification_partition">
                                 </div>
                                 <div className="notification_content">
                                     {statusEnumMapping[val.kind]}
